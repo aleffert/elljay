@@ -1,0 +1,427 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		77FA1A0B199D5C160080163D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FA1A0A199D5C160080163D /* AppDelegate.swift */; };
+		77FA1A0E199D5C160080163D /* elljay.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 77FA1A0C199D5C160080163D /* elljay.xcdatamodeld */; };
+		77FA1A10199D5C160080163D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FA1A0F199D5C160080163D /* ViewController.swift */; };
+		77FA1A13199D5C160080163D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77FA1A11199D5C160080163D /* Main.storyboard */; };
+		77FA1A15199D5C160080163D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77FA1A14199D5C160080163D /* Images.xcassets */; };
+		77FA1A21199D5C170080163D /* elljayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FA1A20199D5C170080163D /* elljayTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		77FA1A1B199D5C160080163D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 77FA19FD199D5C160080163D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 77FA1A04199D5C160080163D;
+			remoteInfo = elljay;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		77FA1A05199D5C160080163D /* elljay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = elljay.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		77FA1A09199D5C160080163D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		77FA1A0A199D5C160080163D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		77FA1A0D199D5C160080163D /* elljay.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = elljay.xcdatamodel; sourceTree = "<group>"; };
+		77FA1A0F199D5C160080163D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		77FA1A12199D5C160080163D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		77FA1A14199D5C160080163D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		77FA1A1A199D5C160080163D /* elljayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = elljayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		77FA1A1F199D5C170080163D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		77FA1A20199D5C170080163D /* elljayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = elljayTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		77FA1A02199D5C160080163D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		77FA1A17199D5C160080163D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		77FA19FC199D5C160080163D = {
+			isa = PBXGroup;
+			children = (
+				77FA1A07199D5C160080163D /* elljay */,
+				77FA1A1D199D5C160080163D /* elljayTests */,
+				77FA1A06199D5C160080163D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		77FA1A06199D5C160080163D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				77FA1A05199D5C160080163D /* elljay.app */,
+				77FA1A1A199D5C160080163D /* elljayTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		77FA1A07199D5C160080163D /* elljay */ = {
+			isa = PBXGroup;
+			children = (
+				77FA1A0A199D5C160080163D /* AppDelegate.swift */,
+				77FA1A0F199D5C160080163D /* ViewController.swift */,
+				77FA1A11199D5C160080163D /* Main.storyboard */,
+				77FA1A14199D5C160080163D /* Images.xcassets */,
+				77FA1A0C199D5C160080163D /* elljay.xcdatamodeld */,
+				77FA1A08199D5C160080163D /* Supporting Files */,
+			);
+			path = elljay;
+			sourceTree = "<group>";
+		};
+		77FA1A08199D5C160080163D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				77FA1A09199D5C160080163D /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		77FA1A1D199D5C160080163D /* elljayTests */ = {
+			isa = PBXGroup;
+			children = (
+				77FA1A20199D5C170080163D /* elljayTests.swift */,
+				77FA1A1E199D5C170080163D /* Supporting Files */,
+			);
+			path = elljayTests;
+			sourceTree = "<group>";
+		};
+		77FA1A1E199D5C170080163D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				77FA1A1F199D5C170080163D /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		77FA1A04199D5C160080163D /* elljay */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 77FA1A24199D5C170080163D /* Build configuration list for PBXNativeTarget "elljay" */;
+			buildPhases = (
+				77FA1A01199D5C160080163D /* Sources */,
+				77FA1A02199D5C160080163D /* Frameworks */,
+				77FA1A03199D5C160080163D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = elljay;
+			productName = elljay;
+			productReference = 77FA1A05199D5C160080163D /* elljay.app */;
+			productType = "com.apple.product-type.application";
+		};
+		77FA1A19199D5C160080163D /* elljayTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 77FA1A27199D5C170080163D /* Build configuration list for PBXNativeTarget "elljayTests" */;
+			buildPhases = (
+				77FA1A16199D5C160080163D /* Sources */,
+				77FA1A17199D5C160080163D /* Frameworks */,
+				77FA1A18199D5C160080163D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				77FA1A1C199D5C160080163D /* PBXTargetDependency */,
+			);
+			name = elljayTests;
+			productName = elljayTests;
+			productReference = 77FA1A1A199D5C160080163D /* elljayTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		77FA19FD199D5C160080163D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = "Akiva Leffert";
+				TargetAttributes = {
+					77FA1A04199D5C160080163D = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					77FA1A19199D5C160080163D = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = 77FA1A04199D5C160080163D;
+					};
+				};
+			};
+			buildConfigurationList = 77FA1A00199D5C160080163D /* Build configuration list for PBXProject "elljay" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 77FA19FC199D5C160080163D;
+			productRefGroup = 77FA1A06199D5C160080163D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				77FA1A04199D5C160080163D /* elljay */,
+				77FA1A19199D5C160080163D /* elljayTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		77FA1A03199D5C160080163D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77FA1A13199D5C160080163D /* Main.storyboard in Resources */,
+				77FA1A15199D5C160080163D /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		77FA1A18199D5C160080163D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		77FA1A01199D5C160080163D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77FA1A10199D5C160080163D /* ViewController.swift in Sources */,
+				77FA1A0E199D5C160080163D /* elljay.xcdatamodeld in Sources */,
+				77FA1A0B199D5C160080163D /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		77FA1A16199D5C160080163D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77FA1A21199D5C170080163D /* elljayTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		77FA1A1C199D5C160080163D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 77FA1A04199D5C160080163D /* elljay */;
+			targetProxy = 77FA1A1B199D5C160080163D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		77FA1A11199D5C160080163D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				77FA1A12199D5C160080163D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		77FA1A22199D5C170080163D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		77FA1A23199D5C170080163D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		77FA1A25199D5C170080163D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = elljay/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		77FA1A26199D5C170080163D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = elljay/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		77FA1A28199D5C170080163D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/elljay.app/elljay";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = elljayTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Debug;
+		};
+		77FA1A29199D5C170080163D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/elljay.app/elljay";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = elljayTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		77FA1A00199D5C160080163D /* Build configuration list for PBXProject "elljay" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				77FA1A22199D5C170080163D /* Debug */,
+				77FA1A23199D5C170080163D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		77FA1A24199D5C170080163D /* Build configuration list for PBXNativeTarget "elljay" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				77FA1A25199D5C170080163D /* Debug */,
+				77FA1A26199D5C170080163D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		77FA1A27199D5C170080163D /* Build configuration list for PBXNativeTarget "elljayTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				77FA1A28199D5C170080163D /* Debug */,
+				77FA1A29199D5C170080163D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		77FA1A0C199D5C160080163D /* elljay.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				77FA1A0D199D5C160080163D /* elljay.xcdatamodel */,
+			);
+			currentVersion = 77FA1A0D199D5C160080163D /* elljay.xcdatamodel */;
+			path = elljay.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 77FA19FD199D5C160080163D /* Project object */;
+}
