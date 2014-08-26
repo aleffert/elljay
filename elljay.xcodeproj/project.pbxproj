@@ -7,15 +7,38 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7724E36919AAECB2002DFE2B /* XMLRPCRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773E981119AAEA2600AC0B4B /* XMLRPCRequest.swift */; };
+		772553B2199D603500E3D7B2 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772553B1199D603500E3D7B2 /* Service.swift */; };
+		772553B4199D607C00E3D7B2 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772553B3199D607C00E3D7B2 /* Session.swift */; };
+		772553B7199D656600E3D7B2 /* Application.xib in Resources */ = {isa = PBXBuildFile; fileRef = 772553B5199D656600E3D7B2 /* Application.xib */; };
+		773E981019AAEA1A00AC0B4B /* XMLRPCRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773E980F19AAEA1A00AC0B4B /* XMLRPCRequestTests.swift */; };
+		773E981219AAEA2600AC0B4B /* XMLRPCRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773E981119AAEA2600AC0B4B /* XMLRPCRequest.swift */; };
+		7751401419AC1AD300C433C4 /* XMLParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7751401219AC1AD300C433C4 /* XMLParserTests.swift */; };
+		7751401519AC1BC400C433C4 /* XMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7757D78319AB753E006E1AF1 /* XMLParser.swift */; };
+		7757D78419AB753E006E1AF1 /* XMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7757D78319AB753E006E1AF1 /* XMLParser.swift */; };
+		778C039819AAD34700B06D17 /* SequenceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778C039719AAD34700B06D17 /* SequenceExtensions.swift */; };
+		778C039A19AAD40700B06D17 /* SequenceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778C039719AAD34700B06D17 /* SequenceExtensions.swift */; };
+		778C039C19AAD43300B06D17 /* SequenceExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778C039B19AAD43300B06D17 /* SequenceExtensionTests.swift */; };
+		77B78CA919AABA02001E03F0 /* XMLNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B78CA719AAB9FE001E03F0 /* XMLNodeTests.swift */; };
+		77B78CAA19AABA7C001E03F0 /* XMLNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BE0E3019AAB93100A9E00B /* XMLNode.swift */; };
+		77BE0E3119AAB93100A9E00B /* XMLNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BE0E3019AAB93100A9E00B /* XMLNode.swift */; };
+		77C72535199D6B8D002B6A25 /* NSObject+ELJDeallocActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C72534199D6B8C002B6A25 /* NSObject+ELJDeallocActions.m */; };
+		77C72537199D6C51002B6A25 /* NSNotificationCenterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C72536199D6C51002B6A25 /* NSNotificationCenterExtensions.swift */; };
 		77FA1A0B199D5C160080163D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FA1A0A199D5C160080163D /* AppDelegate.swift */; };
 		77FA1A0E199D5C160080163D /* elljay.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 77FA1A0C199D5C160080163D /* elljay.xcdatamodeld */; };
-		77FA1A10199D5C160080163D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FA1A0F199D5C160080163D /* ViewController.swift */; };
-		77FA1A13199D5C160080163D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77FA1A11199D5C160080163D /* Main.storyboard */; };
 		77FA1A15199D5C160080163D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77FA1A14199D5C160080163D /* Images.xcassets */; };
-		77FA1A21199D5C170080163D /* elljayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FA1A20199D5C170080163D /* elljayTests.swift */; };
+		77FA1A2B199D5C9D0080163D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FA1A2A199D5C9D0080163D /* LoginViewController.swift */; };
+		77FA1A2E199D5CB80080163D /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77FA1A2C199D5CB80080163D /* LoginViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		77BE0E3319AAB99700A9E00B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 77FA19FD199D5C160080163D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 77FA1A04199D5C160080163D;
+			remoteInfo = elljay;
+		};
 		77FA1A1B199D5C160080163D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 77FA19FD199D5C160080163D /* Project object */;
@@ -26,16 +49,30 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		772553B1199D603500E3D7B2 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		772553B3199D607C00E3D7B2 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		772553B6199D656600E3D7B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = elljay/Base.lproj/Application.xib; sourceTree = "<group>"; };
+		773E980F19AAEA1A00AC0B4B /* XMLRPCRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XMLRPCRequestTests.swift; path = ../elljay/XMLRPC/XMLRPCRequestTests.swift; sourceTree = "<group>"; };
+		773E981119AAEA2600AC0B4B /* XMLRPCRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XMLRPCRequest.swift; path = XMLRPC/XMLRPCRequest.swift; sourceTree = "<group>"; };
+		7751401219AC1AD300C433C4 /* XMLParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XMLParserTests.swift; path = elljay/XMLRPC/XMLParserTests.swift; sourceTree = SOURCE_ROOT; };
+		7757D78319AB753E006E1AF1 /* XMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XMLParser.swift; path = XMLRPC/XMLParser.swift; sourceTree = "<group>"; };
+		778C039719AAD34700B06D17 /* SequenceExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SequenceExtensions.swift; path = XMLRPC/SequenceExtensions.swift; sourceTree = "<group>"; };
+		778C039B19AAD43300B06D17 /* SequenceExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SequenceExtensionTests.swift; path = elljay/XMLRPC/SequenceExtensionTests.swift; sourceTree = SOURCE_ROOT; };
+		77B78CA719AAB9FE001E03F0 /* XMLNodeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XMLNodeTests.swift; path = ../elljay/XMLRPC/XMLNodeTests.swift; sourceTree = "<group>"; };
+		77BE0E3019AAB93100A9E00B /* XMLNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XMLNode.swift; path = XMLRPC/XMLNode.swift; sourceTree = "<group>"; };
+		77C72532199D6B8C002B6A25 /* elljay-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "elljay-Bridging-Header.h"; sourceTree = "<group>"; };
+		77C72533199D6B8C002B6A25 /* NSObject+ELJDeallocActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+ELJDeallocActions.h"; sourceTree = "<group>"; };
+		77C72534199D6B8C002B6A25 /* NSObject+ELJDeallocActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ELJDeallocActions.m"; sourceTree = "<group>"; };
+		77C72536199D6C51002B6A25 /* NSNotificationCenterExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSNotificationCenterExtensions.swift; sourceTree = "<group>"; };
 		77FA1A05199D5C160080163D /* elljay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = elljay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77FA1A09199D5C160080163D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77FA1A0A199D5C160080163D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		77FA1A0D199D5C160080163D /* elljay.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = elljay.xcdatamodel; sourceTree = "<group>"; };
-		77FA1A0F199D5C160080163D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		77FA1A12199D5C160080163D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		77FA1A14199D5C160080163D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		77FA1A1A199D5C160080163D /* elljayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = elljayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		77FA1A1F199D5C170080163D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		77FA1A20199D5C170080163D /* elljayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = elljayTests.swift; sourceTree = "<group>"; };
+		77FA1A2A199D5C9D0080163D /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		77FA1A2D199D5CB80080163D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LoginViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,9 +93,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		772553B8199D657200E3D7B2 /* XIB */ = {
+			isa = PBXGroup;
+			children = (
+				772553B5199D656600E3D7B2 /* Application.xib */,
+				77FA1A2C199D5CB80080163D /* LoginViewController.xib */,
+			);
+			name = XIB;
+			path = elljay;
+			sourceTree = "<group>";
+		};
+		77BE0E3219AAB93400A9E00B /* XMLRPC */ = {
+			isa = PBXGroup;
+			children = (
+				778C039719AAD34700B06D17 /* SequenceExtensions.swift */,
+				77BE0E3019AAB93100A9E00B /* XMLNode.swift */,
+				7757D78319AB753E006E1AF1 /* XMLParser.swift */,
+				773E981119AAEA2600AC0B4B /* XMLRPCRequest.swift */,
+			);
+			name = XMLRPC;
+			sourceTree = "<group>";
+		};
 		77FA19FC199D5C160080163D = {
 			isa = PBXGroup;
 			children = (
+				772553B8199D657200E3D7B2 /* XIB */,
 				77FA1A07199D5C160080163D /* elljay */,
 				77FA1A1D199D5C160080163D /* elljayTests */,
 				77FA1A06199D5C160080163D /* Products */,
@@ -77,9 +136,14 @@
 		77FA1A07199D5C160080163D /* elljay */ = {
 			isa = PBXGroup;
 			children = (
+				77FA1A2A199D5C9D0080163D /* LoginViewController.swift */,
+				77C72533199D6B8C002B6A25 /* NSObject+ELJDeallocActions.h */,
+				77C72534199D6B8C002B6A25 /* NSObject+ELJDeallocActions.m */,
+				77C72536199D6C51002B6A25 /* NSNotificationCenterExtensions.swift */,
 				77FA1A0A199D5C160080163D /* AppDelegate.swift */,
-				77FA1A0F199D5C160080163D /* ViewController.swift */,
-				77FA1A11199D5C160080163D /* Main.storyboard */,
+				772553B1199D603500E3D7B2 /* Service.swift */,
+				77BE0E3219AAB93400A9E00B /* XMLRPC */,
+				772553B3199D607C00E3D7B2 /* Session.swift */,
 				77FA1A14199D5C160080163D /* Images.xcassets */,
 				77FA1A0C199D5C160080163D /* elljay.xcdatamodeld */,
 				77FA1A08199D5C160080163D /* Supporting Files */,
@@ -90,6 +154,7 @@
 		77FA1A08199D5C160080163D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				77C72532199D6B8C002B6A25 /* elljay-Bridging-Header.h */,
 				77FA1A09199D5C160080163D /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -98,7 +163,10 @@
 		77FA1A1D199D5C160080163D /* elljayTests */ = {
 			isa = PBXGroup;
 			children = (
-				77FA1A20199D5C170080163D /* elljayTests.swift */,
+				7751401219AC1AD300C433C4 /* XMLParserTests.swift */,
+				778C039B19AAD43300B06D17 /* SequenceExtensionTests.swift */,
+				773E980F19AAEA1A00AC0B4B /* XMLRPCRequestTests.swift */,
+				77B78CA719AAB9FE001E03F0 /* XMLNodeTests.swift */,
 				77FA1A1E199D5C170080163D /* Supporting Files */,
 			);
 			path = elljayTests;
@@ -144,6 +212,7 @@
 			);
 			dependencies = (
 				77FA1A1C199D5C160080163D /* PBXTargetDependency */,
+				77BE0E3419AAB99700A9E00B /* PBXTargetDependency */,
 			);
 			name = elljayTests;
 			productName = elljayTests;
@@ -192,8 +261,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77FA1A13199D5C160080163D /* Main.storyboard in Resources */,
 				77FA1A15199D5C160080163D /* Images.xcassets in Resources */,
+				77FA1A2E199D5CB80080163D /* LoginViewController.xib in Resources */,
+				772553B7199D656600E3D7B2 /* Application.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,9 +281,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77FA1A10199D5C160080163D /* ViewController.swift in Sources */,
+				77FA1A2B199D5C9D0080163D /* LoginViewController.swift in Sources */,
+				7757D78419AB753E006E1AF1 /* XMLParser.swift in Sources */,
+				778C039819AAD34700B06D17 /* SequenceExtensions.swift in Sources */,
+				772553B4199D607C00E3D7B2 /* Session.swift in Sources */,
+				772553B2199D603500E3D7B2 /* Service.swift in Sources */,
+				77C72537199D6C51002B6A25 /* NSNotificationCenterExtensions.swift in Sources */,
 				77FA1A0E199D5C160080163D /* elljay.xcdatamodeld in Sources */,
+				77C72535199D6B8D002B6A25 /* NSObject+ELJDeallocActions.m in Sources */,
 				77FA1A0B199D5C160080163D /* AppDelegate.swift in Sources */,
+				77BE0E3119AAB93100A9E00B /* XMLNode.swift in Sources */,
+				773E981219AAEA2600AC0B4B /* XMLRPCRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,13 +299,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77FA1A21199D5C170080163D /* elljayTests.swift in Sources */,
+				7751401519AC1BC400C433C4 /* XMLParser.swift in Sources */,
+				778C039C19AAD43300B06D17 /* SequenceExtensionTests.swift in Sources */,
+				773E981019AAEA1A00AC0B4B /* XMLRPCRequestTests.swift in Sources */,
+				77B78CAA19AABA7C001E03F0 /* XMLNode.swift in Sources */,
+				7751401419AC1AD300C433C4 /* XMLParserTests.swift in Sources */,
+				778C039A19AAD40700B06D17 /* SequenceExtensions.swift in Sources */,
+				77B78CA919AABA02001E03F0 /* XMLNodeTests.swift in Sources */,
+				7724E36919AAECB2002DFE2B /* XMLRPCRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		77BE0E3419AAB99700A9E00B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 77FA1A04199D5C160080163D /* elljay */;
+			targetProxy = 77BE0E3319AAB99700A9E00B /* PBXContainerItemProxy */;
+		};
 		77FA1A1C199D5C160080163D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 77FA1A04199D5C160080163D /* elljay */;
@@ -236,12 +326,21 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		77FA1A11199D5C160080163D /* Main.storyboard */ = {
+		772553B5199D656600E3D7B2 /* Application.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				77FA1A12199D5C160080163D /* Base */,
+				772553B6199D656600E3D7B2 /* Base */,
 			);
-			name = Main.storyboard;
+			name = Application.xib;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		77FA1A2C199D5CB80080163D /* LoginViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				77FA1A2D199D5CB80080163D /* Base */,
+			);
+			name = LoginViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -329,9 +428,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = elljay/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "elljay/elljay-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -340,9 +442,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = elljay/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "elljay/elljay-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -399,6 +503,7 @@
 				77FA1A26199D5C170080163D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		77FA1A27199D5C170080163D /* Build configuration list for PBXNativeTarget "elljayTests" */ = {
 			isa = XCConfigurationList;
@@ -407,6 +512,7 @@
 				77FA1A29199D5C170080163D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
