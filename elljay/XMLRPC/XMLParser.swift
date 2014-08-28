@@ -33,10 +33,14 @@ class XMLParser: NSObject, NSXMLParserDelegate {
     var failed : String?
     
     func parse(string : String) -> XMLParserResult {
+        let data = string.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!
+        return parse(data)
+    }
+    
+    func parse(data : NSData) -> XMLParserResult {
         stack = []
         current = XMLParserState(name: "root")
         
-        let data = string.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
         let parser = NSXMLParser(data : data)
         parser.delegate = self
         parser.parse()
@@ -49,18 +53,19 @@ class XMLParser: NSObject, NSXMLParserDelegate {
         else {
             return XMLParserResult.Success(XMLDocument(current.children))
         }
+
     }
     
     func parser(parser: NSXMLParser!, didStartElement elementName: String!, namespaceURI: String!, qualifiedName qName: String!, attributes attributeDict: [NSObject : AnyObject]!)  {
         
-        if(failed) { return }
+        if(failed != nil) { return }
         
         stack.append(current)
         current = XMLParserState(name: elementName, attributes: attributeDict as [String : String])
     }
     
     func parser(parser: NSXMLParser!, didEndElement elementName: String!, namespaceURI: String!, qualifiedName qName: String!)  {
-        if(failed) { return }
+        if(failed != nil) { return }
         
         if(elementName != current.name) {
             failed = "Closing element didn't match"
@@ -73,7 +78,7 @@ class XMLParser: NSObject, NSXMLParserDelegate {
     }
     
     func parser(parser: NSXMLParser!, foundCharacters string: String!)  {
-        if(failed) { return }
+        if(failed != nil) { return }
         if let curText = current.text {
             current.text = current.text! + string
         }

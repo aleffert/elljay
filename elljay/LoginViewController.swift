@@ -22,6 +22,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         super.init(nibName: nil, bundle : nil);
     }
     
+    required init(coder aDecoder: NSCoder) {
+        service = aDecoder.decodeObjectForKey("service") as Service
+        super.init(coder: aDecoder)
+    }
+    
     override func viewDidLoad()  {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addAnimatedKeyboardObserver(self, view: self.view, action: {[weak self] (view, keyboardHeight) in

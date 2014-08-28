@@ -51,7 +51,7 @@ class XMLParserTests: XCTestCase {
     
     func testNesting() {
         let parser = XMLParser()
-        let string = "<?xml version = \"1.0\" ?><html bar = \"a\" foo = \"b\"><head></head><body></body></html>";
+        let string = "<?xml version = \"1.0\" ?><html bar = \"a\" foo = \"b\"><head></head><body><div></div></body></html>";
         let result = parser.parse(string)
         switch result {
         case let .Success(document):

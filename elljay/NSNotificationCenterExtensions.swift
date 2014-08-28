@@ -23,13 +23,13 @@ extension NSNotificationCenter {
     func addAnimatedKeyboardObserver(observer : AnyObject, view : UIView?, action : (UIView?, CGFloat) -> Void) {
         self.addObserver(observer, name: UIKeyboardWillChangeFrameNotification, object: nil, action: {
             [weak view] notification in
-            let globalFrame : CGRect = (notification.userInfo[UIKeyboardFrameEndUserInfoKey!] as NSValue).CGRectValue()
-            let localFrame : CGRect? = view?.convertRect(globalFrame, fromView:nil)
+            let globalFrame : CGRect = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
+            let localFrame = view?.convertRect(globalFrame, fromView: view)
             
-            let intersection = CGRectIntersection(localFrame!, view?.bounds ? view!.bounds : CGRectZero);
+            let intersection = CGRectIntersection(localFrame!, view!.bounds);
             let keyboardHeight = intersection.size.height;
-            let duration = (notification.userInfo[UIKeyboardAnimationDurationUserInfoKey!] as NSNumber).doubleValue
-            let curve = (notification.userInfo[UIKeyboardAnimationCurveUserInfoKey!] as NSNumber).integerValue
+            let duration = (notification.userInfo![UIKeyboardAnimationDurationUserInfoKey] as NSNumber).doubleValue
+            let curve = (notification.userInfo![UIKeyboardAnimationCurveUserInfoKey] as NSNumber).integerValue
             UIView.animateWithDuration(duration, delay: Double(0), options: UIViewAnimationOptions(), animations: {
                 action(view, keyboardHeight)
                 }, completion: nil)

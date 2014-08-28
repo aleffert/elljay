@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GeneratorWrapper<G : Generator> : Sequence {
+class GeneratorWrapper<G : GeneratorType> : SequenceType {
     typealias GeneratorType = G
     
     let generator : G
@@ -21,7 +21,7 @@ class GeneratorWrapper<G : Generator> : Sequence {
     }
 }
 
-func reduce1<S : Sequence>(sequence : S, combine: (S.GeneratorType.Element, S.GeneratorType.Element) -> S.GeneratorType.Element) -> S.GeneratorType.Element? {
+func reduce1<S : SequenceType>(sequence : S, combine: (S.Generator.Element, S.Generator.Element) -> S.Generator.Element) -> S.Generator.Element? {
     var generator = sequence.generate()
     if let head = generator.next() {
         return reduce(GeneratorWrapper(generator : generator), head, combine)
@@ -31,10 +31,48 @@ func reduce1<S : Sequence>(sequence : S, combine: (S.GeneratorType.Element, S.Ge
     }
 }
 
+func mapOrFail<S : SequenceType, A>(sequence : S, f: S.Generator.Element -> A?) -> [A]? {
+    return reduce(sequence, []) {(acc : [A]?, cur) in
+        if let a = acc {
+            if let r = f(cur) {
+                var ma = a
+                ma.append(r)
+                return ma
+            }
+            else {
+                return nil
+            }
+        }
+        else {
+            return nil
+        }
+    }
+}
 
 func sortedMap<K : Comparable, V, Result> (dictionary : [K : V], combine : (K, V) -> Result) -> [Result] {
     return sorted(dictionary.keys).map {key in
         let value = dictionary[key]!
         return combine(key, value)
+    }
+}
+
+extension Optional {
+    func bind<U> (f : T -> U?) -> U? {
+        if let y = self {
+            return f(y)
+        }
+        else {
+            return nil
+        }
+    }
+}
+
+extension Dictionary {
+    static func fromArray(a : [(Key, Value)]) -> Dictionary<Key, Value> {
+        var r = Dictionary()
+        a.map {(k, v) in
+            r[k] = v
+        }
+        return r
     }
 }

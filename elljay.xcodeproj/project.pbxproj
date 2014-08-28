@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7724E36919AAECB2002DFE2B /* XMLRPCRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773E981119AAEA2600AC0B4B /* XMLRPCRequest.swift */; };
+		7724E36919AAECB2002DFE2B /* XMLRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773E981119AAEA2600AC0B4B /* XMLRPC.swift */; };
 		772553B2199D603500E3D7B2 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772553B1199D603500E3D7B2 /* Service.swift */; };
 		772553B4199D607C00E3D7B2 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772553B3199D607C00E3D7B2 /* Session.swift */; };
 		772553B7199D656600E3D7B2 /* Application.xib in Resources */ = {isa = PBXBuildFile; fileRef = 772553B5199D656600E3D7B2 /* Application.xib */; };
-		773E981019AAEA1A00AC0B4B /* XMLRPCRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773E980F19AAEA1A00AC0B4B /* XMLRPCRequestTests.swift */; };
-		773E981219AAEA2600AC0B4B /* XMLRPCRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773E981119AAEA2600AC0B4B /* XMLRPCRequest.swift */; };
+		773E981019AAEA1A00AC0B4B /* XMLRPCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773E980F19AAEA1A00AC0B4B /* XMLRPCTests.swift */; };
+		773E981219AAEA2600AC0B4B /* XMLRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773E981119AAEA2600AC0B4B /* XMLRPC.swift */; };
 		7751401419AC1AD300C433C4 /* XMLParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7751401219AC1AD300C433C4 /* XMLParserTests.swift */; };
 		7751401519AC1BC400C433C4 /* XMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7757D78319AB753E006E1AF1 /* XMLParser.swift */; };
 		7757D78419AB753E006E1AF1 /* XMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7757D78319AB753E006E1AF1 /* XMLParser.swift */; };
@@ -52,8 +52,8 @@
 		772553B1199D603500E3D7B2 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		772553B3199D607C00E3D7B2 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		772553B6199D656600E3D7B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = elljay/Base.lproj/Application.xib; sourceTree = "<group>"; };
-		773E980F19AAEA1A00AC0B4B /* XMLRPCRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XMLRPCRequestTests.swift; path = ../elljay/XMLRPC/XMLRPCRequestTests.swift; sourceTree = "<group>"; };
-		773E981119AAEA2600AC0B4B /* XMLRPCRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XMLRPCRequest.swift; path = XMLRPC/XMLRPCRequest.swift; sourceTree = "<group>"; };
+		773E980F19AAEA1A00AC0B4B /* XMLRPCTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XMLRPCTests.swift; path = ../elljay/XMLRPC/XMLRPCTests.swift; sourceTree = "<group>"; };
+		773E981119AAEA2600AC0B4B /* XMLRPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XMLRPC.swift; path = XMLRPC/XMLRPC.swift; sourceTree = "<group>"; };
 		7751401219AC1AD300C433C4 /* XMLParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XMLParserTests.swift; path = elljay/XMLRPC/XMLParserTests.swift; sourceTree = SOURCE_ROOT; };
 		7757D78319AB753E006E1AF1 /* XMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XMLParser.swift; path = XMLRPC/XMLParser.swift; sourceTree = "<group>"; };
 		778C039719AAD34700B06D17 /* SequenceExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SequenceExtensions.swift; path = XMLRPC/SequenceExtensions.swift; sourceTree = "<group>"; };
@@ -107,9 +107,8 @@
 			isa = PBXGroup;
 			children = (
 				778C039719AAD34700B06D17 /* SequenceExtensions.swift */,
-				77BE0E3019AAB93100A9E00B /* XMLNode.swift */,
 				7757D78319AB753E006E1AF1 /* XMLParser.swift */,
-				773E981119AAEA2600AC0B4B /* XMLRPCRequest.swift */,
+				773E981119AAEA2600AC0B4B /* XMLRPC.swift */,
 			);
 			name = XMLRPC;
 			sourceTree = "<group>";
@@ -140,6 +139,7 @@
 				77C72533199D6B8C002B6A25 /* NSObject+ELJDeallocActions.h */,
 				77C72534199D6B8C002B6A25 /* NSObject+ELJDeallocActions.m */,
 				77C72536199D6C51002B6A25 /* NSNotificationCenterExtensions.swift */,
+				77BE0E3019AAB93100A9E00B /* XMLNode.swift */,
 				77FA1A0A199D5C160080163D /* AppDelegate.swift */,
 				772553B1199D603500E3D7B2 /* Service.swift */,
 				77BE0E3219AAB93400A9E00B /* XMLRPC */,
@@ -165,7 +165,7 @@
 			children = (
 				7751401219AC1AD300C433C4 /* XMLParserTests.swift */,
 				778C039B19AAD43300B06D17 /* SequenceExtensionTests.swift */,
-				773E980F19AAEA1A00AC0B4B /* XMLRPCRequestTests.swift */,
+				773E980F19AAEA1A00AC0B4B /* XMLRPCTests.swift */,
 				77B78CA719AAB9FE001E03F0 /* XMLNodeTests.swift */,
 				77FA1A1E199D5C170080163D /* Supporting Files */,
 			);
@@ -291,7 +291,7 @@
 				77C72535199D6B8D002B6A25 /* NSObject+ELJDeallocActions.m in Sources */,
 				77FA1A0B199D5C160080163D /* AppDelegate.swift in Sources */,
 				77BE0E3119AAB93100A9E00B /* XMLNode.swift in Sources */,
-				773E981219AAEA2600AC0B4B /* XMLRPCRequest.swift in Sources */,
+				773E981219AAEA2600AC0B4B /* XMLRPC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,12 +301,12 @@
 			files = (
 				7751401519AC1BC400C433C4 /* XMLParser.swift in Sources */,
 				778C039C19AAD43300B06D17 /* SequenceExtensionTests.swift in Sources */,
-				773E981019AAEA1A00AC0B4B /* XMLRPCRequestTests.swift in Sources */,
+				773E981019AAEA1A00AC0B4B /* XMLRPCTests.swift in Sources */,
 				77B78CAA19AABA7C001E03F0 /* XMLNode.swift in Sources */,
 				7751401419AC1AD300C433C4 /* XMLParserTests.swift in Sources */,
 				778C039A19AAD40700B06D17 /* SequenceExtensions.swift in Sources */,
 				77B78CA919AABA02001E03F0 /* XMLNodeTests.swift in Sources */,
-				7724E36919AAECB2002DFE2B /* XMLRPCRequest.swift in Sources */,
+				7724E36919AAECB2002DFE2B /* XMLRPC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

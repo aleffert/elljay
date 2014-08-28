@@ -14,10 +14,10 @@ class XMLNode : Printable {
     let children : [XMLNode]
     let innerText : String?
     
-    init(name : String, attributes: [String:String] = [:], children : [XMLNode] = [], text : String? = nil) {
+    init(name : String, attributes: [String:String] = [:], children c : [XMLNode] = [], text : String? = nil) {
         self.name = name
-        self.children = children
-        self.attributes = attributes;
+        self.attributes = attributes
+        self.children = c
         self.innerText = text
     }
     
@@ -30,11 +30,39 @@ class XMLNode : Printable {
         }
         let childrenStrings = children.map {node in node.description}
         let childrenString = reduce(childrenStrings, "", {acc, cur in return acc + cur})
-        let text = innerText ? innerText! : ""
-        let attributeText = attributeString ? " " + attributeString! : ""
+        let text = innerText ?? ""
+        let attributeText = attributeString != nil ? " " + attributeString! : ""
         return "<\(name)\(attributeText)>\(childrenString)\(text)</\(name)>"
     }
+    
+    func child(name : String) -> XMLNode? {
+        for child in self.children {
+            if child.name == name {
+                return child
+            }
+        }
+        return nil
+    }
+    
+    func select(tag : String, child : String, value : String) -> XMLNode? {
+        let matching = all(tag)
+        for match in matching {
+            if let foundChild = match.child(child) {
+                if foundChild.innerText == value {
+                    return match
+                }
+            }
+        }
+        return nil
+    }
+    
+    func all(tag : String) -> [XMLNode] {
+        return self.children.filter {child in
+            return child.name == tag
+        }
+    }
 }
+
 
 class XMLDocument : Printable {
     
