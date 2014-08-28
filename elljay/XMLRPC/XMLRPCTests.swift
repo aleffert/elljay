@@ -66,7 +66,7 @@ class XMLRPCRequestTests: XCTestCase {
         "<member><name>faultCode</name><value><int>4</int></value></member>" +
         "<member><name>faultString</name><value><string>Too many parameters.</string></value></member>" +
         "</struct></value></fault></methodResponse>"
-        let result = XMLRPCResult.fromString(response)
+        let result = XMLRPCResult.from(string : response)
         switch(result) {
         case let .Fault(c, m):
             XCTAssert(c == 4 && m == "Too many parameters.", "Can parse fault responses")
@@ -75,14 +75,14 @@ class XMLRPCRequestTests: XCTestCase {
         }
     }
     
-    func successResponseForBody(body : String) -> String {
+    func successResponse(#body : String) -> String {
         return "<?xml version=\"1.0\"?>" +
         "<methodResponse><params><param><value>\(body)</value></param></params></methodResponse>"
     }
     
     func responseParserTest(#body : String) {
-        let response = successResponseForBody(body)
-        let result = XMLRPCResult.fromString(response)
+        let response = successResponse(body:body)
+        let result = XMLRPCResult.from(string : response)
         switch(result) {
         case let .Response(params):
             XCTAssert(countElements(params) == 1, "Expecting a single response param")

@@ -35,9 +35,11 @@ enum XMLRPCParam {
     case XString(String)
     case XDateTime(NSDate)
     case XBase64Data(NSData)
-    
-    func escapeForXMLBody(s : String) -> String {
-        return s
+}
+
+extension XMLRPCParam {
+    func escape(#XMLBody : String) -> String {
+        return XMLBody
             .stringByReplacingOccurrencesOfString("&", withString: "&amp;")
             .stringByReplacingOccurrencesOfString("<", withString: "&lt;")
     }
@@ -53,7 +55,7 @@ enum XMLRPCParam {
         case let .XBoolean(b):
             return XMLNode(name : "boolean", children : [], text : b ? "1" : "0")
         case let .XString(s):
-            return XMLNode(name : "string", children : [], text : escapeForXMLBody(s))
+            return XMLNode(name : "string", children : [], text : escape(XMLBody : s))
         case let .XBase64Data(d):
             let base64 = d.base64EncodedStringWithOptions(NSDataBase64EncodingOptions())
             return XMLNode(name : "base64", children : [], text : base64)
@@ -77,12 +79,19 @@ enum XMLRPCResult {
     case Response([XMLRPCParam])
     case Fault(Int, String)
     case ParseError(String)
+}
+
+extension XMLRPCResult {
     
-    static func fromString(string : String) -> XMLRPCResult {
-        return fromData(string.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!)
+    static func malformedResponseError() -> XMLRPCResult {
+        return ParseError("Returned XML is not an XML-RPC ")
     }
     
-    static func fromData(data : NSData) -> XMLRPCResult {
+    static func from(#string : String) -> XMLRPCResult {
+        return from(data : string.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!)
+    }
+    
+    static func from(#data : NSData) -> XMLRPCResult {
         let parser = XMLParser()
         let parseResult = parser.parse(data)
         
@@ -90,15 +99,11 @@ enum XMLRPCResult {
         case let .Failure(error):
             return ParseError(error)
         case let .Success(document):
-            return fromXMLDocument(document)
+            return from(XMLDocument : document)
         }
     }
     
-    static func malformedResponseError() -> XMLRPCResult {
-        return ParseError("Returned XML is not an XML-RPC ")
-    }
-    
-    static func fromXMLDocument(document : XMLDocument) -> XMLRPCResult {
+    static func from(XMLDocument document : XMLDocument) -> XMLRPCResult {
         if(countElements(document.body) != 1) {
             return malformedResponseError()
         }
@@ -109,10 +114,10 @@ enum XMLRPCResult {
         }
         
         if let params = body.child("params") {
-            return fromParamNodes(params)
+            return from(paramNodes : params)
         }
         else if let failure = body.child("fault") {
-            return fromFaultNodes(failure)
+            return from(faultNodes : failure)
         }
         else  {
             return malformedResponseError()
@@ -120,19 +125,19 @@ enum XMLRPCResult {
         
     }
         
-    static func processParam(param : XMLNode) -> XMLRPCParam? {
+    static func process(#param : XMLNode) -> XMLRPCParam? {
         let value = param.child("value")
         if let v = value {
-            return processValue(v)
+            return process(value : v)
         }
         return nil
     }
 
     static func processParamNodes(nodes : [XMLNode]) -> [XMLRPCParam]? {
-        return mapOrFail(nodes, {s in self.processParam(s)})
+        return mapOrFail(nodes, {s in self.process(param : s)})
     }
     
-    static func fromParamNodes(params : XMLNode) -> XMLRPCResult {
+    static func from(paramNodes params : XMLNode) -> XMLRPCResult {
         let items : [XMLNode]? = params.all("param")
         return items.bind {i in
             return self.processParamNodes(i)
@@ -142,7 +147,7 @@ enum XMLRPCResult {
     }
 
 
-    static func processValue(v : XMLNode) -> XMLRPCParam? {
+    static func process(value v : XMLNode) -> XMLRPCParam? {
         if countElements(v.children) != 1 {
             return nil
         }
@@ -185,18 +190,18 @@ enum XMLRPCResult {
             let date = NSDate.fromISO8601String(inner)
             return date == nil ? nil : XMLRPCParam.XDateTime(date!)
         case "array":
-            return processArray(body)
+            return process(arrayNode : body)
         case "struct":
-            return processStruct(body)
+            return process(structureNode : body)
         default:
             return nil
         }
     }
     
-    static func processArray(body : XMLNode) -> XMLRPCParam? {
-        let children : [XMLNode]? = body.child("data")?.children
+    static func process(#arrayNode : XMLNode) -> XMLRPCParam? {
+        let children : [XMLNode]? = arrayNode.child("data")?.children
         let params : [XMLRPCParam]? = children.bind {cs in
-            let result : [XMLRPCParam]? = mapOrFail(cs) {c in return self.processValue(c)}
+            let result : [XMLRPCParam]? = mapOrFail(cs) {c in return self.process(value : c)}
             return result
         }
         let result : XMLRPCParam? = params.bind {p in
@@ -205,39 +210,35 @@ enum XMLRPCResult {
         return result
     }
 
-    static func processStructMember(body : XMLNode) -> (String, XMLRPCParam)? {
-        let name = body.child("name")
-        let value = body.child("value")
+    static func process(#structMemberNode : XMLNode) -> (String, XMLRPCParam)? {
+        let name = structMemberNode.child("name")
+        let value = structMemberNode.child("value")
         if name?.innerText == nil {
             return nil
         }
-        let v : XMLRPCParam? = value.bind { v in return self.processValue(v)}
+        let v : XMLRPCParam? = value.bind { v in return self.process(value : v)}
         let result : (String, XMLRPCParam)? = v.bind { v in
             return (name!.innerText!, v)
         }
         return result
     }
 
-    static func processStruct(body : XMLNode) -> XMLRPCParam? {
-        let children = body.all("member")
-        return mapOrFail(children, {m in self.processStructMember(m)})
+    static func process(#structureNode : XMLNode) -> XMLRPCParam? {
+        let children = structureNode.all("member")
+        return mapOrFail(children, {m in self.process(structMemberNode : m)})
         .bind {(d : [(String, XMLRPCParam)]) in
             return XMLRPCParam.XStruct(Dictionary.fromArray(d))
         }
     }
     
-    static func fromFaultNodes(failure : XMLNode) -> XMLRPCResult {
-        let faultCodeMember = failure.child("value")?.child("struct")?.select("member", child : "name", value : "faultCode")
+    static func from(#faultNodes : XMLNode) -> XMLRPCResult {
+        let faultCodeMember = faultNodes.child("value")?.child("struct")?.select("member", child : "name", value : "faultCode")
+        let faultReasonMember = faultNodes.child("value")?.child("struct")?.select("member", child : "name", value : "faultString")
         let faultCode : Int? = faultCodeMember?.child("value")?.child("int")?.innerText.bind {s in return s.toInt()}
-        let faultReasonMember = failure.child("value")?.child("struct")?.select("member", child : "name", value : "faultString")
         let faultReason : String? = faultReasonMember?.child("value")?.child("string")?.innerText
-        if let c = faultCode {
-            if let m = faultReason {
-                return Fault(c, m)
-            }
-            else {
-                return malformedResponseError()
-            }
+
+        if faultCode != nil && faultReason != nil {
+            return Fault(faultCode!, faultReason!)
         }
         else {
             return malformedResponseError()
@@ -247,7 +248,7 @@ enum XMLRPCResult {
 
 extension NSMutableURLRequest {
     
-    internal func bodyForPath(path : String, parameters : [XMLRPCParam]) -> NSData {
+    internal func body(#path : String, parameters : [XMLRPCParam]) -> NSData {
         let methodNameNode = XMLNode(name: "methodName", children: [], text: path)
         let paramNodes : [XMLNode] = parameters.map {param in param.toXMLNode()}
         let paramsNode = XMLNode(name : "params", children : paramNodes)
@@ -256,9 +257,9 @@ extension NSMutableURLRequest {
         return NSData()
     }
     
-    func setupXMLRPCCallWithPath(path : String, parameters : [XMLRPCParam]) {
+    func setupXMLRPCCall(#path : String, parameters : [XMLRPCParam]) {
         self.setValue("text/xml", forHTTPHeaderField: "Content-Type")
         self.HTTPMethod = "POST"
-        self.HTTPBody = bodyForPath(path, parameters : parameters)
+        self.HTTPBody = body(path : path, parameters : parameters)
     }
 }
