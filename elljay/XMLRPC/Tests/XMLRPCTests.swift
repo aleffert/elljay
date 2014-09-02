@@ -68,8 +68,8 @@ class XMLRPCRequestTests: XCTestCase {
         "</struct></value></fault></methodResponse>"
         let result = XMLRPCResult.from(string : response)
         switch(result) {
-        case let .Fault(c, m):
-            XCTAssert(c == 4 && m == "Too many parameters.", "Can parse fault responses")
+        case let .Fault(error):
+            XCTAssert(error.code == 4 && error.localizedDescription == "Too many parameters.", "Can parse fault responses")
         default:
             XCTFail("Can parse fault responses")
         }

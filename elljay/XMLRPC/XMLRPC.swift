@@ -26,7 +26,7 @@ extension NSDate {
 }
 
 // Use X so as not to interfere with built in type names
-enum XMLRPCParam {
+public enum XMLRPCParam {
     case XArray([XMLRPCParam])
     case XStruct([String:XMLRPCParam])
     case XInt(Int32)
@@ -34,17 +34,76 @@ enum XMLRPCParam {
     case XBoolean(Bool)
     case XString(String)
     case XDateTime(NSDate)
-    case XBase64Data(NSData)
+    case XData(NSData)
 }
 
 extension XMLRPCParam {
-    func escape(#XMLBody : String) -> String {
+    func arrayBody() -> [XMLRPCParam]? {
+        switch(self) {
+            case let XArray(a): return a
+            default: return nil
+        }
+    }
+
+    func structBody() -> [String:XMLRPCParam]? {
+        switch(self) {
+            case let XStruct(d): return d
+            default: return nil
+        }
+    }
+
+    func intBody() -> Int32? {
+        switch(self) {
+            case let XInt(i): return i
+            default: return nil
+        }
+    }
+
+    func doubleBody() -> Double? {
+        switch(self) {
+            case let XDouble(d): return d
+            default: return nil
+        }
+    }
+    
+    func booleanBody() -> Bool? {
+        switch(self) {
+            case let XBoolean(b): return b
+            default: return nil
+        }
+    }
+
+    func stringBody() -> String? {
+        switch(self) {
+            case let XString(s): return s
+            default: return nil
+        }
+    }
+
+    func dateTimeBody() -> NSDate? {
+        switch(self) {
+            case let XDateTime(d): return d
+            default: return nil
+        }
+    }
+
+
+    func dataBody() -> NSData? {
+        switch(self) {
+            case let XData(d): return d
+            default: return nil
+        }
+    }
+}
+
+extension XMLRPCParam {
+    private func escape(#XMLBody : String) -> String {
         return XMLBody
             .stringByReplacingOccurrencesOfString("&", withString: "&amp;")
             .stringByReplacingOccurrencesOfString("<", withString: "&lt;")
     }
     
-    func toXMLNode() -> XMLNode {
+    public func toXMLNode() -> XMLNode {
         switch self {
         case let .XInt(i):
             return XMLNode(name: "int", children : [], text: String(i))
@@ -56,7 +115,7 @@ extension XMLRPCParam {
             return XMLNode(name : "boolean", children : [], text : b ? "1" : "0")
         case let .XString(s):
             return XMLNode(name : "string", children : [], text : escape(XMLBody : s))
-        case let .XBase64Data(d):
+        case let .XData(d):
             let base64 = d.base64EncodedStringWithOptions(NSDataBase64EncodingOptions())
             return XMLNode(name : "base64", children : [], text : base64)
         case let .XArray(ps):
@@ -75,23 +134,26 @@ extension XMLRPCParam {
     }
 }
 
-enum XMLRPCResult {
+public enum XMLRPCResult {
     case Response([XMLRPCParam])
-    case Fault(Int, String)
+    case Fault(NSError)
     case ParseError(String)
 }
 
 extension XMLRPCResult {
+
+    /// Error domain for XMLRPC faults
+    static let errorDomain = "com.akivaleffert.elljay.XMLRPC"
     
     static func malformedResponseError() -> XMLRPCResult {
         return ParseError("Returned XML is not an XML-RPC ")
     }
     
-    static func from(#string : String) -> XMLRPCResult {
-        return from(data : string.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!)
+    public static func from(#string : String) -> XMLRPCResult {
+        return from(data : string.dataUsingEncoding(NSUTF8StringEncoding)!)
     }
     
-    static func from(#data : NSData) -> XMLRPCResult {
+    public static func from(#data : NSData) -> XMLRPCResult {
         let parser = XMLParser()
         let parseResult = parser.parse(data)
         
@@ -185,7 +247,7 @@ extension XMLRPCResult {
             }
         case "base64":
             let data = NSData(base64EncodedString: inner, options: NSDataBase64DecodingOptions())
-            return XMLRPCParam.XBase64Data(data)
+            return XMLRPCParam.XData(data)
         case "dateTime.iso8601":
             let date = NSDate.fromISO8601String(inner)
             return date == nil ? nil : XMLRPCParam.XDateTime(date!)
@@ -238,7 +300,8 @@ extension XMLRPCResult {
         let faultReason : String? = faultReasonMember?.child("value")?.child("string")?.innerText
 
         if faultCode != nil && faultReason != nil {
-            return Fault(faultCode!, faultReason!)
+            let error = NSError(domain: errorDomain, code: faultCode!, userInfo: [NSLocalizedDescriptionKey : faultReason!])
+            return Fault(error)
         }
         else {
             return malformedResponseError()
@@ -251,10 +314,12 @@ extension NSMutableURLRequest {
     internal func body(#path : String, parameters : [XMLRPCParam]) -> NSData {
         let methodNameNode = XMLNode(name: "methodName", children: [], text: path)
         let paramNodes : [XMLNode] = parameters.map {param in param.toXMLNode()}
-        let paramsNode = XMLNode(name : "params", children : paramNodes)
+        let paramNode = XMLNode(name : "param", children : paramNodes)
+        let paramsNode = XMLNode(name : "params", children : [paramNode])
         let node = XMLNode(name: "methodCall", children: [methodNameNode, paramsNode])
+        println("sending arguments " + node.description)
         
-        return NSData()
+        return NSData(data: node.description.dataUsingEncoding(NSUTF8StringEncoding)!)
     }
     
     func setupXMLRPCCall(#path : String, parameters : [XMLRPCParam]) {

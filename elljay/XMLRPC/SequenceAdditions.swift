@@ -1,5 +1,5 @@
 //
-//  SequenceExtensions.swift
+//  SequenceAdditions.swift
 //  elljay
 //
 //  Created by Akiva Leffert on 8/24/14.
@@ -8,7 +8,8 @@
 
 import Foundation
 
-class GeneratorWrapper<G : GeneratorType> : SequenceType {
+/// Convert any generator into a sequence
+private class GeneratorWrapper<G : GeneratorType> : SequenceType {
     typealias GeneratorType = G
     
     let generator : G
@@ -21,7 +22,7 @@ class GeneratorWrapper<G : GeneratorType> : SequenceType {
     }
 }
 
-func reduce1<S : SequenceType>(sequence : S, combine: (S.Generator.Element, S.Generator.Element) -> S.Generator.Element) -> S.Generator.Element? {
+public func reduce1<S : SequenceType>(sequence : S, combine: (S.Generator.Element, S.Generator.Element) -> S.Generator.Element) -> S.Generator.Element? {
     var generator = sequence.generate()
     if let head = generator.next() {
         return reduce(GeneratorWrapper(generator : generator), head, combine)
@@ -31,7 +32,7 @@ func reduce1<S : SequenceType>(sequence : S, combine: (S.Generator.Element, S.Ge
     }
 }
 
-func mapOrFail<S : SequenceType, A>(sequence : S, f: S.Generator.Element -> A?) -> [A]? {
+public func mapOrFail<S : SequenceType, A>(sequence : S, f: S.Generator.Element -> A?) -> [A]? {
     return reduce(sequence, []) {(acc : [A]?, cur) in
         if let a = acc {
             if let r = f(cur) {
@@ -49,7 +50,7 @@ func mapOrFail<S : SequenceType, A>(sequence : S, f: S.Generator.Element -> A?) 
     }
 }
 
-func sortedMap<K : Comparable, V, Result> (dictionary : [K : V], combine : (K, V) -> Result) -> [Result] {
+public func sortedMap<K : Comparable, V, Result> (dictionary : [K : V], combine : (K, V) -> Result) -> [Result] {
     return sorted(dictionary.keys).map {key in
         let value = dictionary[key]!
         return combine(key, value)

@@ -10,20 +10,20 @@ import UIKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
-    @IBOutlet var contentContainer : UIView?
+    @IBOutlet var contentContainer : UIView!
     
-    @IBOutlet var usernameField : UITextField?
-    @IBOutlet var passwordField : UITextField?
+    @IBOutlet var usernameField : UITextField!
+    @IBOutlet var passwordField : UITextField!
     
-    let service : Service
+    private(set) var authController : AuthController!
     
-    init(service : Service)  {
-        self.service = service
-        super.init(nibName: nil, bundle : nil);
+    init(authController : AuthController)  {
+        self.authController = authController
+        super.init(nibName: "LoginViewController", bundle : nil);
     }
     
     required init(coder aDecoder: NSCoder) {
-        service = aDecoder.decodeObjectForKey("service") as Service
+        authController = aDecoder.decodeObjectForKey("authController") as AuthController
         super.init(coder: aDecoder)
     }
     
@@ -47,7 +47,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             passwordField?.becomeFirstResponder()
         }
         else if textField == passwordField {
-            service.loginWithUsername(self.usernameField!.text, password: self.passwordField!.text)
+            textField.resignFirstResponder()
+            authController.attemptLogin(usernameField.text, password: passwordField.text, completion: { (success, error) in
+                if error != nil {
+                    println("error " + error!.localizedDescription)
+                }
+                else {
+                    println("logged in")
+                }
+            })
         }
         return false;
     }

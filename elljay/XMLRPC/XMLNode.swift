@@ -8,20 +8,20 @@
 
 import Foundation
 
-class XMLNode : Printable {
-    let name : String
-    let attributes : [String:String]
-    let children : [XMLNode]
-    let innerText : String?
+public class XMLNode : Printable {
+    public let name : String
+    public let attributes : [String:String]
+    public let children : [XMLNode]
+    public let innerText : String?
     
-    init(name : String, attributes: [String:String] = [:], children c : [XMLNode] = [], text : String? = nil) {
+    public init(name : String, attributes: [String:String] = [:], children c : [XMLNode] = [], text : String? = nil) {
         self.name = name
         self.attributes = attributes
         self.children = c
         self.innerText = text
     }
     
-    var description : String {
+    public var description : String {
         let attributePairs : [String] = sortedMap(attributes) {key, value in
             return "\(key) = \"\(value)\""
         }
@@ -35,7 +35,7 @@ class XMLNode : Printable {
         return "<\(name)\(attributeText)>\(childrenString)\(text)</\(name)>"
     }
     
-    func child(name : String) -> XMLNode? {
+    public func child(name : String) -> XMLNode? {
         for child in self.children {
             if child.name == name {
                 return child
@@ -44,7 +44,7 @@ class XMLNode : Printable {
         return nil
     }
     
-    func select(tag : String, child : String, value : String) -> XMLNode? {
+    public func select(tag : String, child : String, value : String) -> XMLNode? {
         let matching = all(tag)
         for match in matching {
             if let foundChild = match.child(child) {
@@ -56,7 +56,7 @@ class XMLNode : Printable {
         return nil
     }
     
-    func all(tag : String) -> [XMLNode] {
+    public func all(tag : String) -> [XMLNode] {
         return self.children.filter {child in
             return child.name == tag
         }
@@ -64,15 +64,15 @@ class XMLNode : Printable {
 }
 
 
-class XMLDocument : Printable {
+public class XMLDocument : Printable {
     
     init(_ body : [XMLNode]) {
         self.body = body
     }
     
-    let body : [XMLNode]
+    public let body : [XMLNode]
     
-    var description : String {
+    public var description : String {
     let bodyString = reduce(body, "") {acc, cur in return acc + cur.description}
         return "<?xml version = \"1.0\" ?>\(bodyString)"
     }

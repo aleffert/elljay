@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class XMLParserState {
+private class XMLParserState {
     
     init(name : String, attributes : [String:String] = [:]) {
         self.name = name
@@ -22,22 +22,24 @@ class XMLParserState {
     var text : String?
 }
 
-enum XMLParserResult {
+public enum XMLParserResult {
     case Success(XMLDocument)
     case Failure(String)
 }
 
-class XMLParser: NSObject, NSXMLParserDelegate {
-    var stack : [XMLParserState] = []
-    var current : XMLParserState = XMLParserState(name: "root")
-    var failed : String?
+public class XMLParser: NSObject, NSXMLParserDelegate {
     
-    func parse(string : String) -> XMLParserResult {
-        let data = string.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!
+    private var stack : [XMLParserState] = []
+    private var current : XMLParserState = XMLParserState(name: "root")
+    private var failed : String?
+    
+    
+    public func parse(string : String) -> XMLParserResult {
+        let data = string.dataUsingEncoding(NSUTF8StringEncoding)!
         return parse(data)
     }
     
-    func parse(data : NSData) -> XMLParserResult {
+    public func parse(data : NSData) -> XMLParserResult {
         stack = []
         current = XMLParserState(name: "root")
         

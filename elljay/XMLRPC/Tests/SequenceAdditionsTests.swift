@@ -1,5 +1,5 @@
 //
-//  SequenceExtensionTests.swift
+//  SequenceAdditionsTests.swift
 //  elljay
 //
 //  Created by Akiva Leffert on 8/24/14.
@@ -10,7 +10,7 @@ import Foundation
 import XCTest
 
 class SequenceExtensionTests : XCTestCase {
-    func testEmpty() {
+    func testReduce1Empty() {
         let empty = []
         let result : AnyObject? = reduce1(empty) {acc, cur in
             return acc
@@ -18,7 +18,7 @@ class SequenceExtensionTests : XCTestCase {
         XCTAssertNil(result, "Reducing an empty collection should return nil")
     }
     
-    func testN() {
+    func testReduce1N() {
         let array = [1, 2, 3]
         let result = reduce1(array) {acc, cur in
             acc + cur
@@ -26,7 +26,7 @@ class SequenceExtensionTests : XCTestCase {
         XCTAssert(result == 6, "Reductions reduce")
     }
     
-    func testOrder() {
+    func testReduce1Order() {
         let array = ["a", "b", "c"]
         let result = reduce1(array) {acc, cur in
             acc + cur

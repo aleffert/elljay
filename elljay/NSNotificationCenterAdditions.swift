@@ -1,5 +1,5 @@
 //
-//  NSNotificationCenterExtensions.swift
+//  NSNotificationCenterAdditions.swift
 //  elljay
 //
 //  Created by Akiva Leffert on 8/14/14.
