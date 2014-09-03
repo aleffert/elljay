@@ -29,8 +29,6 @@ class XMLRPCServiceTests : XCTestCase {
     }
 
     func testRequestSuccess() {
-        // TODO stub response
-        
         let result = 100
         var success = false
         
@@ -84,7 +82,6 @@ class XMLRPCServiceTests : XCTestCase {
     }
     
     func testServerFault() {
-        
         let response = "<?xml version=\"1.0\"?>" +
             "<methodResponse><fault><value><struct>" +
             "<member><name>faultCode</name><value><int>4</int></value></member>" +
@@ -101,17 +98,14 @@ class XMLRPCServiceTests : XCTestCase {
         OHHTTPStubs.removeLastStub()
     }
     
-    func testParseError() {
-        
-        let response = "<?xml version=\"1.0\"?>" +
-            "<asfdasdf>"
+    func testParseError() {   
+        let response = "<?xml version=\"1.0\"?><asfdasdf>"
         OHHTTPStubs.stubRequestsPassingTest({ (request) -> Bool in
             return request.URL.host == self.testHost
             }, withStubResponse: {request in
                 return OHHTTPStubsResponse(data: response.dataUsingEncoding(NSUTF8StringEncoding), statusCode: 200, headers: [:])
         })
         
-        // TODO stub in proper response
         failingTest(message : "NetworkService should handle malformed responses", errorDomain : XMLRPCServiceErrorDomain, errorCode : XMLRPCServiceErrorMalformedResponseCode)
         
         OHHTTPStubs.removeLastStub()
