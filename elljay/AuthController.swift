@@ -66,7 +66,6 @@ class AuthController {
                 // challenge succeeded so attempt to login
                 self.environment.networkService.send(request: loginRequest) { (loginResponse, urlResponse, error) in
                     if let l = loginResponse {
-                        println("got response " + l.fullname)
                         completion(success : true, nil)
                     }
                     else {

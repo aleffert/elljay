@@ -138,11 +138,11 @@ public enum XMLRPCResult {
     case Response([XMLRPCParam])
     case Fault(NSError)
     case ParseError(String)
+
 }
 
 extension XMLRPCResult {
 
-    /// Error domain for XMLRPC faults
     static let errorDomain = "com.akivaleffert.elljay.XMLRPC"
     
     static func malformedResponseError() -> XMLRPCResult {
@@ -196,7 +196,7 @@ extension XMLRPCResult {
     }
 
     static func processParamNodes(nodes : [XMLNode]) -> [XMLRPCParam]? {
-        return mapOrFail(nodes, {s in self.process(param : s)})
+        return mapOrFail(nodes, {s in return self.process(param : s)})
     }
     
     static func from(paramNodes params : XMLNode) -> XMLRPCResult {
@@ -298,7 +298,7 @@ extension XMLRPCResult {
         let faultReasonMember = faultNodes.child("value")?.child("struct")?.select("member", child : "name", value : "faultString")
         let faultCode : Int? = faultCodeMember?.child("value")?.child("int")?.innerText.bind {s in return s.toInt()}
         let faultReason : String? = faultReasonMember?.child("value")?.child("string")?.innerText
-
+        println("code is \(faultCode) error is \(faultReason)")
         if faultCode != nil && faultReason != nil {
             let error = NSError(domain: errorDomain, code: faultCode!, userInfo: [NSLocalizedDescriptionKey : faultReason!])
             return Fault(error)
@@ -317,7 +317,6 @@ extension NSMutableURLRequest {
         let paramNode = XMLNode(name : "param", children : paramNodes)
         let paramsNode = XMLNode(name : "params", children : [paramNode])
         let node = XMLNode(name: "methodCall", children: [methodNameNode, paramsNode])
-        println("sending arguments " + node.description)
         
         return NSData(data: node.description.dataUsingEncoding(NSUTF8StringEncoding)!)
     }

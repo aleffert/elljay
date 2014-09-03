@@ -31,7 +31,6 @@ class Service {
     private func request<A>(#name : String, params : [String : XMLRPCParam], parser : XMLRPCParam -> A?) -> Request<A> {
         let request = NSMutableURLRequest(URL: url)
         let paramStruct = XMLRPCParam.XStruct(params)
-        println("params are " + paramStruct.toXMLNode().description)
         request.setupXMLRPCCall(path: "LJ.XMLRPC." + name, parameters: [paramStruct])
         return Request(urlRequest: request, parser: parser)
     }

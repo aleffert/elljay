@@ -17,13 +17,12 @@ extension NSURLSessionDataTask : NetworkTask {
 }
 
 
+// TODO change to a class variable once they're supported
+let XMLRPCServiceErrorDomain = "com.akivaleffert.elljay.NetworkService"
+let XMLRPCServiceErrorMalformedResponseCode = -100
 
 class XMLRPCService {
-    // TODO change to a class variable once they're supported
-    let errorDomain = "com.akivaleffert.elljay.NetworkService"
-
-    let errorMalformedResponseDescription = "The response from the server was malformed"
-    let errorMalformedResponseCode = -1
+    private let errorMalformedResponseDescription = "The response from the server was malformed"
 
     private let session : NSURLSession
     
@@ -37,12 +36,15 @@ class XMLRPCService {
     }
 
     private func malformedResponseError() -> NSError {
-        return NSError(domain : self.errorDomain, code : errorMalformedResponseCode, userInfo : [NSLocalizedDescriptionKey : errorMalformedResponseDescription])
+        return NSError(domain : XMLRPCServiceErrorDomain, code : XMLRPCServiceErrorMalformedResponseCode, userInfo : [NSLocalizedDescriptionKey : errorMalformedResponseDescription])
     }
 
     func send<A>(#request : Request<A>, completionHandler : (A?, NSURLResponse!, NSError?) -> Void) -> NetworkTask {
         let result = session.dataTaskWithRequest(request.urlRequest) {(result : NSData!, response : NSURLResponse!, error : NSError?) in
-            if let r = result {
+            if let e = error {
+                completionHandler(nil, response, e)
+            }
+            else if let r = result {
                 let params = XMLRPCResult.from(data: r)
                 switch(params) {
                     case let .Fault(error):

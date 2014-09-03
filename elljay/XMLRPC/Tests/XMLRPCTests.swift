@@ -132,6 +132,14 @@ class XMLRPCRequestTests: XCTestCase {
         let body = "<struct><member><name>foo></name><value><string>bar</string></value></member><member><name>quux</name><value><string>bar</string></value></member></struct>"
         responseParserTest(body : body)
     }
+    
+    func testRequestSetup() {
+        let expectedResult : NSString = "<methodCall><methodName>A.B.C</methodName><params><param><string>foo</string></param></params></methodCall>"
+        let request = NSMutableURLRequest(URL: NSURL(scheme: "http", host: "test", path: "/test"))
+        request.setupXMLRPCCall(path: "A.B.C", parameters: [XMLRPCParam.XString("foo")])
+        XCTAssertEqual(request.HTTPMethod, "POST", "XMLRPC calls are POST calls")
+        XCTAssertEqual(NSString(data: request.HTTPBody, encoding: NSUTF8StringEncoding), expectedResult, "Request should be packaged correctly")
+    }
 }
 
 
