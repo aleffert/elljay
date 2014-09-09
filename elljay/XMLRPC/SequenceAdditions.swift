@@ -32,28 +32,30 @@ public func reduce1<S : SequenceType>(sequence : S, combine: (S.Generator.Elemen
     }
 }
 
-public func mapOrFail<S : SequenceType, A>(sequence : S, f: S.Generator.Element -> A?) -> [A]? {
-    return reduce(sequence, []) {(acc : [A]?, cur) in
-        if let a = acc {
-            if let r = f(cur) {
-                var ma = a
-                ma.append(r)
-                return ma
+public func sortedMap<K : Comparable, V, Result> (dictionary : [K : V], combine : (K, V) -> Result) -> [Result] {
+    return sorted(dictionary.keys).map {key in
+        let value = dictionary[key]!
+        return combine(key, value)
+    }
+}
+
+extension Array {
+    func mapOrFail<A> (f: T -> A?) -> [A]? {
+        return reduce([]) {(acc : [A]?, cur) in
+            if let a = acc {
+                if let r = f(cur) {
+                    var ma = a
+                    ma.append(r)
+                    return ma
+                }
+                else {
+                    return nil
+                }
             }
             else {
                 return nil
             }
         }
-        else {
-            return nil
-        }
-    }
-}
-
-public func sortedMap<K : Comparable, V, Result> (dictionary : [K : V], combine : (K, V) -> Result) -> [Result] {
-    return sorted(dictionary.keys).map {key in
-        let value = dictionary[key]!
-        return combine(key, value)
     }
 }
 

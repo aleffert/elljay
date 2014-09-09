@@ -13,18 +13,19 @@ class XMLRPCServiceTests : XCTestCase {
     
     let testHost = "test"
     func runTestBody<A>(#parser: XMLRPCParam -> A, completion : (A?, NSURLResponse!, NSError?) -> Void) {
-        let service = XMLRPCService()
+        let service = NetworkService()
         let url = NSURLRequest(URL: NSURL(scheme: "http", host: testHost, path: "/test"))
-        let request : Request<A> = Request(urlRequest: url, parser: parser)
+        let request : Request<A> = Request(urlRequest: {r in url}, parser: parser)
         
         let expectation = expectationWithDescription("HTTP stubbed")
-        service.send(request: request, completionHandler: { (n, response, error) in
+        let sessionInfo = AuthSessionInfo(username: "test", password: "test", challenge: "test")
+        service.send(sessionInfo : sessionInfo, request: request, completionHandler: { (n, response, error) in
             // todo. check error info
             completion(n, response, error)
             expectation.fulfill()
         })
         
-        waitForExpectationsWithTimeout(1, handler:nil)
+        waitForExpectationsWithTimeout(2, handler:nil)
         
     }
 
@@ -76,7 +77,7 @@ class XMLRPCServiceTests : XCTestCase {
                 return OHHTTPStubsResponse(data: NSData(), statusCode: 404, headers: [:])
         })
 
-        failingTest(message: "NetworkService should handle failures", errorDomain :  XMLRPCServiceErrorDomain, errorCode : XMLRPCServiceErrorMalformedResponseCode)
+        failingTest(message: "NetworkService should handle failures", errorDomain :  NetworkServiceErrorDomain, errorCode : NetworkServiceErrorMalformedResponseCode)
         
         OHHTTPStubs.removeLastStub()
     }
@@ -106,7 +107,7 @@ class XMLRPCServiceTests : XCTestCase {
                 return OHHTTPStubsResponse(data: response.dataUsingEncoding(NSUTF8StringEncoding), statusCode: 200, headers: [:])
         })
         
-        failingTest(message : "NetworkService should handle malformed responses", errorDomain : XMLRPCServiceErrorDomain, errorCode : XMLRPCServiceErrorMalformedResponseCode)
+        failingTest(message : "NetworkService should handle malformed responses", errorDomain : NetworkServiceErrorDomain, errorCode : NetworkServiceErrorMalformedResponseCode)
         
         OHHTTPStubs.removeLastStub()
     }

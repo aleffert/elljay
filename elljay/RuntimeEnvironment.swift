@@ -10,16 +10,16 @@ import UIKit
 
 class RuntimeEnvironment:
     AuthSessionOwner,
-    XMLRPCServiceOwner,
+    NetworkServiceOwner,
     ServiceOwner
 {
     let authSession : AuthSession
-    let networkService : XMLRPCService
+    let networkService : NetworkService
     let service : Service
     
     init() {
         service = Service()
         authSession = AuthSession(keychain: KeychainService(serviceName: service.name))
-        networkService = XMLRPCService()
+        networkService = NetworkService()
     }
 }

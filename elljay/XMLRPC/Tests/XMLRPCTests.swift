@@ -138,7 +138,7 @@ class XMLRPCRequestTests: XCTestCase {
         let request = NSMutableURLRequest(URL: NSURL(scheme: "http", host: "test", path: "/test"))
         request.setupXMLRPCCall(path: "A.B.C", parameters: [XMLRPCParam.XString("foo")])
         XCTAssertEqual(request.HTTPMethod, "POST", "XMLRPC calls are POST calls")
-        XCTAssertEqual(NSString(data: request.HTTPBody, encoding: NSUTF8StringEncoding), expectedResult, "Request should be packaged correctly")
+        XCTAssertEqual(NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding), expectedResult, "Request should be packaged correctly")
     }
 }
 

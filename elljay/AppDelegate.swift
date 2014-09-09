@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window!.rootViewController = rootController
         if(!environment.authSession.hasCredentials) {
             let loginController = LoginViewController(authController: authController)
-            window?.rootViewController.presentViewController(loginController, animated: false, completion: nil)
+            window?.rootViewController?.presentViewController(loginController, animated: false, completion: nil)
         }
         return true
     }

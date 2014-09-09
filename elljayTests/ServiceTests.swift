@@ -26,10 +26,10 @@ class ServiceTests: XCTestCase {
         let epochDate = Int32(date.timeIntervalSince1970)
         
         let service = Service()
-        let request = service.getChallenge()
+        let (_, parser) = service.getChallenge()
         
         let challenge = "c0:1073113200:2831:60:2TCbFBYR72f2jhVDuowz:0fba728f5964ea54160a5b18317d92df"
-        let result = request.parser(XMLRPCParam.XStruct(
+        let result = parser(XMLRPCParam.XStruct(
             [
                 "challenge" : XMLRPCParam.XString(challenge),
                 "expire_time" : XMLRPCParam.XInt(epochDate),
@@ -45,13 +45,34 @@ class ServiceTests: XCTestCase {
     func testLoginParser() {
         let service = Service()
         let date = standardTestDate()
-        let request = service.login(AuthSessionInfo(username: "foo", password: "bar", challenge: "baz", challengeExpiration: date))
+        let request = service.login()
         
         let fullName = "Akiva Leffert"
         let result = request.parser(XMLRPCParam.XStruct([
             "fullname" : XMLRPCParam.XString(fullName)
             ]))
         XCTAssertEqual(result!.fullname, fullName)
+    }
+    
+    func testSyncItemsParser() {
+        let service = Service()
+        let date = standardTestDate()
+        let request = service.syncitems()
+        
+        let item = "Item"
+        let type = "Type"
+        let count : Int32 = 10
+        let total : Int32 = 20
+        let response : XMLRPCParam = XMLRPCParam.XStruct([
+            "syncitems" : XMLRPCParam.XArray([XMLRPCParam.XStruct(["item" : XMLRPCParam.XString(item), "type" : XMLRPCParam.XString(type)])]),
+            "count" : XMLRPCParam.XInt(count),
+            "total" : XMLRPCParam.XInt(total)
+            ])
+        let result : Service.SyncItemsResponse? = request.parser(response)
+        XCTAssert(result != nil)
+        XCTAssertEqual(result!.total, total)
+        XCTAssertEqual(result!.count, count)
+        XCTAssertEqual(result!.syncitems.count, 1)
     }
 
 }

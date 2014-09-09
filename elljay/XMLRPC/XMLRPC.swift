@@ -196,7 +196,7 @@ extension XMLRPCResult {
     }
 
     static func processParamNodes(nodes : [XMLNode]) -> [XMLRPCParam]? {
-        return mapOrFail(nodes, {s in return self.process(param : s)})
+        return nodes.mapOrFail {s in return self.process(param : s)}
     }
     
     static func from(paramNodes params : XMLNode) -> XMLRPCResult {
@@ -263,7 +263,7 @@ extension XMLRPCResult {
     static func process(#arrayNode : XMLNode) -> XMLRPCParam? {
         let children : [XMLNode]? = arrayNode.child("data")?.children
         let params : [XMLRPCParam]? = children.bind {cs in
-            let result : [XMLRPCParam]? = mapOrFail(cs) {c in return self.process(value : c)}
+            let result : [XMLRPCParam]? = cs.mapOrFail {c in return self.process(value : c)}
             return result
         }
         let result : XMLRPCParam? = params.bind {p in
@@ -287,7 +287,7 @@ extension XMLRPCResult {
 
     static func process(#structureNode : XMLNode) -> XMLRPCParam? {
         let children = structureNode.all("member")
-        return mapOrFail(children, {m in self.process(structMemberNode : m)})
+        return children.mapOrFail {m in self.process(structMemberNode : m)}
         .bind {(d : [(String, XMLRPCParam)]) in
             return XMLRPCParam.XStruct(Dictionary.fromArray(d))
         }
