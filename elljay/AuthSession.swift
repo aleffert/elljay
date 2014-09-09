@@ -12,28 +12,24 @@ import Security
 class AuthSessionInfo : NSCoding {
     let username : String
     let password : String
-    let challenge : String
     
-    init(username : String, password : String, challenge : String) {
+    init(username : String, password : String) {
         self.username = username
         self.password = password
-        self.challenge = challenge
     }
     
     required init(coder : NSCoder) {
         self.username = coder.decodeObjectForKey("username") as String
         self.password = coder.decodeObjectForKey("password") as String
-        self.challenge = coder.decodeObjectForKey("challenge") as String
     }
     
     func encodeWithCoder(coder: NSCoder) {
         coder.encodeObject(self.username, forKey:"username")
         coder.encodeObject(self.password, forKey:"password")
-        coder.encodeObject(self.challenge, forKey:"challenge")
     }
     
-    var challengeResponse : String! {
-        return ELJCrypto.md5OfString(self.challenge + ELJCrypto.md5OfString(self.password))
+    func challengeResponse(challenge : String) -> String {
+        return ELJCrypto.md5OfString(challenge + ELJCrypto.md5OfString(self.password))
     }
 }
 
@@ -64,12 +60,6 @@ class AuthSession {
     
     func store(storage : AuthSessionInfo) {
         self.storage = storage
-    }
-    
-    func update(#challenge : String) {
-        self.storage = self.storage.bind {(s : AuthSessionInfo) in
-            return AuthSessionInfo(username: s.username, password: s.password, challenge: challenge)
-        }
     }
     
     var hasCredentials : Bool {

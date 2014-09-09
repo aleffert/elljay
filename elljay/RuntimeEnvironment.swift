@@ -11,15 +11,15 @@ import UIKit
 class RuntimeEnvironment:
     AuthSessionOwner,
     NetworkServiceOwner,
-    ServiceOwner
+    LJServiceOwner
 {
     let authSession : AuthSession
     let networkService : NetworkService
-    let service : Service
+    let ljservice : LJService
     
     init() {
-        service = Service()
-        authSession = AuthSession(keychain: KeychainService(serviceName: service.name))
+        ljservice = LJService()
+        authSession = AuthSession(keychain: KeychainService(serviceName: ljservice.name))
         networkService = NetworkService()
     }
 }

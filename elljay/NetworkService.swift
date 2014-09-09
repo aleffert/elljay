@@ -41,7 +41,7 @@ class NetworkService {
     
     convenience init() {
         let session = NSURLSession.sharedSession()
-        let challengeGenerator = Service()
+        let challengeGenerator = LJService()
         self.init(session : session, challengeGenerator: challengeGenerator)
     }
 
@@ -55,31 +55,37 @@ class NetworkService {
     }
 
     private func sendRequest<A>(#urlRequest : NSURLRequest, parser : XMLRPCParam -> A?, completionHandler : (A? , NSURLResponse!, NSError?) -> Void) -> NetworkTask {
+        let wrappedCompletion = {(result, response, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                completionHandler(result, response, error)
+            }
+        }
         let result = session.dataTaskWithRequest(urlRequest) {(result : NSData!, response : NSURLResponse!, error : NSError?) in
             if let e = error {
-                completionHandler(nil, response, e)
+                wrappedCompletion(nil, response, e)
             }
             else if let r = result {
+                println("result is " + NSString(data:r, encoding:NSUTF8StringEncoding))
                 let params = XMLRPCResult.from(data: r)
                 switch(params) {
                 case let .Fault(error):
-                    completionHandler(nil, response, error)
+                    wrappedCompletion(nil, response, error)
                 case let .Response(params):
                     if countElements(params) > 0 {
                         let parsed = parser(params[0])
                         let error : NSError? = parsed == nil ? nil : self.malformedResponseError()
-                        completionHandler(parsed, response, error)
+                        wrappedCompletion(parsed, response, error)
                     }
                     else {
-                        completionHandler(nil, response, error)
+                        wrappedCompletion(nil, response, error)
                     }
                 case let .ParseError(e):
                     let error = self.malformedResponseError()
-                    completionHandler(nil, response, error)
+                    wrappedCompletion(nil, response, error)
                 }
             }
             else {
-                completionHandler(nil, response, error)
+                wrappedCompletion(nil, response, error)
             }
         }
         
@@ -92,8 +98,7 @@ class NetworkService {
         var groupTask : ChallengeRequestTask? = nil
         let task = sendRequest(urlRequest: challengeRequest, parser: parser) {[weak groupTask] (response, urlResponse, error) -> Void in
             if let c = response {
-                let session = AuthSessionInfo(username: sessionInfo.username, password: sessionInfo.password, challenge: c.challenge)
-                let urlRequest = request.urlRequest(sessionInfo)
+                let urlRequest = request.urlRequest(sessionInfo: sessionInfo, challenge: c.challenge)
                 groupTask?.currentTask = self.sendRequest(urlRequest : urlRequest, request.parser, completionHandler)
             }
             else {

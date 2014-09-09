@@ -18,14 +18,14 @@ class XMLRPCServiceTests : XCTestCase {
         let request : Request<A> = Request(urlRequest: {r in url}, parser: parser)
         
         let expectation = expectationWithDescription("HTTP stubbed")
-        let sessionInfo = AuthSessionInfo(username: "test", password: "test", challenge: "test")
+        let sessionInfo = AuthSessionInfo(username: "test", password: "test")
         service.send(sessionInfo : sessionInfo, request: request, completionHandler: { (n, response, error) in
             // todo. check error info
             completion(n, response, error)
             expectation.fulfill()
         })
         
-        waitForExpectationsWithTimeout(2, handler:nil)
+        waitForExpectationsWithTimeout(5, handler:nil)
         
     }
 

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 struct Request<Result> {
-    let urlRequest : AuthSessionInfo -> NSURLRequest
+    let urlRequest : (sessionInfo : AuthSessionInfo, challenge : String) -> NSURLRequest
     let parser : XMLRPCParam -> Result?
 }
 
@@ -21,18 +21,30 @@ private extension Int32 {
     }
 }
 
-private extension NSDate {
+struct DateUtils {
     
-    private func elljayStandardTimeZone() -> NSTimeZone {
+    static private func standardTimeZone() -> NSTimeZone {
         // TODO figure this out. I'm hoping it's GMT
         return NSTimeZone(forSecondsFromGMT: 0)
     }
     
-    func elljayStandardDateString() -> NSString {
+    static private var standardFormat : NSString {
+        return "yyyy-MM-dd HH:mm:ss"
+    }
+    
+    static private var standardFormatter : NSDateFormatter {
         let formatter = NSDateFormatter()
-        formatter.timeZone = elljayStandardTimeZone()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        return formatter.stringFromDate(self)
+            formatter.timeZone = standardTimeZone()
+            formatter.dateFormat = standardFormat
+            return formatter
+    }
+    
+    static func stringFromDate(date : NSDate) -> String {
+        return standardFormatter.stringFromDate(date)
+    }
+    
+    static func dateFromString(string : String) -> NSDate? {
+        return standardFormatter.dateFromString(string)
     }
 }
 
@@ -46,7 +58,9 @@ protocol ChallengeRequestable {
     func getChallenge() -> (NSURLRequest, XMLRPCParam -> GetChallengeResponse?)
 }
 
-class Service : ChallengeRequestable {
+private let LJServiceVersion : Int32 = 1
+
+class LJService : ChallengeRequestable {
     let url = NSURL(scheme: "https", host: "livejournal.com", path: "/interface/xmlrpc")
     let name = "LiveJournal!"
 
@@ -62,12 +76,12 @@ class Service : ChallengeRequestable {
     }
 
     private func authenticatedRequest<A>(#name : String, params : [String : XMLRPCParam], parser : XMLRPCParam -> A?) -> Request<A> {
-        let generator : AuthSessionInfo -> NSURLRequest = {sessionInfo in
+        let generator : (sessionInfo : AuthSessionInfo, challenge : String) -> NSURLRequest = {(sessionInfo, challenge) in
             var finalParams = params
-            finalParams["ver"] = XMLRPCParam.XInt(1)
+            finalParams["ver"] = XMLRPCParam.XInt(LJServiceVersion)
             finalParams["username"] = XMLRPCParam.XString(sessionInfo.username)
-            finalParams["auth_challenge"] = XMLRPCParam.XString(sessionInfo.challenge)
-            finalParams["auth_response"] = XMLRPCParam.XString(sessionInfo.challengeResponse)
+            finalParams["auth_challenge"] = XMLRPCParam.XString(challenge)
+            finalParams["auth_response"] = XMLRPCParam.XString(sessionInfo.challengeResponse(challenge))
             finalParams["auth_method"] = XMLRPCParam.XString("challenge")
             
             return self.urlRequest(name: name, params: finalParams)
@@ -111,10 +125,18 @@ class Service : ChallengeRequestable {
     enum SyncAction {
         case Create
         case Update
+        
+        static func from(#string : String) -> SyncAction? {
+            switch(string) {
+            case "create": return .Create
+            case "update" : return .Update
+            default: return nil
+            }
+        }
     }
     
     struct SyncItem {
-        let type : String
+        let action : SyncAction
         let item : String
         let time : NSDate
     }
@@ -123,6 +145,7 @@ class Service : ChallengeRequestable {
         let syncitems : [SyncItem]
         let count : Int32
         let total : Int32
+
     }
     
     func syncitems(lastSync : NSDate? = nil) -> Request<SyncItemsResponse> {
@@ -133,21 +156,23 @@ class Service : ChallengeRequestable {
             let syncItemsBody = response?["syncitems"]?.arrayBody()
             let syncitems : [SyncItem]? = syncItemsBody?.mapOrFail{p in
                 let body = p.structBody()?
-                let type = body?["type"]?.stringBody()
+                println("body is \(body)")
+                let action = body?["action"]?.stringBody().bind{s in SyncAction.from(string: s)}
                 let item = body?["item"]?.stringBody()
-                if(item == nil || type == nil) {
+                let time : NSDate? = body?["time"]?.stringBody().bind{d in return DateUtils.standardFormatter.dateFromString(d)}
+                if(item == nil || action == nil || time == nil) {
                     return nil
                 }
-                return SyncItem(type: type!, item: item!, time: NSDate())
+                return SyncItem(action: action!, item: item!, time: time!)
             }
-            if total == nil || count == nil || syncitems == nil{
+            if total == nil || count == nil || syncitems == nil {
                 return nil
             }
             return SyncItemsResponse(syncitems: syncitems!, count: count!, total: total!)
         }
         var params : [String : XMLRPCParam] = [:]
         if let d = lastSync {
-            params["lastsync"] = XMLRPCParam.XString(d.elljayStandardDateString())
+            params["lastsync"] = XMLRPCParam.XString(DateUtils.stringFromDate(d))
         }
         
         return authenticatedRequest(name: "syncitems", params : params, parser : parser)
@@ -156,6 +181,6 @@ class Service : ChallengeRequestable {
 }
 
 
-protocol ServiceOwner {
-    var service : Service {get}
+protocol LJServiceOwner {
+    var ljservice : LJService {get}
 }

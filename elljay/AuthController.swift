@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias AuthControllerEnvironment = protocol<AuthSessionOwner, NetworkServiceOwner, ServiceOwner>
+typealias AuthControllerEnvironment = protocol<AuthSessionOwner, NetworkServiceOwner, LJServiceOwner>
 
 // todo make a class variable
 let AuthControllerBadCredentialsNotification = "AuthControllerBadCredentialsNotification"
@@ -31,20 +31,21 @@ class AuthController {
     }
     
     func attemptLogin(username : String, password : String, completion : (success : Bool, NSError?) -> Void) {
-        let loginRequest = self.environment.service.login()
         // challenge succeeded so attempt to login
-        let sessionInfo = AuthSessionInfo(username: username, password: password, challenge: "")
+        let sessionInfo = AuthSessionInfo(username: username, password: password)
         
-        self.environment.networkService.send(sessionInfo: sessionInfo, request: loginRequest) { (loginResponse, urlResponse, error) in
-            if let l = loginResponse {
-                completion(success : true, nil)
-            }
-            else {
-                completion(success : false, error)
-            }
-        }
+//        let loginRequest = self.environment.service.login()
+//        self.environment.networkService.send(sessionInfo: sessionInfo, request: loginRequest) { (loginResponse, urlResponse, error) in
+//            if let l = loginResponse {
+//                println("name is " + l.fullname)
+//                completion(success : true, nil)
+//            }
+//            else {
+//                completion(success : false, error)
+//            }
+//        }
         
-        let syncRequest = self.environment.service.syncitems()
+        let syncRequest = self.environment.ljservice.syncitems()
         self.environment.networkService.send(sessionInfo: sessionInfo, request: syncRequest) { (syncResponse, urlResponse, error) in
             println("countItems is \(syncResponse?.count)")
             println("totalItems is \(syncResponse?.total)")

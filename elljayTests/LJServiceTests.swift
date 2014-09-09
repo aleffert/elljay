@@ -25,7 +25,7 @@ class ServiceTests: XCTestCase {
         let date = standardTestDate()
         let epochDate = Int32(date.timeIntervalSince1970)
         
-        let service = Service()
+        let service = LJService()
         let (_, parser) = service.getChallenge()
         
         let challenge = "c0:1073113200:2831:60:2TCbFBYR72f2jhVDuowz:0fba728f5964ea54160a5b18317d92df"
@@ -43,7 +43,7 @@ class ServiceTests: XCTestCase {
     }
 
     func testLoginParser() {
-        let service = Service()
+        let service = LJService()
         let date = standardTestDate()
         let request = service.login()
         
@@ -55,7 +55,7 @@ class ServiceTests: XCTestCase {
     }
     
     func testSyncItemsParser() {
-        let service = Service()
+        let service = LJService()
         let date = standardTestDate()
         let request = service.syncitems()
         
@@ -64,11 +64,15 @@ class ServiceTests: XCTestCase {
         let count : Int32 = 10
         let total : Int32 = 20
         let response : XMLRPCParam = XMLRPCParam.XStruct([
-            "syncitems" : XMLRPCParam.XArray([XMLRPCParam.XStruct(["item" : XMLRPCParam.XString(item), "type" : XMLRPCParam.XString(type)])]),
+            "syncitems" : XMLRPCParam.XArray([
+                XMLRPCParam.XStruct([
+                    "item" : XMLRPCParam.XString(item),
+                    "action" : XMLRPCParam.XString("create"),
+                    "time" : XMLRPCParam.XString(DateUtils.stringFromDate(standardTestDate()))])]),
             "count" : XMLRPCParam.XInt(count),
             "total" : XMLRPCParam.XInt(total)
             ])
-        let result : Service.SyncItemsResponse? = request.parser(response)
+        let result : LJService.SyncItemsResponse? = request.parser(response)
         XCTAssert(result != nil)
         XCTAssertEqual(result!.total, total)
         XCTAssertEqual(result!.count, count)
