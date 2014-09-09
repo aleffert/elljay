@@ -65,7 +65,6 @@ class NetworkService {
                 wrappedCompletion(nil, response, e)
             }
             else if let r = result {
-                println("result is " + NSString(data:r, encoding:NSUTF8StringEncoding))
                 let params = XMLRPCResult.from(data: r)
                 switch(params) {
                 case let .Fault(error):

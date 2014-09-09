@@ -126,7 +126,7 @@ class LJService : ChallengeRequestable {
         case Create
         case Update
         
-        static func from(#string : String) -> SyncAction? {
+        private static func from(#string : String) -> SyncAction? {
             switch(string) {
             case "create": return .Create
             case "update" : return .Update
@@ -135,10 +135,47 @@ class LJService : ChallengeRequestable {
         }
     }
     
+    enum SyncType {
+        case Journal
+        case Comment
+        
+        private static func from(#string : String) -> SyncType? {
+            switch(string) {
+            case "C" : return .Comment
+            case "L" : return .Journal
+            default : return nil
+            }
+        }
+    }
+    
+    
     struct SyncItem {
         let action : SyncAction
-        let item : String
+        let item : (type : SyncType, index : Int32)
         let time : NSDate
+        
+        private static func from(#param : XMLRPCParam) -> SyncItem? {
+            let body = param.structBody()?
+            let action = body?["action"]?.stringBody().bind{s in SyncAction.from(string: s)}
+            let itemParam = body?["item"]?.stringBody()
+            let itemParts = itemParam.bind{i -> [String]? in
+                let components = (i as NSString).componentsSeparatedByString("-") as [String]
+                return components.count == 2 ? components : nil
+            }
+            let item : (type : SyncType, index : Int32)? = itemParts.bind {components in
+                return SyncType.from(string : components[0])
+                .bind {t in
+                    let index = (components[1] as NSString).intValue
+                    return (type : t, index : index)
+                }
+                
+            }
+            let time : NSDate? = body?["time"]?.stringBody().bind{d in return DateUtils.standardFormatter.dateFromString(d)}
+            if(item == nil || action == nil || time == nil) {
+                return nil
+            }
+            return SyncItem(action: action!, item: item!, time: time!)
+        }
     }
     
     struct SyncItemsResponse {
@@ -155,15 +192,7 @@ class LJService : ChallengeRequestable {
             let count = response?["count"]?.intBody()
             let syncItemsBody = response?["syncitems"]?.arrayBody()
             let syncitems : [SyncItem]? = syncItemsBody?.mapOrFail{p in
-                let body = p.structBody()?
-                println("body is \(body)")
-                let action = body?["action"]?.stringBody().bind{s in SyncAction.from(string: s)}
-                let item = body?["item"]?.stringBody()
-                let time : NSDate? = body?["time"]?.stringBody().bind{d in return DateUtils.standardFormatter.dateFromString(d)}
-                if(item == nil || action == nil || time == nil) {
-                    return nil
-                }
-                return SyncItem(action: action!, item: item!, time: time!)
+                return SyncItem.from(param : p)
             }
             if total == nil || count == nil || syncitems == nil {
                 return nil

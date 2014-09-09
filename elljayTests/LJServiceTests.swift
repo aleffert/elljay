@@ -59,8 +59,7 @@ class ServiceTests: XCTestCase {
         let date = standardTestDate()
         let request = service.syncitems()
         
-        let item = "Item"
-        let type = "Type"
+        let item = "L-100"
         let count : Int32 = 10
         let total : Int32 = 20
         let response : XMLRPCParam = XMLRPCParam.XStruct([
@@ -77,6 +76,9 @@ class ServiceTests: XCTestCase {
         XCTAssertEqual(result!.total, total)
         XCTAssertEqual(result!.count, count)
         XCTAssertEqual(result!.syncitems.count, 1)
+        XCTAssertEqual(result!.syncitems[0].action, LJService.SyncAction.Create)
+        XCTAssertEqual(result!.syncitems[0].item.type, LJService.SyncType.Journal)
+        XCTAssertEqual(result!.syncitems[0].item.index, 100)
     }
 
 }
