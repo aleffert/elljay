@@ -13,8 +13,20 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
                             
     @IBOutlet var window: UIWindow?
+    
+    func isRunningTests() -> Bool {
+        return NSClassFromString("XCTestCase") == nil
+    }
 
     func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool {
+        if(isRunningTests()) {
+            setup(launchOptions:launchOptions)
+        }
+        
+        return true
+    }
+    
+    func setup(#launchOptions : NSDictionary!) {
         let environment = RuntimeEnvironment()
         
         let authController = AuthController(environment: environment)
@@ -26,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let loginController = LoginViewController(authController: authController)
             window?.rootViewController?.presentViewController(loginController, animated: false, completion: nil)
         }
-        return true
+
     }
 
 }
