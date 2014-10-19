@@ -43,7 +43,7 @@ public class XMLParser: NSObject, NSXMLParserDelegate {
         stack = []
         current = XMLParserState(name: "root")
         
-        let parser = NSXMLParser(data : data)
+        let parser = NSXMLParser(data : data)!
         parser.delegate = self
         parser.parse()
         if let error = parser.parserError {

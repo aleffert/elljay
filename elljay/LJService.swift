@@ -61,7 +61,7 @@ protocol ChallengeRequestable {
 private let LJServiceVersion : Int32 = 1
 
 class LJService : ChallengeRequestable {
-    let url = NSURL(scheme: "https", host: "livejournal.com", path: "/interface/xmlrpc")
+    let url = NSURL(scheme: "https", host: "livejournal.com", path: "/interface/xmlrpc")!
     let name = "LiveJournal!"
 
     init() {
@@ -206,7 +206,33 @@ class LJService : ChallengeRequestable {
         
         return authenticatedRequest(name: "syncitems", params : params, parser : parser)
     }
+    
+    struct Friend {
+        let user : String
+        let name : String?
+    }
+    
+    struct GetFriendsResponse {
+        let friends : [Friend]
+    }
 
+    func getfriends() -> Request<GetFriendsResponse> {
+        let parser : XMLRPCParam -> GetFriendsResponse? = {x in
+            let response = x.structBody()
+            let friends : [Friend]? = response?["friends"]?.arrayBody()?.mapOrFail {b in
+                let user = b.structBody()?["username"]?.stringBody()
+                let name = b.structBody()?["fullname"]?.stringBody()
+                return user.map {
+                    return Friend(user : $0, name : name)
+                }
+            }
+            return friends.map {
+                GetFriendsResponse(friends : $0)
+            }
+        }
+        return authenticatedRequest(name: "getfriends", params: [:], parser: parser)
+    }
+    
 }
 
 

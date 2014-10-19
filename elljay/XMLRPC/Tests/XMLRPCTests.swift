@@ -52,7 +52,7 @@ class XMLRPCRequestTests: XCTestCase {
         components.hour = 14
         components.minute = 8
         components.second = 55
-        let calendar = NSCalendar(identifier: NSGregorianCalendar)
+        let calendar = NSCalendar(identifier: NSGregorianCalendar)!
         calendar.timeZone = NSCalendar.currentCalendar().timeZone
         let date = calendar.dateFromComponents(components)
         let dateNode = XMLRPCParam.XDateTime(date!)
@@ -135,10 +135,10 @@ class XMLRPCRequestTests: XCTestCase {
     
     func testRequestSetup() {
         let expectedResult : NSString = "<methodCall><methodName>A.B.C</methodName><params><param><string>foo</string></param></params></methodCall>"
-        let request = NSMutableURLRequest(URL: NSURL(scheme: "http", host: "test", path: "/test"))
+        let request = NSMutableURLRequest(URL: NSURL(scheme: "http", host: "test", path: "/test")!)
         request.setupXMLRPCCall(path: "A.B.C", parameters: [XMLRPCParam.XString("foo")])
         XCTAssertEqual(request.HTTPMethod, "POST", "XMLRPC calls are POST calls")
-        XCTAssertEqual(NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding), expectedResult, "Request should be packaged correctly")
+        XCTAssertEqual(NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)!, expectedResult, "Request should be packaged correctly")
     }
 }
 

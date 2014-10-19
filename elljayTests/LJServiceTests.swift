@@ -76,9 +76,26 @@ class ServiceTests: XCTestCase {
         XCTAssertEqual(result!.total, total)
         XCTAssertEqual(result!.count, count)
         XCTAssertEqual(result!.syncitems.count, 1)
-        XCTAssertEqual(result!.syncitems[0].action, LJService.SyncAction.Create)
-        XCTAssertEqual(result!.syncitems[0].item.type, LJService.SyncType.Journal)
-        XCTAssertEqual(result!.syncitems[0].item.index, 100)
+        let i = result!.syncitems[0]
+        XCTAssertEqual(i.action, LJService.SyncAction.Create)
+        XCTAssertEqual(i.item.type, LJService.SyncType.Journal)
+        XCTAssertEqual(i.item.index, 100 as Int32)
+    }
+
+    func testGetFriendsParser() {
+        let service = LJService()
+        let request = service.getfriends()
+        let total : Int32 = 2
+        
+        let response : XMLRPCParam = XMLRPCParam.XStruct([
+            "total" : XMLRPCParam.XInt(total),
+            "friend_1_name" : XMLRPCParam.XString("akiva"),
+            "friend_1_user" : XMLRPCParam.XString("aleffert"),
+            "friend_2_name" : XMLRPCParam.XString("avika"),
+            "friend_2_user" : XMLRPCParam.XString("treffel")
+        ])
+
+        let result = request.parser(response)
     }
 
 }

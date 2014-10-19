@@ -29,13 +29,13 @@ class KeychainService {
         
         // Delete any existing items
         var status = SecItemDelete(keychainQuery)
-        if(Int(status) != errSecSuccess && Int(status) != errSecItemNotFound) {
+        if(Int(status) != Int(errSecSuccess) && Int(status) != Int(errSecItemNotFound)) {
             return status
         }
         
         // Add the new keychain item
         status = SecItemAdd(keychainQuery, nil)
-        if(Int(status) != errSecSuccess) {
+        if(Int(status) != Int(errSecSuccess)) {
             return status
         }
         return nil

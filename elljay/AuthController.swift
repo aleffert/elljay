@@ -45,11 +45,17 @@ class AuthController {
 //            }
 //        }
         
-        let syncRequest = self.environment.ljservice.syncitems()
-        self.environment.networkService.send(sessionInfo: sessionInfo, request: syncRequest) { (syncResponse, urlResponse, error) in
-            println("countItems is \(syncResponse?.count)")
-            println("totalItems is \(syncResponse?.total)")
+        let friendsRequest = self.environment.ljservice.getfriends()
+        self.environment.networkService.send(sessionInfo: sessionInfo, request: friendsRequest) {
+             (friendsResponse, urlResponse, error) in
+            println("friends are \(friendsResponse)")
         }
+//
+//        let syncRequest = self.environment.ljservice.syncitems()
+//        self.environment.networkService.send(sessionInfo: sessionInfo, request: syncRequest) { (syncResponse, urlResponse, error) in
+//            println("countItems is \(syncResponse?.count)")
+//            println("totalItems is \(syncResponse?.total)")
+//        }
 
     }
 

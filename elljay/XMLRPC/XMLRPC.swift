@@ -76,6 +76,9 @@ extension XMLRPCParam {
     func stringBody() -> String? {
         switch(self) {
             case let XString(s): return s
+            // Some service formatters are dumb and will convert things that
+            // look like ints to ints even when they're just strings
+            case let XInt(i): return toString(i)
             default: return nil
         }
     }
@@ -247,7 +250,7 @@ extension XMLRPCResult {
             }
         case "base64":
             let data = NSData(base64EncodedString: inner, options: NSDataBase64DecodingOptions())
-            return XMLRPCParam.XData(data)
+            return data.map {XMLRPCParam.XData($0) }
         case "dateTime.iso8601":
             let date = NSDate.fromISO8601String(inner)
             return date == nil ? nil : XMLRPCParam.XDateTime(date!)

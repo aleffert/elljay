@@ -65,7 +65,9 @@ class NetworkService {
                 wrappedCompletion(nil, response, e)
             }
             else if let r = result {
-                let params = XMLRPCResult.from(data: r)
+                // This data copy should be unnecessary, but something appears to be crashing
+                // down in the libraries
+                let params = XMLRPCResult.from(data:NSMutableData(data:r))
                 switch(params) {
                 case let .Fault(error):
                     wrappedCompletion(nil, response, error)

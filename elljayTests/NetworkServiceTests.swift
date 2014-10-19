@@ -14,7 +14,7 @@ class XMLRPCServiceTests : XCTestCase {
     let testHost = "test"
     func runTestBody<A>(#parser: XMLRPCParam -> A, completion : (A?, NSURLResponse!, NSError?) -> Void) {
         let service = NetworkService()
-        let url = NSURLRequest(URL: NSURL(scheme: "http", host: testHost, path: "/test"))
+        let url = NSURLRequest(URL: NSURL(scheme: "http", host: testHost, path: "/test")!)
         let request : Request<A> = Request(urlRequest: {r in url}, parser: parser)
         
         let expectation = expectationWithDescription("HTTP stubbed")

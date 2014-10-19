@@ -13,7 +13,7 @@ class RuntimeEnvironment:
     NetworkServiceOwner,
     LJServiceOwner
 {
-    let authSession : AuthSession
+    private(set) var authSession : AuthSession // this really wants to be a let, but it seems to trigger a compiler bug
     let networkService : NetworkService
     let ljservice : LJService
     

@@ -47,7 +47,7 @@ class AuthSession {
         case let .Success(storageData):
             storage = NSKeyedUnarchiver.unarchiveObjectWithData(storageData) as? AuthSessionInfo
         case let .Failure(err):
-            assert(Int(err) == errSecItemNotFound, "Unexpected keychain error: \(err)")
+            assert(Int(err) == Int(errSecItemNotFound), "Unexpected keychain error: \(Int32(err))")
             break
         }
     }
