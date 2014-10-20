@@ -28,19 +28,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func setup(#launchOptions : [NSObject : AnyObject]?) {
         let environment = RuntimeEnvironment()
-        let authSession = environment.authSession
         
-        let authController = AuthController(environment: environment)
+        let rootController = RootViewController(environment: environment)
         
-        let rootController = UIViewController(nibName: nil, bundle: nil)
         rootController.beginAppearanceTransition(true, animated: false)
         window!.rootViewController = rootController
-        let hasCredentials = authSession.hasCredentials
-        if !hasCredentials {
-            let loginController = LoginViewController(authController: authController)
-            window?.rootViewController?.presentViewController(loginController, animated: false, completion: nil)
-        }
-
     }
 
 }

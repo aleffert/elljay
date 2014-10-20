@@ -9,7 +9,7 @@
 import UIKit
 import Security
 
-class AuthSessionInfo : NSCoding {
+class AuthSessionInfo : NSObject, NSCoding {
     let username : String
     let password : String
     
@@ -60,6 +60,11 @@ class AuthSession {
     
     func store(storage : AuthSessionInfo) {
         self.storage = storage
+    }
+
+    func clear() {
+        keychain.clear()
+        self.storage = nil
     }
     
     var hasCredentials : Bool {

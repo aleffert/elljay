@@ -31,32 +31,24 @@ class AuthController {
     }
     
     func attemptLogin(username : String, password : String, completion : (success : Bool, NSError?) -> Void) {
-        // challenge succeeded so attempt to login
         let sessionInfo = AuthSessionInfo(username: username, password: password)
         
-//        let loginRequest = self.environment.service.login()
-//        self.environment.networkService.send(sessionInfo: sessionInfo, request: loginRequest) { (loginResponse, urlResponse, error) in
-//            if let l = loginResponse {
-//                println("name is " + l.fullname)
-//                completion(success : true, nil)
-//            }
-//            else {
-//                completion(success : false, error)
-//            }
-//        }
-        
-        let friendsRequest = self.environment.ljservice.getfriends()
-        self.environment.networkService.send(sessionInfo: sessionInfo, request: friendsRequest) {
-             (friendsResponse, urlResponse, error) in
-            println("friends are \(friendsResponse)")
+        let loginRequest = self.environment.ljservice.login()
+        self.environment.networkService.send(sessionInfo: sessionInfo, request: loginRequest) { (loginResponse, urlResponse, error) in
+            if let l = loginResponse {
+                self.environment.authSession.store(sessionInfo)
+                self.environment.authSession.saveToKeychain()
+                completion(success : true, nil)
+            }
+            else {
+                completion(success : false, error)
+            }
         }
-//
-//        let syncRequest = self.environment.ljservice.syncitems()
-//        self.environment.networkService.send(sessionInfo: sessionInfo, request: syncRequest) { (syncResponse, urlResponse, error) in
-//            println("countItems is \(syncResponse?.count)")
-//            println("totalItems is \(syncResponse?.total)")
-//        }
 
+    }
+    
+    func signOut() {
+        self.environment.authSession.clear()
     }
 
 }

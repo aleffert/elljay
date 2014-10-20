@@ -14,28 +14,43 @@ typealias KeychainSaveResult = OSStatus?
 class KeychainService {
     
     let serviceName : String
+    let account : String
     
-    init(serviceName : String) {
+    init(serviceName : String, account : String = "main") {
         self.serviceName = serviceName;
+        self.account = account
+    }
+
+    func clear() -> OSStatus {
+        let keychainQuery =  NSMutableDictionary(dictionary : [
+            kSecClass : kSecClassGenericPassword,
+            kSecAttrService : serviceName,
+            kSecAttrAccount : account,
+            ]) as CFDictionaryRef
+
+        let status = SecItemDelete(keychainQuery)
+        if(status != errSecSuccess && status != errSecItemNotFound) {
+            return status
+        }
+        return errSecSuccess
     }
 
     func save(data: NSData) -> KeychainSaveResult {
-        // Instantiate a new default keychain query
-        var keychainQuery = NSMutableDictionary(dictionary : [
-            kSecClass : kSecClassGenericPassword,
-            kSecAttrService : serviceName,
-            kSecValueData : data
-        ]) as CFDictionaryRef
-        
-        // Delete any existing items
-        var status = SecItemDelete(keychainQuery)
-        if(Int(status) != Int(errSecSuccess) && Int(status) != Int(errSecItemNotFound)) {
+        var status = clear()
+        if status != errSecSuccess {
             return status
         }
         
+        let keychainQuery =  NSMutableDictionary(dictionary : [
+            kSecClass : kSecClassGenericPassword,
+            kSecAttrService : serviceName,
+            kSecValueData : data,
+            kSecAttrAccount : account,
+            ]) as CFDictionaryRef
+        
         // Add the new keychain item
         status = SecItemAdd(keychainQuery, nil)
-        if(Int(status) != Int(errSecSuccess)) {
+        if(status != errSecSuccess) {
             return status
         }
         return nil
@@ -52,6 +67,7 @@ class KeychainService {
             kSecClass : kSecClassGenericPassword,
             kSecAttrService : serviceName,
             kSecReturnData : kCFBooleanTrue,
+            kSecAttrAccount : account,
             kSecMatchLimit : kSecMatchLimitOne
             ]) as CFDictionaryRef
         

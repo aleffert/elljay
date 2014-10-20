@@ -1,1813 +1,732 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>archiveVersion</key>
-	<string>1</string>
-	<key>classes</key>
-	<dict/>
-	<key>objectVersion</key>
-	<string>46</string>
-	<key>objects</key>
-	<dict>
-		<key>1D9C661C6AFABE00C82E3D7C</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>name</key>
-			<string>Pods-elljayTests.release.xcconfig</string>
-			<key>path</key>
-			<string>Pods/Target Support Files/Pods-elljayTests/Pods-elljayTests.release.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68D4432198C6A8820D859635</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>7376535BD071C076E336F497</string>
-				<string>1D9C661C6AFABE00C82E3D7C</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Pods</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>6C059C82711E4F4C83D65910</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Check Pods Manifest.lock</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>diff "${PODS_ROOT}/../Podfile.lock" "${PODS_ROOT}/Manifest.lock" &gt; /dev/null
-if [[ $? != 0 ]] ; then
-    cat &lt;&lt; EOM
-error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.
-EOM
-    exit 1
-fi
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-		<key>7376535BD071C076E336F497</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>name</key>
-			<string>Pods-elljayTests.debug.xcconfig</string>
-			<key>path</key>
-			<string>Pods/Target Support Files/Pods-elljayTests/Pods-elljayTests.debug.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77171FA619AECCA1003EEAD6</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>77D0190019B542690024DBED</string>
-				<string>77D0190119B542690024DBED</string>
-				<string>77D0190219B542690024DBED</string>
-				<string>77D0190319B542690024DBED</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>XMLRPCTests</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>772553B1199D603500E3D7B2</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>LJService.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>772553B2199D603500E3D7B2</key>
-		<dict>
-			<key>fileRef</key>
-			<string>772553B1199D603500E3D7B2</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>772553B3199D607C00E3D7B2</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>AuthSession.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>772553B4199D607C00E3D7B2</key>
-		<dict>
-			<key>fileRef</key>
-			<string>772553B3199D607C00E3D7B2</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>772553B5199D656600E3D7B2</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>772553B6199D656600E3D7B2</string>
-			</array>
-			<key>isa</key>
-			<string>PBXVariantGroup</string>
-			<key>name</key>
-			<string>Application.xib</string>
-			<key>path</key>
-			<string>..</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>772553B6199D656600E3D7B2</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>file.xib</string>
-			<key>name</key>
-			<string>Base</string>
-			<key>path</key>
-			<string>elljay/Base.lproj/Application.xib</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>772553B7199D656600E3D7B2</key>
-		<dict>
-			<key>fileRef</key>
-			<string>772553B5199D656600E3D7B2</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>772553B8199D657200E3D7B2</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>772553B5199D656600E3D7B2</string>
-				<string>77FA1A2C199D5CB80080163D</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>XIB</string>
-			<key>path</key>
-			<string>elljay</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>773E981119AAEA2600AC0B4B</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>name</key>
-			<string>XMLRPC.swift</string>
-			<key>path</key>
-			<string>XMLRPC/XMLRPC.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>773E981219AAEA2600AC0B4B</key>
-		<dict>
-			<key>fileRef</key>
-			<string>773E981119AAEA2600AC0B4B</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>775071AD19B384A100B0B142</key>
-		<dict>
-			<key>fileRef</key>
-			<string>772553B1199D603500E3D7B2</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>775071AE19B384BA00B0B142</key>
-		<dict>
-			<key>fileRef</key>
-			<string>773E981119AAEA2600AC0B4B</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>775071AF19B384D600B0B142</key>
-		<dict>
-			<key>fileRef</key>
-			<string>778C039719AAD34700B06D17</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>775071B019B384D800B0B142</key>
-		<dict>
-			<key>fileRef</key>
-			<string>77BE0E3019AAB93100A9E00B</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>775071B119B384DB00B0B142</key>
-		<dict>
-			<key>fileRef</key>
-			<string>7757D78319AB753E006E1AF1</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>775071B219B385B100B0B142</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>AuthController.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>775071B319B385B100B0B142</key>
-		<dict>
-			<key>fileRef</key>
-			<string>775071B219B385B100B0B142</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>775071B419B42CCB00B0B142</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>RuntimeEnvironment.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>775071B519B42CCB00B0B142</key>
-		<dict>
-			<key>fileRef</key>
-			<string>775071B419B42CCB00B0B142</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>7757D78319AB753E006E1AF1</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>name</key>
-			<string>XMLParser.swift</string>
-			<key>path</key>
-			<string>XMLRPC/XMLParser.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>7757D78419AB753E006E1AF1</key>
-		<dict>
-			<key>fileRef</key>
-			<string>7757D78319AB753E006E1AF1</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>775FE2FE19BE7E9400F84067</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>name</key>
-			<string>NetworkServiceTests.swift</string>
-			<key>path</key>
-			<string>elljayTests/NetworkServiceTests.swift</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-		</dict>
-		<key>775FE30019BE7E9400F84067</key>
-		<dict>
-			<key>fileRef</key>
-			<string>775FE2FE19BE7E9400F84067</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>775FE30119BE7EAC00F84067</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>NetworkService.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>775FE30219BE7EAC00F84067</key>
-		<dict>
-			<key>fileRef</key>
-			<string>775FE30119BE7EAC00F84067</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>775FE30319BE7EAC00F84067</key>
-		<dict>
-			<key>fileRef</key>
-			<string>775FE30119BE7EAC00F84067</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>778C039719AAD34700B06D17</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>name</key>
-			<string>SequenceAdditions.swift</string>
-			<key>path</key>
-			<string>XMLRPC/SequenceAdditions.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>778C039819AAD34700B06D17</key>
-		<dict>
-			<key>fileRef</key>
-			<string>778C039719AAD34700B06D17</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>77BE0E3019AAB93100A9E00B</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>name</key>
-			<string>XMLNode.swift</string>
-			<key>path</key>
-			<string>XMLRPC/XMLNode.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77BE0E3119AAB93100A9E00B</key>
-		<dict>
-			<key>fileRef</key>
-			<string>77BE0E3019AAB93100A9E00B</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>77BE0E3219AAB93400A9E00B</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>77BE0E3019AAB93100A9E00B</string>
-				<string>778C039719AAD34700B06D17</string>
-				<string>7757D78319AB753E006E1AF1</string>
-				<string>773E981119AAEA2600AC0B4B</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>XMLRPC</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77BE0E3319AAB99700A9E00B</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>77FA19FD199D5C160080163D</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>77FA1A04199D5C160080163D</string>
-			<key>remoteInfo</key>
-			<string>elljay</string>
-		</dict>
-		<key>77BE0E3419AAB99700A9E00B</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>target</key>
-			<string>77FA1A04199D5C160080163D</string>
-			<key>targetProxy</key>
-			<string>77BE0E3319AAB99700A9E00B</string>
-		</dict>
-		<key>77C72532199D6B8C002B6A25</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>elljay-Bridging-Header.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77C72533199D6B8C002B6A25</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>NSObject+ELJDeallocActions.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77C72534199D6B8C002B6A25</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>NSObject+ELJDeallocActions.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77C72535199D6B8D002B6A25</key>
-		<dict>
-			<key>fileRef</key>
-			<string>77C72534199D6B8C002B6A25</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>77C72536199D6C51002B6A25</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>NSNotificationCenterAdditions.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77C72537199D6C51002B6A25</key>
-		<dict>
-			<key>fileRef</key>
-			<string>77C72536199D6C51002B6A25</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>77D0190019B542690024DBED</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>name</key>
-			<string>SequenceAdditionsTests.swift</string>
-			<key>path</key>
-			<string>elljay/XMLRPC/Tests/SequenceAdditionsTests.swift</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-		</dict>
-		<key>77D0190119B542690024DBED</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>name</key>
-			<string>XMLNodeTests.swift</string>
-			<key>path</key>
-			<string>elljay/XMLRPC/Tests/XMLNodeTests.swift</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-		</dict>
-		<key>77D0190219B542690024DBED</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>name</key>
-			<string>XMLParserTests.swift</string>
-			<key>path</key>
-			<string>elljay/XMLRPC/Tests/XMLParserTests.swift</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-		</dict>
-		<key>77D0190319B542690024DBED</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>name</key>
-			<string>XMLRPCTests.swift</string>
-			<key>path</key>
-			<string>elljay/XMLRPC/Tests/XMLRPCTests.swift</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-		</dict>
-		<key>77D0190419B542690024DBED</key>
-		<dict>
-			<key>fileRef</key>
-			<string>77D0190019B542690024DBED</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>77D0190519B542690024DBED</key>
-		<dict>
-			<key>fileRef</key>
-			<string>77D0190119B542690024DBED</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>77D0190619B542690024DBED</key>
-		<dict>
-			<key>fileRef</key>
-			<string>77D0190219B542690024DBED</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>77D0190719B542690024DBED</key>
-		<dict>
-			<key>fileRef</key>
-			<string>77D0190319B542690024DBED</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>77D0190F19B542870024DBED</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>NSDateOrderingTests.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77D0191019B542870024DBED</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>LJServiceTests.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77D0191219B542870024DBED</key>
-		<dict>
-			<key>fileRef</key>
-			<string>77D0190F19B542870024DBED</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>77D0191319B542870024DBED</key>
-		<dict>
-			<key>fileRef</key>
-			<string>77D0191019B542870024DBED</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>77D0191B19B54CAA0024DBED</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>NSErrorAdditions.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77D0191C19B54CAA0024DBED</key>
-		<dict>
-			<key>fileRef</key>
-			<string>77D0191B19B54CAA0024DBED</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>77D0191D19B54CB40024DBED</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>77DCD2F519F30AE000354B28</string>
-				<string>77C72536199D6C51002B6A25</string>
-				<string>77DDF77619B21306004DE62B</string>
-				<string>77D0191B19B54CAA0024DBED</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Library Additions</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77D0192419B554E90024DBED</key>
-		<dict>
-			<key>fileRef</key>
-			<string>772553B3199D607C00E3D7B2</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>77D0192519B554F40024DBED</key>
-		<dict>
-			<key>fileRef</key>
-			<string>77DDF77219B17DF2004DE62B</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>77D0192619B555130024DBED</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>77FA19FD199D5C160080163D</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>77FA1A04199D5C160080163D</string>
-			<key>remoteInfo</key>
-			<string>elljay</string>
-		</dict>
-		<key>77D0192719B555130024DBED</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>target</key>
-			<string>77FA1A04199D5C160080163D</string>
-			<key>targetProxy</key>
-			<string>77D0192619B555130024DBED</string>
-		</dict>
-		<key>77D0192919B555560024DBED</key>
-		<dict>
-			<key>fileRef</key>
-			<string>77C72534199D6B8C002B6A25</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>77D0192A19B555720024DBED</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>ELJCrypto.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77D0192B19B555720024DBED</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>ELJCrypto.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77D0192C19B555720024DBED</key>
-		<dict>
-			<key>fileRef</key>
-			<string>77D0192B19B555720024DBED</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>77D0192D19B555720024DBED</key>
-		<dict>
-			<key>fileRef</key>
-			<string>77D0192B19B555720024DBED</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>77D0192E19B555A60024DBED</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>elljayTests-Bridging-Header.h</string>
-			<key>path</key>
-			<string>elljayTests/elljayTests-Bridging-Header.h</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-		</dict>
-		<key>77D0192F19B556380024DBED</key>
-		<dict>
-			<key>fileRef</key>
-			<string>77DDF77619B21306004DE62B</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>77D0193019B55AEA0024DBED</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>CFNetwork.framework</string>
-			<key>path</key>
-			<string>System/Library/Frameworks/CFNetwork.framework</string>
-			<key>sourceTree</key>
-			<string>SDKROOT</string>
-		</dict>
-		<key>77D0193119B55AEA0024DBED</key>
-		<dict>
-			<key>fileRef</key>
-			<string>77D0193019B55AEA0024DBED</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>77D0193219B55B060024DBED</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>77D0193019B55AEA0024DBED</string>
-				<string>77DDF77019B177D2004DE62B</string>
-				<string>C344C415E92E4AEDA45E47AE</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77D0193319B55B1C0024DBED</key>
-		<dict>
-			<key>fileRef</key>
-			<string>77DDF77019B177D2004DE62B</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>77D0193419B55B220024DBED</key>
-		<dict>
-			<key>fileRef</key>
-			<string>77D0193019B55AEA0024DBED</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>77DCD2F519F30AE000354B28</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>ArrayAdditions.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77DCD2F619F30AE000354B28</key>
-		<dict>
-			<key>fileRef</key>
-			<string>77DCD2F519F30AE000354B28</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>77DCD2F719F412B100354B28</key>
-		<dict>
-			<key>fileRef</key>
-			<string>77DCD2F519F30AE000354B28</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>77DDF77019B177D2004DE62B</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>SystemConfiguration.framework</string>
-			<key>path</key>
-			<string>System/Library/Frameworks/SystemConfiguration.framework</string>
-			<key>sourceTree</key>
-			<string>SDKROOT</string>
-		</dict>
-		<key>77DDF77119B177D2004DE62B</key>
-		<dict>
-			<key>fileRef</key>
-			<string>77DDF77019B177D2004DE62B</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>77DDF77219B17DF2004DE62B</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>KeychainService.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77DDF77319B17DF2004DE62B</key>
-		<dict>
-			<key>fileRef</key>
-			<string>77DDF77219B17DF2004DE62B</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>77DDF77619B21306004DE62B</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>NSDateAdditions.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77DDF77719B21306004DE62B</key>
-		<dict>
-			<key>fileRef</key>
-			<string>77DDF77619B21306004DE62B</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>77E2501319BE9E5700D2083F</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>DataStore.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77E2501419BE9E5800D2083F</key>
-		<dict>
-			<key>fileRef</key>
-			<string>77E2501319BE9E5700D2083F</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>77FA19FC199D5C160080163D</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>772553B8199D657200E3D7B2</string>
-				<string>77FA1A07199D5C160080163D</string>
-				<string>77FA1A1D199D5C160080163D</string>
-				<string>77D0193219B55B060024DBED</string>
-				<string>77FA1A06199D5C160080163D</string>
-				<string>68D4432198C6A8820D859635</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77FA19FD199D5C160080163D</key>
-		<dict>
-			<key>attributes</key>
-			<dict>
-				<key>LastUpgradeCheck</key>
-				<string>0600</string>
-				<key>ORGANIZATIONNAME</key>
-				<string>Akiva Leffert</string>
-				<key>TargetAttributes</key>
-				<dict>
-					<key>77FA1A04199D5C160080163D</key>
-					<dict>
-						<key>CreatedOnToolsVersion</key>
-						<string>6.0</string>
-					</dict>
-					<key>77FA1A19199D5C160080163D</key>
-					<dict>
-						<key>CreatedOnToolsVersion</key>
-						<string>6.0</string>
-						<key>TestTargetID</key>
-						<string>77FA1A04199D5C160080163D</string>
-					</dict>
-				</dict>
-			</dict>
-			<key>buildConfigurationList</key>
-			<string>77FA1A00199D5C160080163D</string>
-			<key>compatibilityVersion</key>
-			<string>Xcode 3.2</string>
-			<key>developmentRegion</key>
-			<string>English</string>
-			<key>hasScannedForEncodings</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXProject</string>
-			<key>knownRegions</key>
-			<array>
-				<string>en</string>
-				<string>Base</string>
-			</array>
-			<key>mainGroup</key>
-			<string>77FA19FC199D5C160080163D</string>
-			<key>productRefGroup</key>
-			<string>77FA1A06199D5C160080163D</string>
-			<key>projectDirPath</key>
-			<string></string>
-			<key>projectReferences</key>
-			<array/>
-			<key>projectRoot</key>
-			<string></string>
-			<key>targets</key>
-			<array>
-				<string>77FA1A04199D5C160080163D</string>
-				<string>77FA1A19199D5C160080163D</string>
-			</array>
-		</dict>
-		<key>77FA1A00199D5C160080163D</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>77FA1A22199D5C170080163D</string>
-				<string>77FA1A23199D5C170080163D</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>77FA1A01199D5C160080163D</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>77FA1A2B199D5C9D0080163D</string>
-				<string>7757D78419AB753E006E1AF1</string>
-				<string>77D0191C19B54CAA0024DBED</string>
-				<string>775071B319B385B100B0B142</string>
-				<string>778C039819AAD34700B06D17</string>
-				<string>775FE30219BE7EAC00F84067</string>
-				<string>772553B4199D607C00E3D7B2</string>
-				<string>77E2501419BE9E5800D2083F</string>
-				<string>772553B2199D603500E3D7B2</string>
-				<string>77C72537199D6C51002B6A25</string>
-				<string>77DDF77319B17DF2004DE62B</string>
-				<string>77DDF77719B21306004DE62B</string>
-				<string>77C72535199D6B8D002B6A25</string>
-				<string>77DCD2F619F30AE000354B28</string>
-				<string>77D0192C19B555720024DBED</string>
-				<string>775071B519B42CCB00B0B142</string>
-				<string>77FA1A0B199D5C160080163D</string>
-				<string>77BE0E3119AAB93100A9E00B</string>
-				<string>773E981219AAEA2600AC0B4B</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>77FA1A02199D5C160080163D</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>77D0193419B55B220024DBED</string>
-				<string>77DDF77119B177D2004DE62B</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>77FA1A03199D5C160080163D</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>77FA1A15199D5C160080163D</string>
-				<string>77FA1A2E199D5CB80080163D</string>
-				<string>772553B7199D656600E3D7B2</string>
-			</array>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>77FA1A04199D5C160080163D</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>77FA1A24199D5C170080163D</string>
-			<key>buildPhases</key>
-			<array>
-				<string>77FA1A01199D5C160080163D</string>
-				<string>77FA1A02199D5C160080163D</string>
-				<string>77FA1A03199D5C160080163D</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>elljay</string>
-			<key>productName</key>
-			<string>elljay</string>
-			<key>productReference</key>
-			<string>77FA1A05199D5C160080163D</string>
-			<key>productType</key>
-			<string>com.apple.product-type.application</string>
-		</dict>
-		<key>77FA1A05199D5C160080163D</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.application</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>elljay.app</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>77FA1A06199D5C160080163D</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>77FA1A05199D5C160080163D</string>
-				<string>77FA1A1A199D5C160080163D</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Products</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77FA1A07199D5C160080163D</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>77C72533199D6B8C002B6A25</string>
-				<string>77C72534199D6B8C002B6A25</string>
-				<string>77D0192A19B555720024DBED</string>
-				<string>77D0192B19B555720024DBED</string>
-				<string>77D0191D19B54CB40024DBED</string>
-				<string>77FA1A0A199D5C160080163D</string>
-				<string>775071B219B385B100B0B142</string>
-				<string>772553B3199D607C00E3D7B2</string>
-				<string>77E2501319BE9E5700D2083F</string>
-				<string>77FA1A2A199D5C9D0080163D</string>
-				<string>775071B419B42CCB00B0B142</string>
-				<string>772553B1199D603500E3D7B2</string>
-				<string>77DDF77219B17DF2004DE62B</string>
-				<string>775FE30119BE7EAC00F84067</string>
-				<string>77FA1A14199D5C160080163D</string>
-				<string>77BE0E3219AAB93400A9E00B</string>
-				<string>77FA1A08199D5C160080163D</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>elljay</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77FA1A08199D5C160080163D</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>77C72532199D6B8C002B6A25</string>
-				<string>77FA1A09199D5C160080163D</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Supporting Files</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77FA1A09199D5C160080163D</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77FA1A0A199D5C160080163D</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>AppDelegate.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77FA1A0B199D5C160080163D</key>
-		<dict>
-			<key>fileRef</key>
-			<string>77FA1A0A199D5C160080163D</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>77FA1A14199D5C160080163D</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>folder.assetcatalog</string>
-			<key>path</key>
-			<string>Images.xcassets</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77FA1A15199D5C160080163D</key>
-		<dict>
-			<key>fileRef</key>
-			<string>77FA1A14199D5C160080163D</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>77FA1A16199D5C160080163D</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>77D0191319B542870024DBED</string>
-				<string>77D0192419B554E90024DBED</string>
-				<string>77D0190619B542690024DBED</string>
-				<string>77D0190419B542690024DBED</string>
-				<string>775FE30319BE7EAC00F84067</string>
-				<string>775071B119B384DB00B0B142</string>
-				<string>77DCD2F719F412B100354B28</string>
-				<string>775071AF19B384D600B0B142</string>
-				<string>775071AD19B384A100B0B142</string>
-				<string>77D0192519B554F40024DBED</string>
-				<string>77D0190519B542690024DBED</string>
-				<string>775071B019B384D800B0B142</string>
-				<string>775071AE19B384BA00B0B142</string>
-				<string>77D0192F19B556380024DBED</string>
-				<string>77D0192D19B555720024DBED</string>
-				<string>77D0192919B555560024DBED</string>
-				<string>77D0191219B542870024DBED</string>
-				<string>775FE30019BE7E9400F84067</string>
-				<string>77D0190719B542690024DBED</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>77FA1A17199D5C160080163D</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>77D0193319B55B1C0024DBED</string>
-				<string>77D0193119B55AEA0024DBED</string>
-				<string>81B0874284224CDCB51FCDEC</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>77FA1A18199D5C160080163D</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>77FA1A19199D5C160080163D</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>77FA1A27199D5C170080163D</string>
-			<key>buildPhases</key>
-			<array>
-				<string>6C059C82711E4F4C83D65910</string>
-				<string>77FA1A16199D5C160080163D</string>
-				<string>77FA1A17199D5C160080163D</string>
-				<string>77FA1A18199D5C160080163D</string>
-				<string>9EB79F7363F445EAB81C6D14</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>77FA1A1C199D5C160080163D</string>
-				<string>77BE0E3419AAB99700A9E00B</string>
-				<string>77D0192719B555130024DBED</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>elljayTests</string>
-			<key>productName</key>
-			<string>elljayTests</string>
-			<key>productReference</key>
-			<string>77FA1A1A199D5C160080163D</string>
-			<key>productType</key>
-			<string>com.apple.product-type.bundle.unit-test</string>
-		</dict>
-		<key>77FA1A1A199D5C160080163D</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.cfbundle</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>elljayTests.xctest</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>77FA1A1B199D5C160080163D</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>77FA19FD199D5C160080163D</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>77FA1A04199D5C160080163D</string>
-			<key>remoteInfo</key>
-			<string>elljay</string>
-		</dict>
-		<key>77FA1A1C199D5C160080163D</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>target</key>
-			<string>77FA1A04199D5C160080163D</string>
-			<key>targetProxy</key>
-			<string>77FA1A1B199D5C160080163D</string>
-		</dict>
-		<key>77FA1A1D199D5C160080163D</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>77D0190F19B542870024DBED</string>
-				<string>775FE2FE19BE7E9400F84067</string>
-				<string>77D0191019B542870024DBED</string>
-				<string>77171FA619AECCA1003EEAD6</string>
-				<string>77FA1A1E199D5C170080163D</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>elljayTests</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77FA1A1E199D5C170080163D</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>77D0192E19B555A60024DBED</string>
-				<string>77FA1A1F199D5C170080163D</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Supporting Files</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77FA1A1F199D5C170080163D</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77FA1A22199D5C170080163D</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_UNREACHABLE_CODE</key>
-				<string>YES</string>
-				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
-				<string>YES</string>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
-				<string>NO</string>
-				<key>GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS</key>
-				<string>YES</string>
-				<key>GCC_TREAT_WARNINGS_AS_ERRORS</key>
-				<string>YES</string>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES_ERROR</string>
-				<key>GCC_WARN_PEDANTIC</key>
-				<string>YES</string>
-				<key>GCC_WARN_STRICT_SELECTOR_MATCH</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES_AGGRESSIVE</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.0</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>YES</string>
-				<key>ONLY_ACTIVE_ARCH</key>
-				<string>YES</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SWIFT_OPTIMIZATION_LEVEL</key>
-				<string>-Onone</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>77FA1A23199D5C170080163D</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_UNREACHABLE_CODE</key>
-				<string>YES</string>
-				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
-				<string>YES</string>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>YES</string>
-				<key>ENABLE_NS_ASSERTIONS</key>
-				<string>NO</string>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS</key>
-				<string>YES</string>
-				<key>GCC_TREAT_WARNINGS_AS_ERRORS</key>
-				<string>YES</string>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES_ERROR</string>
-				<key>GCC_WARN_PEDANTIC</key>
-				<string>YES</string>
-				<key>GCC_WARN_STRICT_SELECTOR_MATCH</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES_AGGRESSIVE</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.0</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>NO</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>VALIDATE_PRODUCT</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>77FA1A24199D5C170080163D</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>77FA1A25199D5C170080163D</string>
-				<string>77FA1A26199D5C170080163D</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>77FA1A25199D5C170080163D</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
-				<string>AppIcon</string>
-				<key>ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME</key>
-				<string>LaunchImage</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>INFOPLIST_FILE</key>
-				<string>elljay/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks</string>
-				<key>LIBRARY_SEARCH_PATHS</key>
-				<array>
-					<string>$(inherited)</string>
-					<string>$(SDKROOT)/usr/lib/system</string>
-				</array>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SWIFT_OBJC_BRIDGING_HEADER</key>
-				<string>elljay/elljay-Bridging-Header.h</string>
-				<key>SWIFT_OPTIMIZATION_LEVEL</key>
-				<string>-Onone</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>77FA1A26199D5C170080163D</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
-				<string>AppIcon</string>
-				<key>ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME</key>
-				<string>LaunchImage</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>INFOPLIST_FILE</key>
-				<string>elljay/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks</string>
-				<key>LIBRARY_SEARCH_PATHS</key>
-				<array>
-					<string>$(inherited)</string>
-					<string>$(SDKROOT)/usr/lib/system</string>
-				</array>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SWIFT_OBJC_BRIDGING_HEADER</key>
-				<string>elljay/elljay-Bridging-Header.h</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>77FA1A27199D5C170080163D</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>77FA1A28199D5C170080163D</string>
-				<string>77FA1A29199D5C170080163D</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>77FA1A28199D5C170080163D</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>7376535BD071C076E336F497</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>FRAMEWORK_SEARCH_PATHS</key>
-				<array>
-					<string>$(SDKROOT)/Developer/Library/Frameworks</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>INFOPLIST_FILE</key>
-				<string>elljayTests/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SWIFT_OBJC_BRIDGING_HEADER</key>
-				<string>elljayTests/elljayTests-Bridging-Header.h</string>
-				<key>TEST_HOST</key>
-				<string>$(BUILT_PRODUCTS_DIR)/elljay.app/elljay</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>77FA1A29199D5C170080163D</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>1D9C661C6AFABE00C82E3D7C</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>FRAMEWORK_SEARCH_PATHS</key>
-				<array>
-					<string>$(SDKROOT)/Developer/Library/Frameworks</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>$(inherited)</string>
-					<string>COCOAPODS=1</string>
-				</array>
-				<key>INFOPLIST_FILE</key>
-				<string>elljayTests/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SWIFT_OBJC_BRIDGING_HEADER</key>
-				<string>elljayTests/elljayTests-Bridging-Header.h</string>
-				<key>TEST_HOST</key>
-				<string>$(BUILT_PRODUCTS_DIR)/elljay.app/elljay</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>77FA1A2A199D5C9D0080163D</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>LoginViewController.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77FA1A2B199D5C9D0080163D</key>
-		<dict>
-			<key>fileRef</key>
-			<string>77FA1A2A199D5C9D0080163D</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>77FA1A2C199D5CB80080163D</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>77FA1A2D199D5CB80080163D</string>
-			</array>
-			<key>isa</key>
-			<string>PBXVariantGroup</string>
-			<key>name</key>
-			<string>LoginViewController.xib</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77FA1A2D199D5CB80080163D</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>file.xib</string>
-			<key>name</key>
-			<string>Base</string>
-			<key>path</key>
-			<string>Base.lproj/LoginViewController.xib</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>77FA1A2E199D5CB80080163D</key>
-		<dict>
-			<key>fileRef</key>
-			<string>77FA1A2C199D5CB80080163D</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>81B0874284224CDCB51FCDEC</key>
-		<dict>
-			<key>fileRef</key>
-			<string>C344C415E92E4AEDA45E47AE</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>9EB79F7363F445EAB81C6D14</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Copy Pods Resources</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>"${SRCROOT}/Pods/Target Support Files/Pods-elljayTests/Pods-elljayTests-resources.sh"
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-		<key>C344C415E92E4AEDA45E47AE</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>libPods-elljayTests.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-	</dict>
-	<key>rootObject</key>
-	<string>77FA19FD199D5C160080163D</string>
-</dict>
-</plist>
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		770158B719F4388700EACD99 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770158B619F4388700EACD99 /* SettingsViewController.swift */; };
+		770158BA19F438A800EACD99 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 770158B819F438A800EACD99 /* SettingsViewController.xib */; };
+		770158BC19F5A3D400EACD99 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770158BB19F5A3D400EACD99 /* RootViewController.swift */; };
+		772553B2199D603500E3D7B2 /* LJService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772553B1199D603500E3D7B2 /* LJService.swift */; };
+		772553B4199D607C00E3D7B2 /* AuthSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772553B3199D607C00E3D7B2 /* AuthSession.swift */; };
+		772553B7199D656600E3D7B2 /* Application.xib in Resources */ = {isa = PBXBuildFile; fileRef = 772553B5199D656600E3D7B2 /* Application.xib */; };
+		773E981219AAEA2600AC0B4B /* XMLRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773E981119AAEA2600AC0B4B /* XMLRPC.swift */; };
+		775071AD19B384A100B0B142 /* LJService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772553B1199D603500E3D7B2 /* LJService.swift */; };
+		775071AE19B384BA00B0B142 /* XMLRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773E981119AAEA2600AC0B4B /* XMLRPC.swift */; };
+		775071AF19B384D600B0B142 /* SequenceAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778C039719AAD34700B06D17 /* SequenceAdditions.swift */; };
+		775071B019B384D800B0B142 /* XMLNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BE0E3019AAB93100A9E00B /* XMLNode.swift */; };
+		775071B119B384DB00B0B142 /* XMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7757D78319AB753E006E1AF1 /* XMLParser.swift */; };
+		775071B319B385B100B0B142 /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775071B219B385B100B0B142 /* AuthController.swift */; };
+		775071B519B42CCB00B0B142 /* RuntimeEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775071B419B42CCB00B0B142 /* RuntimeEnvironment.swift */; };
+		7757D78419AB753E006E1AF1 /* XMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7757D78319AB753E006E1AF1 /* XMLParser.swift */; };
+		775FE30019BE7E9400F84067 /* NetworkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775FE2FE19BE7E9400F84067 /* NetworkServiceTests.swift */; };
+		775FE30219BE7EAC00F84067 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775FE30119BE7EAC00F84067 /* NetworkService.swift */; };
+		775FE30319BE7EAC00F84067 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775FE30119BE7EAC00F84067 /* NetworkService.swift */; };
+		778C039819AAD34700B06D17 /* SequenceAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778C039719AAD34700B06D17 /* SequenceAdditions.swift */; };
+		77BE0E3119AAB93100A9E00B /* XMLNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BE0E3019AAB93100A9E00B /* XMLNode.swift */; };
+		77C72535199D6B8D002B6A25 /* NSObject+ELJDeallocActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C72534199D6B8C002B6A25 /* NSObject+ELJDeallocActions.m */; };
+		77C72537199D6C51002B6A25 /* NSNotificationCenterAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C72536199D6C51002B6A25 /* NSNotificationCenterAdditions.swift */; };
+		77D0190419B542690024DBED /* SequenceAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D0190019B542690024DBED /* SequenceAdditionsTests.swift */; };
+		77D0190519B542690024DBED /* XMLNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D0190119B542690024DBED /* XMLNodeTests.swift */; };
+		77D0190619B542690024DBED /* XMLParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D0190219B542690024DBED /* XMLParserTests.swift */; };
+		77D0190719B542690024DBED /* XMLRPCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D0190319B542690024DBED /* XMLRPCTests.swift */; };
+		77D0191219B542870024DBED /* NSDateOrderingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D0190F19B542870024DBED /* NSDateOrderingTests.swift */; };
+		77D0191319B542870024DBED /* LJServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D0191019B542870024DBED /* LJServiceTests.swift */; };
+		77D0191C19B54CAA0024DBED /* NSErrorAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D0191B19B54CAA0024DBED /* NSErrorAdditions.swift */; };
+		77D0192419B554E90024DBED /* AuthSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772553B3199D607C00E3D7B2 /* AuthSession.swift */; };
+		77D0192519B554F40024DBED /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DDF77219B17DF2004DE62B /* KeychainService.swift */; };
+		77D0192919B555560024DBED /* NSObject+ELJDeallocActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C72534199D6B8C002B6A25 /* NSObject+ELJDeallocActions.m */; };
+		77D0192C19B555720024DBED /* ELJCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D0192B19B555720024DBED /* ELJCrypto.m */; };
+		77D0192D19B555720024DBED /* ELJCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D0192B19B555720024DBED /* ELJCrypto.m */; };
+		77D0192F19B556380024DBED /* NSDateAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DDF77619B21306004DE62B /* NSDateAdditions.swift */; };
+		77D0193119B55AEA0024DBED /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D0193019B55AEA0024DBED /* CFNetwork.framework */; };
+		77D0193319B55B1C0024DBED /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77DDF77019B177D2004DE62B /* SystemConfiguration.framework */; };
+		77D0193419B55B220024DBED /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D0193019B55AEA0024DBED /* CFNetwork.framework */; };
+		77DCD2F619F30AE000354B28 /* ArrayAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DCD2F519F30AE000354B28 /* ArrayAdditions.swift */; };
+		77DCD2F719F412B100354B28 /* ArrayAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DCD2F519F30AE000354B28 /* ArrayAdditions.swift */; };
+		77DDF77119B177D2004DE62B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77DDF77019B177D2004DE62B /* SystemConfiguration.framework */; };
+		77DDF77319B17DF2004DE62B /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DDF77219B17DF2004DE62B /* KeychainService.swift */; };
+		77DDF77719B21306004DE62B /* NSDateAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DDF77619B21306004DE62B /* NSDateAdditions.swift */; };
+		77E2501419BE9E5800D2083F /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E2501319BE9E5700D2083F /* DataStore.swift */; };
+		77FA1A0B199D5C160080163D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FA1A0A199D5C160080163D /* AppDelegate.swift */; };
+		77FA1A15199D5C160080163D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77FA1A14199D5C160080163D /* Images.xcassets */; };
+		77FA1A2B199D5C9D0080163D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FA1A2A199D5C9D0080163D /* LoginViewController.swift */; };
+		77FA1A2E199D5CB80080163D /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77FA1A2C199D5CB80080163D /* LoginViewController.xib */; };
+		81B0874284224CDCB51FCDEC /* libPods-elljayTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C344C415E92E4AEDA45E47AE /* libPods-elljayTests.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		77BE0E3319AAB99700A9E00B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 77FA19FD199D5C160080163D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 77FA1A04199D5C160080163D;
+			remoteInfo = elljay;
+		};
+		77D0192619B555130024DBED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 77FA19FD199D5C160080163D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 77FA1A04199D5C160080163D;
+			remoteInfo = elljay;
+		};
+		77FA1A1B199D5C160080163D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 77FA19FD199D5C160080163D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 77FA1A04199D5C160080163D;
+			remoteInfo = elljay;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1D9C661C6AFABE00C82E3D7C /* Pods-elljayTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-elljayTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-elljayTests/Pods-elljayTests.release.xcconfig"; sourceTree = "<group>"; };
+		7376535BD071C076E336F497 /* Pods-elljayTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-elljayTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-elljayTests/Pods-elljayTests.debug.xcconfig"; sourceTree = "<group>"; };
+		770158B619F4388700EACD99 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		770158B919F438A800EACD99 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SettingsViewController.xib; sourceTree = "<group>"; };
+		770158BB19F5A3D400EACD99 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		772553B1199D603500E3D7B2 /* LJService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LJService.swift; sourceTree = "<group>"; };
+		772553B3199D607C00E3D7B2 /* AuthSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthSession.swift; sourceTree = "<group>"; };
+		772553B6199D656600E3D7B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = elljay/Base.lproj/Application.xib; sourceTree = "<group>"; };
+		773E981119AAEA2600AC0B4B /* XMLRPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XMLRPC.swift; path = XMLRPC/XMLRPC.swift; sourceTree = "<group>"; };
+		775071B219B385B100B0B142 /* AuthController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
+		775071B419B42CCB00B0B142 /* RuntimeEnvironment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeEnvironment.swift; sourceTree = "<group>"; };
+		7757D78319AB753E006E1AF1 /* XMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XMLParser.swift; path = XMLRPC/XMLParser.swift; sourceTree = "<group>"; };
+		775FE2FE19BE7E9400F84067 /* NetworkServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkServiceTests.swift; path = elljayTests/NetworkServiceTests.swift; sourceTree = SOURCE_ROOT; };
+		775FE30119BE7EAC00F84067 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		778C039719AAD34700B06D17 /* SequenceAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SequenceAdditions.swift; path = XMLRPC/SequenceAdditions.swift; sourceTree = "<group>"; };
+		77BE0E3019AAB93100A9E00B /* XMLNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XMLNode.swift; path = XMLRPC/XMLNode.swift; sourceTree = "<group>"; };
+		77C72532199D6B8C002B6A25 /* elljay-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "elljay-Bridging-Header.h"; sourceTree = "<group>"; };
+		77C72533199D6B8C002B6A25 /* NSObject+ELJDeallocActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+ELJDeallocActions.h"; sourceTree = "<group>"; };
+		77C72534199D6B8C002B6A25 /* NSObject+ELJDeallocActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ELJDeallocActions.m"; sourceTree = "<group>"; };
+		77C72536199D6C51002B6A25 /* NSNotificationCenterAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSNotificationCenterAdditions.swift; sourceTree = "<group>"; };
+		77D0190019B542690024DBED /* SequenceAdditionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SequenceAdditionsTests.swift; path = elljay/XMLRPC/Tests/SequenceAdditionsTests.swift; sourceTree = SOURCE_ROOT; };
+		77D0190119B542690024DBED /* XMLNodeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XMLNodeTests.swift; path = elljay/XMLRPC/Tests/XMLNodeTests.swift; sourceTree = SOURCE_ROOT; };
+		77D0190219B542690024DBED /* XMLParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XMLParserTests.swift; path = elljay/XMLRPC/Tests/XMLParserTests.swift; sourceTree = SOURCE_ROOT; };
+		77D0190319B542690024DBED /* XMLRPCTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XMLRPCTests.swift; path = elljay/XMLRPC/Tests/XMLRPCTests.swift; sourceTree = SOURCE_ROOT; };
+		77D0190F19B542870024DBED /* NSDateOrderingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateOrderingTests.swift; sourceTree = "<group>"; };
+		77D0191019B542870024DBED /* LJServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LJServiceTests.swift; sourceTree = "<group>"; };
+		77D0191B19B54CAA0024DBED /* NSErrorAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSErrorAdditions.swift; sourceTree = "<group>"; };
+		77D0192A19B555720024DBED /* ELJCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELJCrypto.h; sourceTree = "<group>"; };
+		77D0192B19B555720024DBED /* ELJCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELJCrypto.m; sourceTree = "<group>"; };
+		77D0192E19B555A60024DBED /* elljayTests-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "elljayTests-Bridging-Header.h"; path = "elljayTests/elljayTests-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		77D0193019B55AEA0024DBED /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		77DCD2F519F30AE000354B28 /* ArrayAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayAdditions.swift; sourceTree = "<group>"; };
+		77DDF77019B177D2004DE62B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		77DDF77219B17DF2004DE62B /* KeychainService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		77DDF77619B21306004DE62B /* NSDateAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateAdditions.swift; sourceTree = "<group>"; };
+		77E2501319BE9E5700D2083F /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		77FA1A05199D5C160080163D /* elljay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = elljay.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		77FA1A09199D5C160080163D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		77FA1A0A199D5C160080163D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		77FA1A14199D5C160080163D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		77FA1A1A199D5C160080163D /* elljayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = elljayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		77FA1A1F199D5C170080163D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		77FA1A2A199D5C9D0080163D /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		77FA1A2D199D5CB80080163D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LoginViewController.xib; sourceTree = "<group>"; };
+		C344C415E92E4AEDA45E47AE /* libPods-elljayTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-elljayTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		77FA1A02199D5C160080163D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77D0193419B55B220024DBED /* CFNetwork.framework in Frameworks */,
+				77DDF77119B177D2004DE62B /* SystemConfiguration.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		77FA1A17199D5C160080163D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77D0193319B55B1C0024DBED /* SystemConfiguration.framework in Frameworks */,
+				77D0193119B55AEA0024DBED /* CFNetwork.framework in Frameworks */,
+				81B0874284224CDCB51FCDEC /* libPods-elljayTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		68D4432198C6A8820D859635 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7376535BD071C076E336F497 /* Pods-elljayTests.debug.xcconfig */,
+				1D9C661C6AFABE00C82E3D7C /* Pods-elljayTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		77171FA619AECCA1003EEAD6 /* XMLRPCTests */ = {
+			isa = PBXGroup;
+			children = (
+				77D0190019B542690024DBED /* SequenceAdditionsTests.swift */,
+				77D0190119B542690024DBED /* XMLNodeTests.swift */,
+				77D0190219B542690024DBED /* XMLParserTests.swift */,
+				77D0190319B542690024DBED /* XMLRPCTests.swift */,
+			);
+			name = XMLRPCTests;
+			sourceTree = "<group>";
+		};
+		772553B8199D657200E3D7B2 /* XIB */ = {
+			isa = PBXGroup;
+			children = (
+				772553B5199D656600E3D7B2 /* Application.xib */,
+				77FA1A2C199D5CB80080163D /* LoginViewController.xib */,
+				770158B819F438A800EACD99 /* SettingsViewController.xib */,
+			);
+			name = XIB;
+			path = elljay;
+			sourceTree = "<group>";
+		};
+		77BE0E3219AAB93400A9E00B /* XMLRPC */ = {
+			isa = PBXGroup;
+			children = (
+				77BE0E3019AAB93100A9E00B /* XMLNode.swift */,
+				778C039719AAD34700B06D17 /* SequenceAdditions.swift */,
+				7757D78319AB753E006E1AF1 /* XMLParser.swift */,
+				773E981119AAEA2600AC0B4B /* XMLRPC.swift */,
+			);
+			name = XMLRPC;
+			sourceTree = "<group>";
+		};
+		77D0191D19B54CB40024DBED /* Library Additions */ = {
+			isa = PBXGroup;
+			children = (
+				77C72533199D6B8C002B6A25 /* NSObject+ELJDeallocActions.h */,
+				77C72534199D6B8C002B6A25 /* NSObject+ELJDeallocActions.m */,
+				77DCD2F519F30AE000354B28 /* ArrayAdditions.swift */,
+				77C72536199D6C51002B6A25 /* NSNotificationCenterAdditions.swift */,
+				77DDF77619B21306004DE62B /* NSDateAdditions.swift */,
+				77D0191B19B54CAA0024DBED /* NSErrorAdditions.swift */,
+			);
+			name = "Library Additions";
+			sourceTree = "<group>";
+		};
+		77D0193219B55B060024DBED /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				77D0193019B55AEA0024DBED /* CFNetwork.framework */,
+				77DDF77019B177D2004DE62B /* SystemConfiguration.framework */,
+				C344C415E92E4AEDA45E47AE /* libPods-elljayTests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		77FA19FC199D5C160080163D = {
+			isa = PBXGroup;
+			children = (
+				772553B8199D657200E3D7B2 /* XIB */,
+				77FA1A07199D5C160080163D /* elljay */,
+				77FA1A1D199D5C160080163D /* elljayTests */,
+				77D0193219B55B060024DBED /* Frameworks */,
+				77FA1A06199D5C160080163D /* Products */,
+				68D4432198C6A8820D859635 /* Pods */,
+			);
+			sourceTree = "<group>";
+		};
+		77FA1A06199D5C160080163D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				77FA1A05199D5C160080163D /* elljay.app */,
+				77FA1A1A199D5C160080163D /* elljayTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		77FA1A07199D5C160080163D /* elljay */ = {
+			isa = PBXGroup;
+			children = (
+				770158BB19F5A3D400EACD99 /* RootViewController.swift */,
+				77D0191D19B54CB40024DBED /* Library Additions */,
+				77D0192A19B555720024DBED /* ELJCrypto.h */,
+				77D0192B19B555720024DBED /* ELJCrypto.m */,
+				77FA1A0A199D5C160080163D /* AppDelegate.swift */,
+				775071B219B385B100B0B142 /* AuthController.swift */,
+				772553B3199D607C00E3D7B2 /* AuthSession.swift */,
+				77E2501319BE9E5700D2083F /* DataStore.swift */,
+				77FA1A2A199D5C9D0080163D /* LoginViewController.swift */,
+				775071B419B42CCB00B0B142 /* RuntimeEnvironment.swift */,
+				772553B1199D603500E3D7B2 /* LJService.swift */,
+				77DDF77219B17DF2004DE62B /* KeychainService.swift */,
+				770158B619F4388700EACD99 /* SettingsViewController.swift */,
+				775FE30119BE7EAC00F84067 /* NetworkService.swift */,
+				77FA1A14199D5C160080163D /* Images.xcassets */,
+				77BE0E3219AAB93400A9E00B /* XMLRPC */,
+				77FA1A08199D5C160080163D /* Supporting Files */,
+			);
+			path = elljay;
+			sourceTree = "<group>";
+		};
+		77FA1A08199D5C160080163D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				77C72532199D6B8C002B6A25 /* elljay-Bridging-Header.h */,
+				77FA1A09199D5C160080163D /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		77FA1A1D199D5C160080163D /* elljayTests */ = {
+			isa = PBXGroup;
+			children = (
+				77D0190F19B542870024DBED /* NSDateOrderingTests.swift */,
+				775FE2FE19BE7E9400F84067 /* NetworkServiceTests.swift */,
+				77D0191019B542870024DBED /* LJServiceTests.swift */,
+				77171FA619AECCA1003EEAD6 /* XMLRPCTests */,
+				77FA1A1E199D5C170080163D /* Supporting Files */,
+			);
+			path = elljayTests;
+			sourceTree = "<group>";
+		};
+		77FA1A1E199D5C170080163D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				77D0192E19B555A60024DBED /* elljayTests-Bridging-Header.h */,
+				77FA1A1F199D5C170080163D /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		77FA1A04199D5C160080163D /* elljay */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 77FA1A24199D5C170080163D /* Build configuration list for PBXNativeTarget "elljay" */;
+			buildPhases = (
+				77FA1A01199D5C160080163D /* Sources */,
+				77FA1A02199D5C160080163D /* Frameworks */,
+				77FA1A03199D5C160080163D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = elljay;
+			productName = elljay;
+			productReference = 77FA1A05199D5C160080163D /* elljay.app */;
+			productType = "com.apple.product-type.application";
+		};
+		77FA1A19199D5C160080163D /* elljayTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 77FA1A27199D5C170080163D /* Build configuration list for PBXNativeTarget "elljayTests" */;
+			buildPhases = (
+				6C059C82711E4F4C83D65910 /* Check Pods Manifest.lock */,
+				77FA1A16199D5C160080163D /* Sources */,
+				77FA1A17199D5C160080163D /* Frameworks */,
+				77FA1A18199D5C160080163D /* Resources */,
+				9EB79F7363F445EAB81C6D14 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				77FA1A1C199D5C160080163D /* PBXTargetDependency */,
+				77BE0E3419AAB99700A9E00B /* PBXTargetDependency */,
+				77D0192719B555130024DBED /* PBXTargetDependency */,
+			);
+			name = elljayTests;
+			productName = elljayTests;
+			productReference = 77FA1A1A199D5C160080163D /* elljayTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		77FA19FD199D5C160080163D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = "Akiva Leffert";
+				TargetAttributes = {
+					77FA1A04199D5C160080163D = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					77FA1A19199D5C160080163D = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = 77FA1A04199D5C160080163D;
+					};
+				};
+			};
+			buildConfigurationList = 77FA1A00199D5C160080163D /* Build configuration list for PBXProject "elljay" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 77FA19FC199D5C160080163D;
+			productRefGroup = 77FA1A06199D5C160080163D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				77FA1A04199D5C160080163D /* elljay */,
+				77FA1A19199D5C160080163D /* elljayTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		77FA1A03199D5C160080163D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77FA1A15199D5C160080163D /* Images.xcassets in Resources */,
+				77FA1A2E199D5CB80080163D /* LoginViewController.xib in Resources */,
+				772553B7199D656600E3D7B2 /* Application.xib in Resources */,
+				770158BA19F438A800EACD99 /* SettingsViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		77FA1A18199D5C160080163D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6C059C82711E4F4C83D65910 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		9EB79F7363F445EAB81C6D14 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-elljayTests/Pods-elljayTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		77FA1A01199D5C160080163D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77FA1A2B199D5C9D0080163D /* LoginViewController.swift in Sources */,
+				7757D78419AB753E006E1AF1 /* XMLParser.swift in Sources */,
+				77D0191C19B54CAA0024DBED /* NSErrorAdditions.swift in Sources */,
+				770158B719F4388700EACD99 /* SettingsViewController.swift in Sources */,
+				775071B319B385B100B0B142 /* AuthController.swift in Sources */,
+				778C039819AAD34700B06D17 /* SequenceAdditions.swift in Sources */,
+				775FE30219BE7EAC00F84067 /* NetworkService.swift in Sources */,
+				772553B4199D607C00E3D7B2 /* AuthSession.swift in Sources */,
+				77E2501419BE9E5800D2083F /* DataStore.swift in Sources */,
+				772553B2199D603500E3D7B2 /* LJService.swift in Sources */,
+				77C72537199D6C51002B6A25 /* NSNotificationCenterAdditions.swift in Sources */,
+				77DDF77319B17DF2004DE62B /* KeychainService.swift in Sources */,
+				77DDF77719B21306004DE62B /* NSDateAdditions.swift in Sources */,
+				77C72535199D6B8D002B6A25 /* NSObject+ELJDeallocActions.m in Sources */,
+				77DCD2F619F30AE000354B28 /* ArrayAdditions.swift in Sources */,
+				77D0192C19B555720024DBED /* ELJCrypto.m in Sources */,
+				775071B519B42CCB00B0B142 /* RuntimeEnvironment.swift in Sources */,
+				770158BC19F5A3D400EACD99 /* RootViewController.swift in Sources */,
+				77FA1A0B199D5C160080163D /* AppDelegate.swift in Sources */,
+				77BE0E3119AAB93100A9E00B /* XMLNode.swift in Sources */,
+				773E981219AAEA2600AC0B4B /* XMLRPC.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		77FA1A16199D5C160080163D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77D0191319B542870024DBED /* LJServiceTests.swift in Sources */,
+				77D0192419B554E90024DBED /* AuthSession.swift in Sources */,
+				77D0190619B542690024DBED /* XMLParserTests.swift in Sources */,
+				77D0190419B542690024DBED /* SequenceAdditionsTests.swift in Sources */,
+				775FE30319BE7EAC00F84067 /* NetworkService.swift in Sources */,
+				775071B119B384DB00B0B142 /* XMLParser.swift in Sources */,
+				77DCD2F719F412B100354B28 /* ArrayAdditions.swift in Sources */,
+				775071AF19B384D600B0B142 /* SequenceAdditions.swift in Sources */,
+				775071AD19B384A100B0B142 /* LJService.swift in Sources */,
+				77D0192519B554F40024DBED /* KeychainService.swift in Sources */,
+				77D0190519B542690024DBED /* XMLNodeTests.swift in Sources */,
+				775071B019B384D800B0B142 /* XMLNode.swift in Sources */,
+				775071AE19B384BA00B0B142 /* XMLRPC.swift in Sources */,
+				77D0192F19B556380024DBED /* NSDateAdditions.swift in Sources */,
+				77D0192D19B555720024DBED /* ELJCrypto.m in Sources */,
+				77D0192919B555560024DBED /* NSObject+ELJDeallocActions.m in Sources */,
+				77D0191219B542870024DBED /* NSDateOrderingTests.swift in Sources */,
+				775FE30019BE7E9400F84067 /* NetworkServiceTests.swift in Sources */,
+				77D0190719B542690024DBED /* XMLRPCTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		77BE0E3419AAB99700A9E00B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 77FA1A04199D5C160080163D /* elljay */;
+			targetProxy = 77BE0E3319AAB99700A9E00B /* PBXContainerItemProxy */;
+		};
+		77D0192719B555130024DBED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 77FA1A04199D5C160080163D /* elljay */;
+			targetProxy = 77D0192619B555130024DBED /* PBXContainerItemProxy */;
+		};
+		77FA1A1C199D5C160080163D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 77FA1A04199D5C160080163D /* elljay */;
+			targetProxy = 77FA1A1B199D5C160080163D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		770158B819F438A800EACD99 /* SettingsViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				770158B919F438A800EACD99 /* Base */,
+			);
+			name = SettingsViewController.xib;
+			sourceTree = "<group>";
+		};
+		772553B5199D656600E3D7B2 /* Application.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				772553B6199D656600E3D7B2 /* Base */,
+			);
+			name = Application.xib;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		77FA1A2C199D5CB80080163D /* LoginViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				77FA1A2D199D5CB80080163D /* Base */,
+			);
+			name = LoginViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		77FA1A22199D5C170080163D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_PEDANTIC = YES;
+				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		77FA1A23199D5C170080163D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_PEDANTIC = YES;
+				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		77FA1A25199D5C170080163D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = elljay/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/system",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "elljay/elljay-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		77FA1A26199D5C170080163D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = elljay/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/system",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "elljay/elljay-Bridging-Header.h";
+			};
+			name = Release;
+		};
+		77FA1A28199D5C170080163D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7376535BD071C076E336F497 /* Pods-elljayTests.debug.xcconfig */;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = elljayTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "elljayTests/elljayTests-Bridging-Header.h";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/elljay.app/elljay";
+			};
+			name = Debug;
+		};
+		77FA1A29199D5C170080163D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1D9C661C6AFABE00C82E3D7C /* Pods-elljayTests.release.xcconfig */;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+				);
+				INFOPLIST_FILE = elljayTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "elljayTests/elljayTests-Bridging-Header.h";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/elljay.app/elljay";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		77FA1A00199D5C160080163D /* Build configuration list for PBXProject "elljay" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				77FA1A22199D5C170080163D /* Debug */,
+				77FA1A23199D5C170080163D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		77FA1A24199D5C170080163D /* Build configuration list for PBXNativeTarget "elljay" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				77FA1A25199D5C170080163D /* Debug */,
+				77FA1A26199D5C170080163D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		77FA1A27199D5C170080163D /* Build configuration list for PBXNativeTarget "elljayTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				77FA1A28199D5C170080163D /* Debug */,
+				77FA1A29199D5C170080163D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 77FA19FD199D5C160080163D /* Project object */;
+}

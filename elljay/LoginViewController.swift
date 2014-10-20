@@ -8,7 +8,13 @@
 
 import UIKit
 
+@objc protocol LoginViewControllerDelegate {
+    func loginControllerSucceeded(controller : LoginViewController)
+}
+
 class LoginViewController: UIViewController, UITextFieldDelegate {
+    
+    let delegate : LoginViewControllerDelegate!
     
     @IBOutlet var contentContainer : UIView!
     
@@ -17,13 +23,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     private(set) var authController : AuthController!
     
-    init(authController : AuthController)  {
+    init(authController : AuthController, delegate : LoginViewControllerDelegate)  {
         self.authController = authController
+        self.delegate = delegate
         super.init(nibName: "LoginViewController", bundle : nil);
     }
     
     required init(coder aDecoder: NSCoder) {
         authController = aDecoder.decodeObjectForKey("authController") as AuthController
+        delegate = aDecoder.decodeObjectForKey("delegate") as LoginViewControllerDelegate
         super.init(coder: aDecoder)
     }
     
@@ -53,6 +61,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     println("error " + error!.localizedDescription)
                 }
                 else {
+                    self.delegate.loginControllerSucceeded(self)
                     println("logged in")
                 }
             })
