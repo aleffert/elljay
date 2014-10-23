@@ -9,10 +9,7 @@
 import Foundation
 import UIKit
 
-struct Request<Result> {
-    let urlRequest : (sessionInfo : AuthSessionInfo, challenge : String) -> NSURLRequest
-    let parser : XMLRPCParam -> Result?
-}
+
 
 // The LJ API has a year 2038 bug. Sigh
 private extension Int32 {
@@ -55,10 +52,15 @@ struct GetChallengeResponse {
 }
 
 protocol ChallengeRequestable {
-    func getChallenge() -> (NSURLRequest, XMLRPCParam -> GetChallengeResponse?)
+    func getChallenge() -> (NSURLRequest, NSData -> Result<GetChallengeResponse>)
 }
 
 private let LJServiceVersion : Int32 = 1
+
+
+// TODO change to a class variable once they're supported
+let LJServiceErrorDomain = "com.akivaleffert.elljay.LJService"
+let LJServiceErrorMalformedResponseCode = -100
 
 class LJService : ChallengeRequestable {
     let url = NSURL(scheme: "https", host: "livejournal.com", path: "/interface/xmlrpc")!
@@ -66,7 +68,10 @@ class LJService : ChallengeRequestable {
 
     init() {
     }
-
+    
+    private func malformedResponseError(description : String) -> NSError {
+        return NSError(domain : LJServiceErrorDomain, code : LJServiceErrorMalformedResponseCode, userInfo : [NSLocalizedDescriptionKey : description])
+    }
     
     private func urlRequest(#name : String, params : [String : XMLRPCParam]) -> NSURLRequest {
         let request = NSMutableURLRequest(URL: self.url)
@@ -74,8 +79,29 @@ class LJService : ChallengeRequestable {
         request.setupXMLRPCCall(path: "LJ.XMLRPC." + name, parameters: [paramStruct])
         return request
     }
+    
+    func wrapXMLRPCParser<A>(parser : XMLRPCParam -> A?) -> (NSData -> Result<A>) {
+        let dataParser : NSData -> Result<A> = {data in
+            let result = XMLRPCParser().from(data:NSMutableData(data:data))
+            return result.bind {params -> Result<A> in
+                if countElements(params) > 0 {
+                    let parsed = parser(params[0])
+                    if let p = parsed {
+                        return Success(p)
+                    }
+                    else {
+                        return Failure(self.malformedResponseError("Bad Response"))
+                    }
+                }
+                else {
+                    return Failure(self.malformedResponseError("Empty Body"))
+                }
+            }
+        }
+        return dataParser
+    }
 
-    private func authenticatedRequest<A>(#name : String, params : [String : XMLRPCParam], parser : XMLRPCParam -> A?) -> Request<A> {
+    private func authenticatedXMLRPCRequest<A>(#name : String, params : [String : XMLRPCParam], parser : XMLRPCParam -> A?) -> Request<A> {
         let generator : (sessionInfo : AuthSessionInfo, challenge : String) -> NSURLRequest = {(sessionInfo, challenge) in
             var finalParams = params
             finalParams["ver"] = XMLRPCParam.XInt(LJServiceVersion)
@@ -86,11 +112,10 @@ class LJService : ChallengeRequestable {
             
             return self.urlRequest(name: name, params: finalParams)
         }
-        return Request(urlRequest: generator, parser: parser)
+        return Request(urlRequest: generator, parser: wrapXMLRPCParser(parser))
     }
-
     
-    func getChallenge() -> (NSURLRequest, XMLRPCParam -> GetChallengeResponse?) {
+    func getChallenge() -> (NSURLRequest, NSData -> Result<GetChallengeResponse>) {
         let parser : XMLRPCParam -> GetChallengeResponse? = {x in
             let response = x.structBody()
             let challenge = response?["challenge"]?.stringBody()
@@ -101,7 +126,7 @@ class LJService : ChallengeRequestable {
             }
             return GetChallengeResponse(challenge : challenge!, expireTime : expireTime!, serverTime : serverTime!)
         }
-        return (urlRequest(name: "getchallenge", params: [:]), parser)
+        return (urlRequest(name: "getchallenge", params: [:]), wrapXMLRPCParser(parser))
     }
 
     struct LoginResponse {
@@ -119,7 +144,7 @@ class LJService : ChallengeRequestable {
         }
 
         // TODO all the login options
-        return authenticatedRequest(name: "login", params: [:], parser: parser)
+        return authenticatedXMLRPCRequest(name: "login", params: [:], parser: parser)
     }
     
     enum SyncAction {
@@ -156,7 +181,7 @@ class LJService : ChallengeRequestable {
         
         private static func from(#param : XMLRPCParam) -> SyncItem? {
             let body = param.structBody()?
-            let action = body?["action"]?.stringBody().bind{s in SyncAction.from(string: s)}
+            let action = body?["action"]?.stringBody().bind{ SyncAction.from(string: $0) }
             let itemParam = body?["item"]?.stringBody()
             let itemParts = itemParam.bind{i -> [String]? in
                 let components = (i as NSString).componentsSeparatedByString("-") as [String]
@@ -204,7 +229,7 @@ class LJService : ChallengeRequestable {
             params["lastsync"] = XMLRPCParam.XString(DateUtils.stringFromDate(d))
         }
         
-        return authenticatedRequest(name: "syncitems", params : params, parser : parser)
+        return authenticatedXMLRPCRequest(name: "syncitems", params : params, parser : parser)
     }
     
     struct Friend {
@@ -230,7 +255,7 @@ class LJService : ChallengeRequestable {
                 GetFriendsResponse(friends : $0)
             }
         }
-        return authenticatedRequest(name: "getfriends", params: [:], parser: parser)
+        return authenticatedXMLRPCRequest(name: "getfriends", params: [:], parser: parser)
     }
     
 }

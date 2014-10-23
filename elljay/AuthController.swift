@@ -30,19 +30,18 @@ class AuthController {
         return environment.authSession.hasCredentials
     }
     
-    func attemptLogin(username : String, password : String, completion : (success : Bool, NSError?) -> Void) {
+    func attemptLogin(username : String, password : String, completion : (success : Bool, error : NSError?) -> Void) {
         let sessionInfo = AuthSessionInfo(username: username, password: password)
         
         let loginRequest = self.environment.ljservice.login()
-        self.environment.networkService.send(sessionInfo: sessionInfo, request: loginRequest) { (loginResponse, urlResponse, error) in
-            if let l = loginResponse {
+        self.environment.networkService.send(sessionInfo: sessionInfo, request: loginRequest) { (loginResponse, urlResponse) in
+            loginResponse.cata({l in
                 self.environment.authSession.store(sessionInfo)
                 self.environment.authSession.saveToKeychain()
-                completion(success : true, nil)
-            }
-            else {
-                completion(success : false, error)
-            }
+                completion(success : true, error : nil)
+            }, {
+                completion(success : false, error : $0)
+            })
         }
 
     }

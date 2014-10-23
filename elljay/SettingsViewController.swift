@@ -18,6 +18,7 @@ class SettingsViewController: UIViewController {
     }
     
     required init(coder aDecoder: NSCoder) {
+        assert(false, "Not designed to be loaded via archive")
         super.init(coder: aDecoder)
     }
     

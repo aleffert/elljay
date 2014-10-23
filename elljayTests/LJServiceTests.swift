@@ -29,16 +29,23 @@ class ServiceTests: XCTestCase {
         let (_, parser) = service.getChallenge()
         
         let challenge = "c0:1073113200:2831:60:2TCbFBYR72f2jhVDuowz:0fba728f5964ea54160a5b18317d92df"
-        let result = parser(XMLRPCParam.XStruct(
+        let params = XMLRPCParam.XStruct(
             [
                 "challenge" : XMLRPCParam.XString(challenge),
                 "expire_time" : XMLRPCParam.XInt(epochDate),
                 "server_time" : XMLRPCParam.XInt(epochDate)
-            ]))
+            ])
+        let result = parser(params.toResponseData())
         
-        XCTAssertEqual(result!.challenge, challenge)
-        XCTAssertEqual(result!.expireTime, date)
-        XCTAssertEqual(result!.serverTime, date)
+        result.cata({r -> Void in
+            XCTAssertEqual(r.challenge, challenge)
+            XCTAssertEqual(r.expireTime, date)
+            XCTAssertEqual(r.serverTime, date)
+            return
+        }, {error in
+            XCTFail("Bad parse: \(error)")
+            return
+        })
         
     }
 
@@ -50,8 +57,14 @@ class ServiceTests: XCTestCase {
         let fullName = "Akiva Leffert"
         let result = request.parser(XMLRPCParam.XStruct([
             "fullname" : XMLRPCParam.XString(fullName)
-            ]))
-        XCTAssertEqual(result!.fullname, fullName)
+            ]).toResponseData())
+        result.cata({r -> Void in
+            XCTAssertEqual(r.fullname, fullName)
+            return
+        }, {error in
+            XCTFail("Bad parse: \(error)")
+            return
+        })
     }
     
     func testSyncItemsParser() {
@@ -71,15 +84,20 @@ class ServiceTests: XCTestCase {
             "count" : XMLRPCParam.XInt(count),
             "total" : XMLRPCParam.XInt(total)
             ])
-        let result : LJService.SyncItemsResponse? = request.parser(response)
-        XCTAssert(result != nil)
-        XCTAssertEqual(result!.total, total)
-        XCTAssertEqual(result!.count, count)
-        XCTAssertEqual(result!.syncitems.count, 1)
-        let i = result!.syncitems[0]
-        XCTAssertEqual(i.action, LJService.SyncAction.Create)
-        XCTAssertEqual(i.item.type, LJService.SyncType.Journal)
-        XCTAssertEqual(i.item.index, 100 as Int32)
+        let result = request.parser(response.toResponseData())
+        result.cata({r -> Void in
+            XCTAssertEqual(r.total, total)
+            XCTAssertEqual(r.count, count)
+            XCTAssertEqual(r.syncitems.count, 1)
+            let i = r.syncitems[0]
+            XCTAssertEqual(i.action, LJService.SyncAction.Create)
+            XCTAssertEqual(i.item.type, LJService.SyncType.Journal)
+            XCTAssertEqual(i.item.index, 100 as Int32)
+            return
+        }, {error in
+            XCTFail("Bad parse: \(error)")
+            return
+        })
     }
 
     func testGetFriendsParser() {
@@ -88,14 +106,26 @@ class ServiceTests: XCTestCase {
         let total : Int32 = 2
         
         let response : XMLRPCParam = XMLRPCParam.XStruct([
-            "total" : XMLRPCParam.XInt(total),
-            "friend_1_name" : XMLRPCParam.XString("akiva"),
-            "friend_1_user" : XMLRPCParam.XString("aleffert"),
-            "friend_2_name" : XMLRPCParam.XString("avika"),
-            "friend_2_user" : XMLRPCParam.XString("treffel")
+            "friends" : .XArray([
+                .XStruct([
+                    "username" : .XString("aleffert"),
+                    "fullname" : .XString("akiva")
+                    ]),
+                .XStruct([
+                    "username" : .XString("treffela"),
+                    "fullname" : .XString("avika")
+                    ])
+            ])
         ])
 
-        let result = request.parser(response)
+        let result = request.parser(response.toResponseData())
+        result.cata({r -> Void in
+            XCTAssertEqual(countElements(r.friends), 2)
+            return
+        }, {error in
+            XCTFail("Bad parse: \(error)")
+            return
+        })
     }
 
 }

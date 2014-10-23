@@ -28,10 +28,7 @@ class ChallengeRequestTask : NetworkTask {
     }
 }
 
-
-// TODO change to a class variable once they're supported
 let NetworkServiceErrorDomain = "com.akivaleffert.elljay.NetworkService"
-let NetworkServiceErrorMalformedResponseCode = -100
 
 class NetworkService {
     private let errorMalformedResponseDescription = "The response from the server was malformed"
@@ -50,43 +47,26 @@ class NetworkService {
         self.challengeGenerator = challengeGenerator
     }
 
-    private func malformedResponseError() -> NSError {
-        return NSError(domain : NetworkServiceErrorDomain, code : NetworkServiceErrorMalformedResponseCode, userInfo : [NSLocalizedDescriptionKey : errorMalformedResponseDescription])
-    }
 
-    private func sendRequest<A>(#urlRequest : NSURLRequest, parser : XMLRPCParam -> A?, completionHandler : (A? , NSURLResponse!, NSError?) -> Void) -> NetworkTask {
-        let wrappedCompletion = {(result, response, error) in
+    func sendRequest<A>(#urlRequest : NSURLRequest, parser : NSData -> Result<A>, completionHandler : (Result<A> , NSURLResponse!) -> Void) -> NetworkTask {
+        let wrappedCompletion = {(result, response) in
             dispatch_async(dispatch_get_main_queue()) {
-                completionHandler(result, response, error)
+                completionHandler(result, response)
             }
         }
         let result = session.dataTaskWithRequest(urlRequest) {(result : NSData!, response : NSURLResponse!, error : NSError?) in
             if let e = error {
-                wrappedCompletion(nil, response, e)
-            }
-            else if let r = result {
-                // This data copy should be unnecessary, but something appears to be crashing
-                // down in the libraries
-                let params = XMLRPCResult.from(data:NSMutableData(data:r))
-                switch(params) {
-                case let .Fault(error):
-                    wrappedCompletion(nil, response, error)
-                case let .Response(params):
-                    if countElements(params) > 0 {
-                        let parsed = parser(params[0])
-                        let error : NSError? = parsed == nil ? nil : self.malformedResponseError()
-                        wrappedCompletion(parsed, response, error)
-                    }
-                    else {
-                        wrappedCompletion(nil, response, error)
-                    }
-                case let .ParseError(e):
-                    let error = self.malformedResponseError()
-                    wrappedCompletion(nil, response, error)
-                }
+                wrappedCompletion(Failure(e), response)
             }
             else {
-                wrappedCompletion(nil, response, error)
+                let statusCode = (response as NSHTTPURLResponse).statusCode
+                if statusCode == 200 {
+                    wrappedCompletion(parser(result), response)
+                }
+                else {
+                    let e = NSError(domain : NetworkServiceErrorDomain, code : statusCode, userInfo : [:])
+                    wrappedCompletion(Failure(e), response)
+                }
             }
         }
         
@@ -94,17 +74,16 @@ class NetworkService {
         return result
     }
     
-    func send<A>(#sessionInfo : AuthSessionInfo, request : Request<A>, completionHandler : (A?, NSURLResponse!, NSError?) -> Void) -> NetworkTask {
-        let (challengeRequest : NSURLRequest, parser : XMLRPCParam -> GetChallengeResponse?) = challengeGenerator.getChallenge()
+    func send<A>(#sessionInfo : AuthSessionInfo, request : Request<A>, completionHandler : (Result<A>, NSURLResponse!) -> Void) -> NetworkTask {
+        let (challengeRequest : NSURLRequest, parser : NSData -> Result<GetChallengeResponse>) = challengeGenerator.getChallenge()
         var groupTask : ChallengeRequestTask? = nil
-        let task = sendRequest(urlRequest: challengeRequest, parser: parser) {[weak groupTask] (response, urlResponse, error) -> Void in
-            if let c = response {
+        let task = sendRequest(urlRequest: challengeRequest, parser: parser) {[weak groupTask] (response, urlResponse) -> Void in
+            response.cata({c in
                 let urlRequest = request.urlRequest(sessionInfo: sessionInfo, challenge: c.challenge)
                 groupTask?.currentTask = self.sendRequest(urlRequest : urlRequest, request.parser, completionHandler)
-            }
-            else {
-                completionHandler(nil, urlResponse, error)
-            }
+                }, {e in
+                    completionHandler(Failure(e), urlResponse)
+            })
         }
         groupTask = ChallengeRequestTask(task : task)
         

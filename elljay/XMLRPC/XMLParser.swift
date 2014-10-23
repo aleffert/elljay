@@ -22,16 +22,15 @@ private class XMLParserState {
     var text : String?
 }
 
-public enum XMLParserResult {
-    case Success(XMLDocument)
-    case Failure(String)
-}
+public typealias XMLParserResult = Result<XMLDocument>
+
+public let XMLRPCErrorDomain = "com.akivaleffert.XMLRPC"
 
 public class XMLParser: NSObject, NSXMLParserDelegate {
     
     private var stack : [XMLParserState] = []
     private var current : XMLParserState = XMLParserState(name: "root")
-    private var failed : String?
+    private var failed : NSError?
     
     
     public func parse(string : String) -> XMLParserResult {
@@ -39,26 +38,30 @@ public class XMLParser: NSObject, NSXMLParserDelegate {
         return parse(data)
     }
     
+    private func parseError(reason : String) -> NSError {
+        return NSError(domain:XMLRPCErrorDomain, code : -1, userInfo : [NSLocalizedDescriptionKey:reason])
+    }
+    
     public func parse(data : NSData) -> XMLParserResult {
         stack = []
         current = XMLParserState(name: "root")
         
-        let parser = NSXMLParser(data : data)!
+        let parser = NSXMLParser(data : data)
         parser.delegate = self
         parser.parse()
         if let error = parser.parserError {
-            return XMLParserResult.Failure(error.localizedDescription)
+            return Failure(error)
         }
         else if let reason = failed {
-            return XMLParserResult.Failure(reason)
+            return Failure(reason)
         }
         else {
-            return XMLParserResult.Success(XMLDocument(current.children))
+            return Success(XMLDocument(current.children))
         }
 
     }
     
-    func parser(parser: NSXMLParser!, didStartElement elementName: String!, namespaceURI: String!, qualifiedName qName: String!, attributes attributeDict: [NSObject : AnyObject]!)  {
+    public func parser(parser: NSXMLParser!, didStartElement elementName: String!, namespaceURI: String!, qualifiedName qName: String!, attributes attributeDict: [NSObject : AnyObject]!)  {
         
         if(failed != nil) { return }
         
@@ -66,11 +69,11 @@ public class XMLParser: NSObject, NSXMLParserDelegate {
         current = XMLParserState(name: elementName, attributes: attributeDict as [String : String])
     }
     
-    func parser(parser: NSXMLParser!, didEndElement elementName: String!, namespaceURI: String!, qualifiedName qName: String!)  {
+    public func parser(parser: NSXMLParser!, didEndElement elementName: String!, namespaceURI: String!, qualifiedName qName: String!)  {
         if(failed != nil) { return }
         
         if(elementName != current.name) {
-            failed = "Closing element didn't match"
+            failed = parseError("Closing element didn't match")
             return
         }
         
@@ -79,7 +82,7 @@ public class XMLParser: NSObject, NSXMLParserDelegate {
         current.children.append(node)
     }
     
-    func parser(parser: NSXMLParser!, foundCharacters string: String!)  {
+    public func parser(parser: NSXMLParser!, foundCharacters string: String!)  {
         if(failed != nil) { return }
         if let curText = current.text {
             current.text = current.text! + string

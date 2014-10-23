@@ -13,51 +13,39 @@ import XCTest
 
 class XMLParserTests: XCTestCase {
     
-    func testHeader() {
+    func makeParserTest(#body : String, message : String) {
         let parser = XMLParser()
-        let string = "<?xml version = \"1.0\" ?><html></html>";
+        let string = "<?xml version = \"1.0\" ?>\(body)";
         let result = parser.parse(string)
-        switch result {
-        case let .Success(document):
-            XCTAssertEqual(document.description, string, "Header should propagate")
-        case let .Failure(error):
-            XCTFail(error)
-        }
+        result.cata ({(d : XMLDocument) in
+            XCTAssertEqual(d.description, string, message)
+            return
+        }, {
+            XCTFail("Error: \($0)")
+        })
+    }
+    
+    func testHeader() {
+        makeParserTest(
+            body : "<html></html>",
+            message : "Header should propagate")
     }
     
     func testAttributes() {
-        let parser = XMLParser()
-        let string = "<?xml version = \"1.0\" ?><html bar = \"a\" foo = \"b\"></html>";
-        let result = parser.parse(string)
-        switch result {
-        case let .Success(document):
-            XCTAssertEqual(document.description, string, "Attributes should save")
-        case let .Failure(error):
-            XCTFail(error)
-        }
+        makeParserTest(
+            body : "<html bar = \"a\" foo = \"b\"></html>",
+            message : "Attributes should save")
     }
     
     func testInnerText() {
-        let parser = XMLParser()
-        let string = "<?xml version = \"1.0\" ?><html bar = \"a\" foo = \"b\"><head>abc</head><body></body></html>";
-        let result = parser.parse(string)
-        switch result {
-        case let .Success(document):
-            XCTAssertEqual(document.description, string, "Inner text should propagate")
-        case let .Failure(error):
-            XCTFail(error)
-        }
+        makeParserTest(
+            body : "<html bar = \"a\" foo = \"b\"><head>abc</head><body></body></html>",
+            message : "Inner text should propagate")
     }
     
     func testNesting() {
-        let parser = XMLParser()
-        let string = "<?xml version = \"1.0\" ?><html bar = \"a\" foo = \"b\"><head></head><body><div></div></body></html>";
-        let result = parser.parse(string)
-        switch result {
-        case let .Success(document):
-            XCTAssertEqual(document.description, string, "Nodes should nest")
-        case let .Failure(error):
-            XCTFail(error)
-        }
+        makeParserTest(
+            body : "<html bar = \"a\" foo = \"b\"><head></head><body><div></div></body></html>",
+            message : "Nodes should nest")
     }
 }

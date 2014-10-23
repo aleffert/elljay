@@ -30,6 +30,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     required init(coder aDecoder: NSCoder) {
+        assert(false, "Not designed to be loaded via archive")
+        
         authController = aDecoder.decodeObjectForKey("authController") as AuthController
         delegate = aDecoder.decodeObjectForKey("delegate") as LoginViewControllerDelegate
         super.init(coder: aDecoder)

@@ -53,8 +53,8 @@ class AuthSession {
     }
 
     func saveToKeychain() {
-        let data : NSData? = storage.bind {s in return NSKeyedArchiver.archivedDataWithRootObject(s) }
-        let err : OSStatus? = data.bind {d in return self.keychain.save(d) }
+        let data = storage.bind { NSKeyedArchiver.archivedDataWithRootObject($0) }
+        let err = data.bind { self.keychain.save($0) }
         assert(err == nil, "Unexpected keychain error: \(err)")
     }
     

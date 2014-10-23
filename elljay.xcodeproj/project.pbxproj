@@ -25,6 +25,8 @@
 		775FE30019BE7E9400F84067 /* NetworkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775FE2FE19BE7E9400F84067 /* NetworkServiceTests.swift */; };
 		775FE30219BE7EAC00F84067 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775FE30119BE7EAC00F84067 /* NetworkService.swift */; };
 		775FE30319BE7EAC00F84067 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775FE30119BE7EAC00F84067 /* NetworkService.swift */; };
+		777CA2E719F8500000370AE9 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777CA2E619F8500000370AE9 /* Result.swift */; };
+		777CA2E819F8500000370AE9 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777CA2E619F8500000370AE9 /* Result.swift */; };
 		778C039819AAD34700B06D17 /* SequenceAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778C039719AAD34700B06D17 /* SequenceAdditions.swift */; };
 		77BE0E3119AAB93100A9E00B /* XMLNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BE0E3019AAB93100A9E00B /* XMLNode.swift */; };
 		77C72535199D6B8D002B6A25 /* NSObject+ELJDeallocActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C72534199D6B8C002B6A25 /* NSObject+ELJDeallocActions.m */; };
@@ -97,6 +99,7 @@
 		7757D78319AB753E006E1AF1 /* XMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XMLParser.swift; path = XMLRPC/XMLParser.swift; sourceTree = "<group>"; };
 		775FE2FE19BE7E9400F84067 /* NetworkServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkServiceTests.swift; path = elljayTests/NetworkServiceTests.swift; sourceTree = SOURCE_ROOT; };
 		775FE30119BE7EAC00F84067 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		777CA2E619F8500000370AE9 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Result.swift; path = XMLRPC/Result.swift; sourceTree = "<group>"; };
 		778C039719AAD34700B06D17 /* SequenceAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SequenceAdditions.swift; path = XMLRPC/SequenceAdditions.swift; sourceTree = "<group>"; };
 		77BE0E3019AAB93100A9E00B /* XMLNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XMLNode.swift; path = XMLRPC/XMLNode.swift; sourceTree = "<group>"; };
 		77C72532199D6B8C002B6A25 /* elljay-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "elljay-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -187,6 +190,7 @@
 		77BE0E3219AAB93400A9E00B /* XMLRPC */ = {
 			isa = PBXGroup;
 			children = (
+				777CA2E619F8500000370AE9 /* Result.swift */,
 				77BE0E3019AAB93100A9E00B /* XMLNode.swift */,
 				778C039719AAD34700B06D17 /* SequenceAdditions.swift */,
 				7757D78319AB753E006E1AF1 /* XMLParser.swift */,
@@ -440,6 +444,7 @@
 				775FE30219BE7EAC00F84067 /* NetworkService.swift in Sources */,
 				772553B4199D607C00E3D7B2 /* AuthSession.swift in Sources */,
 				77E2501419BE9E5800D2083F /* DataStore.swift in Sources */,
+				777CA2E719F8500000370AE9 /* Result.swift in Sources */,
 				772553B2199D603500E3D7B2 /* LJService.swift in Sources */,
 				77C72537199D6C51002B6A25 /* NSNotificationCenterAdditions.swift in Sources */,
 				77DDF77319B17DF2004DE62B /* KeychainService.swift in Sources */,
@@ -464,6 +469,7 @@
 				77D0190619B542690024DBED /* XMLParserTests.swift in Sources */,
 				77D0190419B542690024DBED /* SequenceAdditionsTests.swift in Sources */,
 				775FE30319BE7EAC00F84067 /* NetworkService.swift in Sources */,
+				777CA2E819F8500000370AE9 /* Result.swift in Sources */,
 				775071B119B384DB00B0B142 /* XMLParser.swift in Sources */,
 				77DCD2F719F412B100354B28 /* ArrayAdditions.swift in Sources */,
 				775071AF19B384D600B0B142 /* SequenceAdditions.swift in Sources */,

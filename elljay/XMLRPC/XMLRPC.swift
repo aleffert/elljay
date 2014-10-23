@@ -135,40 +135,49 @@ extension XMLRPCParam {
             return XMLNode(name : "dateTime.iso8601", children : [], text : date.toISO8601String())
         }
     }
-}
-
-public enum XMLRPCResult {
-    case Response([XMLRPCParam])
-    case Fault(NSError)
-    case ParseError(String)
-
-}
-
-extension XMLRPCResult {
-
-    static let errorDomain = "com.akivaleffert.elljay.XMLRPC"
     
-    static func malformedResponseError() -> XMLRPCResult {
-        return ParseError("Returned XML is not an XML-RPC ")
+    public func toResponseData() -> NSData {
+        //<methodResponse><params><param><value><struct>
+        let node = self.toXMLNode()
+        let root = XMLNode(
+            name : "methodResponse",
+            children : [
+                XMLNode(name : "params", children : [
+                    XMLNode(name : "param", children : [
+                        XMLNode(name : "value", children : [
+                            node
+                            ])
+                        ])
+                    ])
+            ])
+        return root.description.dataUsingEncoding(NSUTF8StringEncoding)!
+    }
+}
+
+public typealias XMLRPCParseResult = Result<[XMLRPCParam]>
+
+
+let XMLRPCParserErrorDomain = "com.akivaleffert.elljay.XMLRPC"
+public class XMLRPCParser {
+
+    private func malformedResponseError() -> XMLRPCParseResult {
+        return Failure(NSError(domain: XMLRPCParserErrorDomain, code: -1, userInfo: [NSLocalizedDescriptionKey : "Returned XML is not a valid XML-RPC response"]))
     }
     
-    public static func from(#string : String) -> XMLRPCResult {
+    public func from(#string : String) -> XMLRPCParseResult {
         return from(data : string.dataUsingEncoding(NSUTF8StringEncoding)!)
     }
     
-    public static func from(#data : NSData) -> XMLRPCResult {
+    public func from(#data : NSData) -> XMLRPCParseResult {
         let parser = XMLParser()
         let parseResult = parser.parse(data)
         
-        switch(parseResult) {
-        case let .Failure(error):
-            return ParseError(error)
-        case let .Success(document):
-            return from(XMLDocument : document)
+        return parseResult.bind {
+            return self.from(XMLDocument : $0)
         }
     }
     
-    static func from(XMLDocument document : XMLDocument) -> XMLRPCResult {
+    private func from(XMLDocument document : XMLDocument) -> XMLRPCParseResult {
         if(countElements(document.body) != 1) {
             return malformedResponseError()
         }
@@ -190,7 +199,7 @@ extension XMLRPCResult {
         
     }
         
-    static func process(#param : XMLNode) -> XMLRPCParam? {
+    private func process(#param : XMLNode) -> XMLRPCParam? {
         let value = param.child("value")
         if let v = value {
             return process(value : v)
@@ -198,21 +207,21 @@ extension XMLRPCResult {
         return nil
     }
 
-    static func processParamNodes(nodes : [XMLNode]) -> [XMLRPCParam]? {
+    private func processParamNodes(nodes : [XMLNode]) -> [XMLRPCParam]? {
         return nodes.mapOrFail {s in return self.process(param : s)}
     }
     
-    static func from(paramNodes params : XMLNode) -> XMLRPCResult {
+    private func from(paramNodes params : XMLNode) -> XMLRPCParseResult {
         let items : [XMLNode]? = params.all("param")
         return items.bind {i in
             return self.processParamNodes(i)
         }.bind {(r : [XMLRPCParam]) in
-            return Response(r)
+            return Success(r)
         } ?? malformedResponseError()
     }
 
 
-    static func process(value v : XMLNode) -> XMLRPCParam? {
+    private func process(value v : XMLNode) -> XMLRPCParam? {
         if countElements(v.children) != 1 {
             return nil
         }
@@ -263,7 +272,7 @@ extension XMLRPCResult {
         }
     }
     
-    static func process(#arrayNode : XMLNode) -> XMLRPCParam? {
+    private func process(#arrayNode : XMLNode) -> XMLRPCParam? {
         let children : [XMLNode]? = arrayNode.child("data")?.children
         let params : [XMLRPCParam]? = children.bind {cs in
             let result : [XMLRPCParam]? = cs.mapOrFail {c in return self.process(value : c)}
@@ -275,7 +284,7 @@ extension XMLRPCResult {
         return result
     }
 
-    static func process(#structMemberNode : XMLNode) -> (String, XMLRPCParam)? {
+    private func process(#structMemberNode : XMLNode) -> (String, XMLRPCParam)? {
         let name = structMemberNode.child("name")
         let value = structMemberNode.child("value")
         if name?.innerText == nil {
@@ -288,7 +297,7 @@ extension XMLRPCResult {
         return result
     }
 
-    static func process(#structureNode : XMLNode) -> XMLRPCParam? {
+    private func process(#structureNode : XMLNode) -> XMLRPCParam? {
         let children = structureNode.all("member")
         return children.mapOrFail {m in self.process(structMemberNode : m)}
         .bind {(d : [(String, XMLRPCParam)]) in
@@ -296,15 +305,15 @@ extension XMLRPCResult {
         }
     }
     
-    static func from(#faultNodes : XMLNode) -> XMLRPCResult {
+    private func from(#faultNodes : XMLNode) -> XMLRPCParseResult {
         let faultCodeMember = faultNodes.child("value")?.child("struct")?.select("member", child : "name", value : "faultCode")
         let faultReasonMember = faultNodes.child("value")?.child("struct")?.select("member", child : "name", value : "faultString")
         let faultCode : Int? = faultCodeMember?.child("value")?.child("int")?.innerText.bind {s in return s.toInt()}
         let faultReason : String? = faultReasonMember?.child("value")?.child("string")?.innerText
         println("code is \(faultCode) error is \(faultReason)")
         if faultCode != nil && faultReason != nil {
-            let error = NSError(domain: errorDomain, code: faultCode!, userInfo: [NSLocalizedDescriptionKey : faultReason!])
-            return Fault(error)
+            let error = NSError(domain: XMLRPCParserErrorDomain, code: faultCode!, userInfo: [NSLocalizedDescriptionKey : faultReason!])
+            return Failure(error)
         }
         else {
             return malformedResponseError()

@@ -32,16 +32,16 @@ class RootViewController: UIViewController, LoginViewControllerDelegate, AppRout
     }
     
     required init(coder aDecoder: NSCoder) {
+        assert(false, "Not designed to be loaded via archive")
         self.environment = RuntimeEnvironment()
         self.authController = AuthController(environment: environment)
         super.init(nibName: nil, bundle: nil)
-        assert(false, "Not designed to be loaded via archive")
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let settingsContainer = UINavigationController(rootViewController: settingsController)!
+        let settingsContainer = UINavigationController(rootViewController: settingsController)
         contentController.viewControllers = [settingsContainer]
         
         let hasCredentials = authController.hasCredentials()
