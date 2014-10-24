@@ -65,9 +65,3 @@ public final class Failure<A> : Result<A> {
         f(error)
     }
 }
-
-struct Request<A> {
-    let urlRequest : (sessionInfo : AuthSessionInfo, challenge : String) -> NSURLRequest
-    let parser : NSData -> Result<A>
-    
-}

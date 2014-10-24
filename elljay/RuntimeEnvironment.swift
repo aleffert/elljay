@@ -10,16 +10,24 @@ import UIKit
 
 class RuntimeEnvironment:
     AuthSessionOwner,
+    AuthenticatedNetworkServiceOwner,
     NetworkServiceOwner,
     LJServiceOwner
 {
-    private(set) var authSession : AuthSession // this really wants to be a let, but it seems to trigger a compiler bug
+    let authSession : AuthSession
     let networkService : NetworkService
     let ljservice : LJService
     
     init() {
         ljservice = LJService()
-        authSession = AuthSession(keychain: KeychainService(serviceName: ljservice.name))
-        networkService = NetworkService()
+        let urlSession = NSURLSession.sharedSession()
+        let keychainService = KeychainService(serviceName: ljservice.name)
+        authSession = AuthSession(keychain: keychainService, urlSession : urlSession)
+        networkService = NetworkService(session: urlSession, challengeGenerator: ljservice)
+    }
+    
+    var authenticatedNetworkService : AuthenticatedNetworkService? {
+        return authSession.storage.map { AuthenticatedNetworkService(service: self.networkService, sessionInfo: $0)
+        }
     }
 }

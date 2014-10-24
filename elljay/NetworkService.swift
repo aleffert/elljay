@@ -47,7 +47,6 @@ class NetworkService {
         self.challengeGenerator = challengeGenerator
     }
 
-
     func sendRequest<A>(#urlRequest : NSURLRequest, parser : NSData -> Result<A>, completionHandler : (Result<A> , NSURLResponse!) -> Void) -> NetworkTask {
         let wrappedCompletion = {(result, response) in
             dispatch_async(dispatch_get_main_queue()) {
@@ -74,7 +73,7 @@ class NetworkService {
         return result
     }
     
-    func send<A>(#sessionInfo : AuthSessionInfo, request : Request<A>, completionHandler : (Result<A>, NSURLResponse!) -> Void) -> NetworkTask {
+    func send<A>(#sessionInfo : AuthSessionInfo, request : Request<A, ChallengeInfo>, completionHandler : (Result<A>, NSURLResponse!) -> Void) -> NetworkTask {
         let (challengeRequest : NSURLRequest, parser : NSData -> Result<GetChallengeResponse>) = challengeGenerator.getChallenge()
         var groupTask : ChallengeRequestTask? = nil
         let task = sendRequest(urlRequest: challengeRequest, parser: parser) {[weak groupTask] (response, urlResponse) -> Void in
@@ -88,7 +87,11 @@ class NetworkService {
         groupTask = ChallengeRequestTask(task : task)
         
         return groupTask!
-
+    }
+    
+    func send<A>(#sessionInfo : AuthSessionInfo, request : Request<A, AuthSessionInfo>, completionHandler : (Result<A>, NSURLResponse!) -> Void) -> NetworkTask {
+        let urlRequest = request.urlRequest(sessionInfo)
+        return self.sendRequest(urlRequest : urlRequest, request.parser, completionHandler)
     }
 
 }

@@ -9,6 +9,12 @@
 import Foundation
 import UIKit
 
+struct Request<A, B> {
+    let urlRequest : B -> NSURLRequest
+    let parser : NSData -> Result<A>
+}
+
+typealias ChallengeInfo = (sessionInfo : AuthSessionInfo, challenge : String)
 
 
 // The LJ API has a year 2038 bug. Sigh
@@ -73,7 +79,7 @@ class LJService : ChallengeRequestable {
         return NSError(domain : LJServiceErrorDomain, code : LJServiceErrorMalformedResponseCode, userInfo : [NSLocalizedDescriptionKey : description])
     }
     
-    private func urlRequest(#name : String, params : [String : XMLRPCParam]) -> NSURLRequest {
+    private func XMLRPCURLRequest(#name : String, params : [String : XMLRPCParam]) -> NSURLRequest {
         let request = NSMutableURLRequest(URL: self.url)
         let paramStruct = XMLRPCParam.XStruct(params)
         request.setupXMLRPCCall(path: "LJ.XMLRPC." + name, parameters: [paramStruct])
@@ -101,7 +107,7 @@ class LJService : ChallengeRequestable {
         return dataParser
     }
 
-    private func authenticatedXMLRPCRequest<A>(#name : String, params : [String : XMLRPCParam], parser : XMLRPCParam -> A?) -> Request<A> {
+    private func authenticatedXMLRPCRequest<A>(#name : String, params : [String : XMLRPCParam], parser : XMLRPCParam -> A?) -> Request<A, ChallengeInfo> {
         let generator : (sessionInfo : AuthSessionInfo, challenge : String) -> NSURLRequest = {(sessionInfo, challenge) in
             var finalParams = params
             finalParams["ver"] = XMLRPCParam.XInt(LJServiceVersion)
@@ -110,7 +116,7 @@ class LJService : ChallengeRequestable {
             finalParams["auth_response"] = XMLRPCParam.XString(sessionInfo.challengeResponse(challenge))
             finalParams["auth_method"] = XMLRPCParam.XString("challenge")
             
-            return self.urlRequest(name: name, params: finalParams)
+            return self.XMLRPCURLRequest(name: name, params: finalParams)
         }
         return Request(urlRequest: generator, parser: wrapXMLRPCParser(parser))
     }
@@ -126,14 +132,14 @@ class LJService : ChallengeRequestable {
             }
             return GetChallengeResponse(challenge : challenge!, expireTime : expireTime!, serverTime : serverTime!)
         }
-        return (urlRequest(name: "getchallenge", params: [:]), wrapXMLRPCParser(parser))
+        return (XMLRPCURLRequest(name: "getchallenge", params: [:]), wrapXMLRPCParser(parser))
     }
 
     struct LoginResponse {
         let fullname : String
     }
 
-    func login() -> Request<LoginResponse> {
+    func login() -> Request<LoginResponse, ChallengeInfo> {
         let parser : XMLRPCParam -> LoginResponse? = {x in
             let response = x.structBody()
             let fullname = response?["fullname"]?.stringBody()
@@ -210,7 +216,7 @@ class LJService : ChallengeRequestable {
 
     }
     
-    func syncitems(lastSync : NSDate? = nil) -> Request<SyncItemsResponse> {
+    func syncitems(lastSync : NSDate? = nil) -> Request<SyncItemsResponse, ChallengeInfo> {
         let parser : XMLRPCParam -> SyncItemsResponse? = {x in
             let response = x.structBody()
             let total = response?["total"]?.intBody()
@@ -241,7 +247,7 @@ class LJService : ChallengeRequestable {
         let friends : [Friend]
     }
 
-    func getfriends() -> Request<GetFriendsResponse> {
+    func getfriends() -> Request<GetFriendsResponse, ChallengeInfo> {
         let parser : XMLRPCParam -> GetFriendsResponse? = {x in
             let response = x.structBody()
             let friends : [Friend]? = response?["friends"]?.arrayBody()?.mapOrFail {b in
@@ -257,7 +263,41 @@ class LJService : ChallengeRequestable {
         }
         return authenticatedXMLRPCRequest(name: "getfriends", params: [:], parser: parser)
     }
+
+    struct Entry {
+        let title : String?
+        let author : String
+        let date : NSDate
+    }
     
+    struct FeedResponse {
+        let entries : [Entry]
+    }
+
+    func feedURL(#username : String) -> NSURL {
+        let args = "auth=digest"
+        if countElements(username) > 0 && username.hasPrefix("_") {
+            return NSURL(scheme: "https", host:"users.livejournal.com", path:"\(username)/data/rss\(args)")!
+        }
+        else {
+            return NSURL(scheme: "https", host:"\(username).livejournal.com", path:"/data/rss\(args)")!
+        }
+    }
+
+    func feed(username : String) -> Request<FeedResponse, AuthSessionInfo> {
+        let generator = {(sessionInfo : AuthSessionInfo) -> NSURLRequest in
+            let url = self.feedURL(username : sessionInfo.username)
+            return NSURLRequest(URL:url)
+        }
+        
+        let parser = {(data : NSData) -> Result<FeedResponse> in
+            let document = XMLParser().parse(data)
+            println("document is \(document)")
+            return Success(FeedResponse(entries:[]))
+        }
+        return Request(urlRequest : generator, parser : parser)
+    }
+
 }
 
 

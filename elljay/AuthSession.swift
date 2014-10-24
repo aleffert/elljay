@@ -35,17 +35,26 @@ class AuthSessionInfo : NSObject, NSCoding {
 
 class AuthSession {
     private let keychain : KeychainService
+    private let urlSession : NSURLSession
     
     private(set) var storage : AuthSessionInfo?
     
-    init(keychain : KeychainService) {
+    init(keychain : KeychainService, urlSession : NSURLSession) {
         self.keychain = keychain
+        self.urlSession = urlSession
     }
     
     func loadFromKeychainIfPossible() {
         switch(keychain.load()) {
         case let .Success(storageData):
             storage = NSKeyedUnarchiver.unarchiveObjectWithData(storageData) as? AuthSessionInfo
+            if let s = storage {
+                if let urlStorage = urlSession.configuration.URLCredentialStorage {
+                    let credential = NSURLCredential(user : s.username, password : s.password, persistence: .ForSession)
+                    let space = NSURLProtectionSpace(host: "livejournal.com", port: 80, `protocol`: "https", realm: nil, authenticationMethod: "digest")
+                    urlStorage.setCredential(credential, forProtectionSpace:space)
+                }
+            }
         case let .Failure(err):
             assert(Int(err) == Int(errSecItemNotFound), "Unexpected keychain error: \(Int32(err))")
             break
@@ -63,6 +72,9 @@ class AuthSession {
     }
 
     func clear() {
+        if let urlStorage = urlSession.configuration.URLCredentialStorage {
+        }
+        
         keychain.clear()
         self.storage = nil
     }
