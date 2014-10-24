@@ -105,7 +105,7 @@ class ServiceTests: XCTestCase {
         let request = service.getfriends()
         let total : Int32 = 2
         
-        let response : XMLRPCParam = XMLRPCParam.XStruct([
+        let response : XMLRPCParam = .XStruct([
             "friends" : .XArray([
                 .XStruct([
                     "username" : .XString("aleffert"),
@@ -125,6 +125,45 @@ class ServiceTests: XCTestCase {
         }, {error in
             XCTFail("Bad parse: \(error)")
             return
+        })
+    }
+
+    func testFeedParser() {
+        let service = LJService()
+        let request = service.feed("aleffert")
+        
+        let response = XMLDocument([
+            XMLNode(name: "rss", children: [XMLNode(
+                name : "channel",
+                children: [
+                    XMLNode(name: "item", children: [
+                        XMLNode(name: "title", text: "Some Title"),
+                        XMLNode(name: "category", text: "foo"),
+                        XMLNode(name: "category", text: "bar"),
+                        XMLNode(name: "category", text: "some tag"),
+                        XMLNode(name: "pubDate", text: "Wed, 13 Nov 2013 03:09:16 GMT")
+                        ]),
+                    XMLNode(name: "item", children: [
+                        XMLNode(name: "title", text: "Other Title"),
+                        XMLNode(name: "pubDate", text: "Fri, 15 Nov 2013 12:12:16 GMT")
+                        ])
+                ]
+                )])])
+        let result = request.parser(response.toData())
+        result.cata({r -> Void in
+            XCTAssertEqual(countElements(r.entries), 2)
+            let item = r.entries[0]
+            XCTAssertEqual(item.title!, "Some Title")
+            XCTAssertEqual(countElements(item.tags), 3)
+            XCTAssertTrue(find(item.tags, "foo") != nil)
+            XCTAssertTrue(find(item.tags, "bar") != nil)
+            XCTAssertTrue(find(item.tags, "some tag") != nil)
+            XCTAssertTrue(find(item.tags, "something else") == nil)
+            let otherItem = r.entries[1]
+            XCTAssertEqual(otherItem.title!, "Other Title")
+            XCTAssertTrue(otherItem.date.matches(year: 2013, month: 11, dayOfMonth: 15))
+        }, {error in
+            XCTFail("Bad parse: \(error)")
         })
     }
 

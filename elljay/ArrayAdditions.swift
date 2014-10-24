@@ -1,5 +1,5 @@
 //
-//  Functional.swift
+//  ArrayAdditions.swift
 //  elljay
 //
 //  Created by Akiva Leffert on 10/18/14.
@@ -17,4 +17,17 @@ func generate<A>(#total : Int, #generator : Int -> A?) -> [A] {
         }
     }
     return result
+}
+
+extension Array {
+    func flatMap<A> (f : T -> A?) -> [A] {
+        var result : Array<A> = []
+        for i in self {
+            if let j = f(i) {
+                result.append(j)
+            }
+        }
+        return result
+    }
+
 }

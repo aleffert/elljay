@@ -136,7 +136,7 @@ extension XMLRPCParam {
         }
     }
     
-    public func toResponseData() -> NSData {
+    public func toResponseData() -> NSData! {
         //<methodResponse><params><param><value><struct>
         let node = self.toXMLNode()
         let root = XMLNode(
@@ -150,7 +150,7 @@ extension XMLRPCParam {
                         ])
                     ])
             ])
-        return root.description.dataUsingEncoding(NSUTF8StringEncoding)!
+        return root.description.dataUsingEncoding(NSUTF8StringEncoding)
     }
 }
 

@@ -16,6 +16,7 @@ class RootViewController: UIViewController, LoginViewControllerDelegate, AppRout
     
     let contentController = UITabBarController()
     let settingsController = SettingsViewController()
+    let feedController : FeedViewController
     let environment : RuntimeEnvironment
     let authController : AuthController
     
@@ -24,6 +25,7 @@ class RootViewController: UIViewController, LoginViewControllerDelegate, AppRout
     init(environment : RuntimeEnvironment) {
         self.environment = environment
         self.authController = AuthController(environment: environment)
+        self.feedController = FeedViewController(environment: environment)
         super.init(nibName: nil, bundle: nil)
         settingsController.router = self
         
@@ -35,6 +37,7 @@ class RootViewController: UIViewController, LoginViewControllerDelegate, AppRout
         assert(false, "Not designed to be loaded via archive")
         self.environment = RuntimeEnvironment()
         self.authController = AuthController(environment: environment)
+        self.feedController = FeedViewController(environment: environment)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -42,7 +45,8 @@ class RootViewController: UIViewController, LoginViewControllerDelegate, AppRout
         super.viewDidLoad()
         
         let settingsContainer = UINavigationController(rootViewController: settingsController)
-        contentController.viewControllers = [settingsContainer]
+        let feedContainer = UINavigationController(rootViewController: feedController)
+        contentController.viewControllers = [feedContainer, settingsContainer]
         
         let hasCredentials = authController.hasCredentials()
         if !hasCredentials {

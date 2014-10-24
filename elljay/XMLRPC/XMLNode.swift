@@ -76,5 +76,9 @@ public class XMLDocument : Printable {
     let bodyString = reduce(body, "") {acc, cur in return acc + cur.description}
         return "<?xml version = \"1.0\" ?>\(bodyString)"
     }
+    
+    func toData() -> NSData! {
+        return description.dataUsingEncoding(NSUTF8StringEncoding)
+    }
 }
 

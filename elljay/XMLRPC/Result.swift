@@ -18,6 +18,10 @@ public class Result<A> {
         assert(false)
     }
     
+    func map<B>(f : A -> B) -> Result<B> {
+        assert(false)
+    }
+    
     func ifSuccess(f : A -> Void) {
         // do nothing
     }
@@ -42,6 +46,10 @@ public final class Success<A> : Result<A> {
         return f(data)
     }
     
+    override func map<B> (f : A -> B) -> Result<B> {
+        return Success<B>(f(data))
+    }
+    
     override func ifSuccess(f : A -> Void) {
         f(data)
     }
@@ -61,7 +69,12 @@ public final class Failure<A> : Result<A> {
         return Failure<B>(error)
     }
     
+    override func map<B> (f : A -> B) -> Result<B> {
+        return Failure<B>(error)
+    }
+    
     override func ifError(f : NSError -> Void) {
         f(error)
     }
 }
+

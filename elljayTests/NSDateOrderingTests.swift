@@ -30,5 +30,11 @@ class NSDateOrderingTests : XCTestCase {
         let b = NSDate(timeIntervalSinceReferenceDate:1000)
         XCTAssertNotEqual(a, b, "Dates with different time intervals should be different")
     }
+    
+    func testMatches() {
+        let a = NSDate(timeIntervalSince1970:4000)
+        XCTAssertTrue(a.matches(year : 1970, month : 1, dayOfMonth : 1))
+        XCTAssertFalse(a.matches(year : 1980, month : 1, dayOfMonth : 1))
+    }
    
 }

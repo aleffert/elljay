@@ -29,6 +29,7 @@
 		777CA2E819F8500000370AE9 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777CA2E619F8500000370AE9 /* Result.swift */; };
 		777CA2EA19F9BEA100370AE9 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777CA2E919F9BEA100370AE9 /* FeedViewController.swift */; };
 		777CA2ED19F9FC6600370AE9 /* AuthenticatedNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777CA2EC19F9FC6600370AE9 /* AuthenticatedNetworkService.swift */; };
+		777CA2EF19FAA86300370AE9 /* NSLocaleAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777CA2EE19FAA86300370AE9 /* NSLocaleAdditions.swift */; };
 		778C039819AAD34700B06D17 /* SequenceAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778C039719AAD34700B06D17 /* SequenceAdditions.swift */; };
 		77BE0E3119AAB93100A9E00B /* XMLNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BE0E3019AAB93100A9E00B /* XMLNode.swift */; };
 		77C72535199D6B8D002B6A25 /* NSObject+ELJDeallocActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C72534199D6B8C002B6A25 /* NSObject+ELJDeallocActions.m */; };
@@ -104,6 +105,7 @@
 		777CA2E619F8500000370AE9 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Result.swift; path = XMLRPC/Result.swift; sourceTree = "<group>"; };
 		777CA2E919F9BEA100370AE9 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		777CA2EC19F9FC6600370AE9 /* AuthenticatedNetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticatedNetworkService.swift; sourceTree = "<group>"; };
+		777CA2EE19FAA86300370AE9 /* NSLocaleAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSLocaleAdditions.swift; sourceTree = "<group>"; };
 		778C039719AAD34700B06D17 /* SequenceAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SequenceAdditions.swift; path = XMLRPC/SequenceAdditions.swift; sourceTree = "<group>"; };
 		77BE0E3019AAB93100A9E00B /* XMLNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XMLNode.swift; path = XMLRPC/XMLNode.swift; sourceTree = "<group>"; };
 		77C72532199D6B8C002B6A25 /* elljay-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "elljay-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 		77D0191D19B54CB40024DBED /* Library Additions */ = {
 			isa = PBXGroup;
 			children = (
+				777CA2EE19FAA86300370AE9 /* NSLocaleAdditions.swift */,
 				77C72533199D6B8C002B6A25 /* NSObject+ELJDeallocActions.h */,
 				77C72534199D6B8C002B6A25 /* NSObject+ELJDeallocActions.m */,
 				77DCD2F519F30AE000354B28 /* ArrayAdditions.swift */,
@@ -469,6 +472,7 @@
 				77D0192C19B555720024DBED /* ELJCrypto.m in Sources */,
 				775071B519B42CCB00B0B142 /* RuntimeEnvironment.swift in Sources */,
 				770158BC19F5A3D400EACD99 /* RootViewController.swift in Sources */,
+				777CA2EF19FAA86300370AE9 /* NSLocaleAdditions.swift in Sources */,
 				77FA1A0B199D5C160080163D /* AppDelegate.swift in Sources */,
 				77BE0E3119AAB93100A9E00B /* XMLNode.swift in Sources */,
 				777CA2ED19F9FC6600370AE9 /* AuthenticatedNetworkService.swift in Sources */,

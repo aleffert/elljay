@@ -39,6 +39,7 @@ struct DateUtils {
         let formatter = NSDateFormatter()
             formatter.timeZone = standardTimeZone()
             formatter.dateFormat = standardFormat
+            formatter.locale = NSLocale.usEnglishLocale()
             return formatter
     }
     
@@ -48,6 +49,21 @@ struct DateUtils {
     
     static func dateFromString(string : String) -> NSDate? {
         return standardFormatter.dateFromString(string)
+    }
+
+    private static var feedFormat : NSString {
+        return "EEE, dd MMMM yyyy HH:mm:ss Z"
+    }
+
+    private static var feedDateFormatter : NSDateFormatter {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = feedFormat
+        formatter.locale = NSLocale.usEnglishLocale()
+        return formatter
+    }
+
+    private static func feedDateFromString(string : String) -> NSDate? {
+        return feedDateFormatter.dateFromString(string)
     }
 }
 
@@ -268,32 +284,48 @@ class LJService : ChallengeRequestable {
         let title : String?
         let author : String
         let date : NSDate
+        let tags : [String]
     }
     
     struct FeedResponse {
         let entries : [Entry]
     }
 
-    func feedURL(#username : String) -> NSURL {
-        let args = "auth=digest"
+    private func feedURL(#username : String) -> NSURL {
+        let args = "&auth=digest"
         if countElements(username) > 0 && username.hasPrefix("_") {
-            return NSURL(scheme: "https", host:"users.livejournal.com", path:"\(username)/data/rss\(args)")!
+            return NSURL(scheme: "http", host:"users.livejournal.com", path:"\(username)/data/rss\(args)")!
         }
         else {
-            return NSURL(scheme: "https", host:"\(username).livejournal.com", path:"/data/rss\(args)")!
+            return NSURL(scheme: "http", host:"\(username).livejournal.com", path:"/data/rss\(args)")!
         }
     }
 
     func feed(username : String) -> Request<FeedResponse, AuthSessionInfo> {
         let generator = {(sessionInfo : AuthSessionInfo) -> NSURLRequest in
             let url = self.feedURL(username : sessionInfo.username)
+            println("url is \(url)")
             return NSURLRequest(URL:url)
         }
         
         let parser = {(data : NSData) -> Result<FeedResponse> in
             let document = XMLParser().parse(data)
-            println("document is \(document)")
-            return Success(FeedResponse(entries:[]))
+            let entries = document.bind {d -> Result<[Entry]> in
+                let items = d.body[0].child("channel")?.all("item")
+                let entries = items.bind {(items : [XMLNode]) -> [Entry]? in return items.mapOrFail {i in
+                    let title = i.child("title")?.innerText
+                    let date = i.child("pubDate")?.innerText.bind { DateUtils.feedDateFromString($0) }
+                    let tags = i.all("category").flatMap { $0.innerText }
+                    return date.map { Entry(title : title, author : username, date : $0, tags : tags) }
+                }}
+                if let e = entries {
+                    return Success(e)
+                }
+                else {
+                    return Failure(self.malformedResponseError("Invalid RSS"))
+                }
+            }
+            return entries.map{ FeedResponse(entries:$0) }
         }
         return Request(urlRequest : generator, parser : parser)
     }

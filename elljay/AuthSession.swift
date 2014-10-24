@@ -51,7 +51,7 @@ class AuthSession {
             if let s = storage {
                 if let urlStorage = urlSession.configuration.URLCredentialStorage {
                     let credential = NSURLCredential(user : s.username, password : s.password, persistence: .ForSession)
-                    let space = NSURLProtectionSpace(host: "livejournal.com", port: 80, `protocol`: "https", realm: nil, authenticationMethod: "digest")
+                    let space = NSURLProtectionSpace(host: "livejournal.com", port: 80, `protocol`: "http", realm: nil, authenticationMethod: "digest")
                     urlStorage.setCredential(credential, forProtectionSpace:space)
                 }
             }
