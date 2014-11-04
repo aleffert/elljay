@@ -1,3 +1,6 @@
+before_install:
+  - gem install cocoapods -v '0.34.4'
+
 language: objective-c
 xcode_workspace : elljay.xcworkspace # path to your xcodeproj folder
 xcode_scheme: elljayTests
