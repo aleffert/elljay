@@ -6,3 +6,4 @@ osx_image: xcode61
 language: objective-c
 xcode_workspace : elljay.xcworkspace # path to your xcodeproj folder
 xcode_scheme: elljayTests
+xcode_sdk: iphonesimulator8.0
