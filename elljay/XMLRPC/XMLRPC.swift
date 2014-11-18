@@ -325,7 +325,7 @@ extension NSMutableURLRequest {
     
     internal func body(#path : String, parameters : [XMLRPCParam]) -> NSData {
         let methodNameNode = XMLNode(name: "methodName", children: [], text: path)
-        let paramNodes : [XMLNode] = parameters.map {param in param.toXMLNode()}
+        let paramNodes : [XMLNode] = parameters.map {param in XMLNode(name: "value", children: [param.toXMLNode()])}
         let paramNode = XMLNode(name : "param", children : paramNodes)
         let paramsNode = XMLNode(name : "params", children : [paramNode])
         let node = XMLNode(name: "methodCall", children: [methodNameNode, paramsNode])

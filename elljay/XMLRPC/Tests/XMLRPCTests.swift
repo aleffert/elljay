@@ -136,7 +136,7 @@ class XMLRPCRequestTests: XCTestCase {
     }
     
     func testRequestSetup() {
-        let expectedResult : NSString = "<methodCall><methodName>A.B.C</methodName><params><param><string>foo</string></param></params></methodCall>"
+        let expectedResult : NSString = "<methodCall><methodName>A.B.C</methodName><params><param><value><string>foo</string></value></param></params></methodCall>"
         let request = NSMutableURLRequest(URL: NSURL(scheme: "http", host: "test", path: "/test")!)
         request.setupXMLRPCCall(path: "A.B.C", parameters: [XMLRPCParam.XString("foo")])
         XCTAssertEqual(request.HTTPMethod, "POST", "XMLRPC calls are POST calls")
