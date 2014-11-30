@@ -292,7 +292,7 @@ class LJService : ChallengeRequestable {
     }
 
     private func feedURL(#username : String) -> NSURL {
-        let args = "&auth=digest"
+        let args = "?auth=digest"
         if countElements(username) > 0 && username.hasPrefix("_") {
             return NSURL(scheme: "http", host:"users.livejournal.com", path:"\(username)/data/rss\(args)")!
         }
@@ -304,6 +304,7 @@ class LJService : ChallengeRequestable {
     func feed(username : String) -> Request<FeedResponse, AuthSessionInfo> {
         let generator = {(sessionInfo : AuthSessionInfo) -> NSURLRequest in
             let url = self.feedURL(username : sessionInfo.username)
+            let request = NSMutableURLRequest(URL: url)
             println("url is \(url)")
             return NSURLRequest(URL:url)
         }

@@ -32,6 +32,7 @@
 		777CA2EF19FAA86300370AE9 /* NSLocaleAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777CA2EE19FAA86300370AE9 /* NSLocaleAdditions.swift */; };
 		778C039819AAD34700B06D17 /* SequenceAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778C039719AAD34700B06D17 /* SequenceAdditions.swift */; };
 		77BE0E3119AAB93100A9E00B /* XMLNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BE0E3019AAB93100A9E00B /* XMLNode.swift */; };
+		77C623AC1A2BCFF200D63AC6 /* AuthorizedURLSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C623AB1A2BCFF200D63AC6 /* AuthorizedURLSessionDelegate.swift */; };
 		77C72535199D6B8D002B6A25 /* NSObject+ELJDeallocActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C72534199D6B8C002B6A25 /* NSObject+ELJDeallocActions.m */; };
 		77C72537199D6C51002B6A25 /* NSNotificationCenterAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C72536199D6C51002B6A25 /* NSNotificationCenterAdditions.swift */; };
 		77D0190419B542690024DBED /* SequenceAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D0190019B542690024DBED /* SequenceAdditionsTests.swift */; };
@@ -108,6 +109,7 @@
 		777CA2EE19FAA86300370AE9 /* NSLocaleAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSLocaleAdditions.swift; sourceTree = "<group>"; };
 		778C039719AAD34700B06D17 /* SequenceAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SequenceAdditions.swift; path = XMLRPC/SequenceAdditions.swift; sourceTree = "<group>"; };
 		77BE0E3019AAB93100A9E00B /* XMLNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XMLNode.swift; path = XMLRPC/XMLNode.swift; sourceTree = "<group>"; };
+		77C623AB1A2BCFF200D63AC6 /* AuthorizedURLSessionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizedURLSessionDelegate.swift; sourceTree = "<group>"; };
 		77C72532199D6B8C002B6A25 /* elljay-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "elljay-Bridging-Header.h"; sourceTree = "<group>"; };
 		77C72533199D6B8C002B6A25 /* NSObject+ELJDeallocActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+ELJDeallocActions.h"; sourceTree = "<group>"; };
 		77C72534199D6B8C002B6A25 /* NSObject+ELJDeallocActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ELJDeallocActions.m"; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 				770158BB19F5A3D400EACD99 /* RootViewController.swift */,
 				770158B619F4388700EACD99 /* SettingsViewController.swift */,
 				775071B419B42CCB00B0B142 /* RuntimeEnvironment.swift */,
+				77C623AB1A2BCFF200D63AC6 /* AuthorizedURLSessionDelegate.swift */,
 				77FA1A14199D5C160080163D /* Images.xcassets */,
 				77BE0E3219AAB93400A9E00B /* XMLRPC */,
 				77FA1A08199D5C160080163D /* Supporting Files */,
@@ -465,6 +468,7 @@
 				777CA2E719F8500000370AE9 /* Result.swift in Sources */,
 				772553B2199D603500E3D7B2 /* LJService.swift in Sources */,
 				77C72537199D6C51002B6A25 /* NSNotificationCenterAdditions.swift in Sources */,
+				77C623AC1A2BCFF200D63AC6 /* AuthorizedURLSessionDelegate.swift in Sources */,
 				77DDF77319B17DF2004DE62B /* KeychainService.swift in Sources */,
 				77DDF77719B21306004DE62B /* NSDateAdditions.swift in Sources */,
 				77C72535199D6B8D002B6A25 /* NSObject+ELJDeallocActions.m in Sources */,

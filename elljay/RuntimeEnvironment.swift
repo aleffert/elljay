@@ -20,9 +20,9 @@ class RuntimeEnvironment:
     
     init() {
         ljservice = LJService()
-        let urlSession = NSURLSession.sharedSession()
         let keychainService = KeychainService(serviceName: ljservice.name)
-        authSession = AuthSession(keychain: keychainService, urlSession : urlSession)
+        authSession = AuthSession(keychain: keychainService)
+        let urlSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: AuthorizedURLSessionDelegate(authSession: authSession), delegateQueue: NSOperationQueue.mainQueue())
         networkService = NetworkService(session: urlSession, challengeGenerator: ljservice)
     }
     
@@ -31,3 +31,4 @@ class RuntimeEnvironment:
         }
     }
 }
+
