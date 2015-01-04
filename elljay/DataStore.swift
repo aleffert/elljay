@@ -8,29 +8,79 @@
 
 import Foundation
 
+struct FeedUpdateInfo {
+    let username : LJService.Username
+    let lastLoad : NSDate?
+    let lastEntry : NSDate?
+}
+
 class DataStore {
-    private(set) var syncItems : [LJService.SyncItem] = []
     private let processingQueue = dispatch_queue_create("com.akivaleffert.elljay.DataStore", DISPATCH_QUEUE_SERIAL)
     
     var friends : [LJService.Friend] = []
+    var entries : [LJService.Entry] = []
     
-    func addedSyncItems(#items : [LJService.SyncItem]) {
-        let initialItems = syncItems
-        dispatch_async(processingQueue) { () -> Void in
-            var resultItems = initialItems
-            resultItems.extend(items)
-            resultItems.sort({ (item, otherItem) -> Bool in
-                item.time < otherItem.time
-            })
-            dispatch_async(dispatch_get_main_queue()) {
-                self.syncItems = resultItems
+    var lastLoadDates : [String:NSDate] = [:]
+    var lastEntryDates : [String:NSDate] = [:]
+    
+    func useFriends(friends : [LJService.Friend]) {
+        self.friends = friends
+    }
+    
+    func addEntries(entries : [LJService.Entry], fromFriends : [LJService.Username], requestDate : NSDate) {
+        self.entries.extend(entries)
+        for entry in entries {
+            if let lastEntry = lastEntryDates[entry.author] {
+                lastEntryDates[entry.author] = max(lastEntry, entry.date)
+            }
+            else {
+                lastEntryDates[entry.author] = entry.date
+            }
+            
+            if let lastLoad = lastLoadDates[entry.author] {
+                lastLoadDates[entry.author] = max(lastLoad, requestDate)
+            }
+            else {
+                lastLoadDates[entry.author] = requestDate
             }
         }
     }
     
-    func lastSyncDate() -> NSDate?  {
-        return syncItems.last.map { $0.time }
+    private func friendsToLoad(items : [FeedUpdateInfo], quickRefresh : Bool, checkDate : NSDate) -> [LJService.Username] {
+        return items.concatMap { item in
+            let shouldLoad = { Void -> Bool in
+                switch (item.lastLoad, item.lastEntry) {
+                case (nil, nil):
+                    return true
+                case let (nil, lastEntry):
+                    return true
+                case let (lastLoad, nil):
+                    return lastLoad < checkDate.previousDay()
+                case let (lastLoad, lastEntry):
+                    if quickRefresh {
+                        return lastEntry > checkDate.previousMonth()
+                    }
+                    else {
+                        return true
+                    }
+                }
+            }()
+                
+            return shouldLoad ? [item.username] : []
+        }
     }
     
+    func friendsToLoad(#quickRefresh : Bool, checkDate : NSDate = NSDate()) -> [LJService.Username] {
+        let infos = friends.map { friend -> FeedUpdateInfo in
+            let username = friend.user
+            return FeedUpdateInfo(
+                username: username,
+                lastLoad: self.lastLoadDates[username],
+                lastEntry: self.lastEntryDates[username]
+            )
+        }
+        
+        return friendsToLoad(infos, quickRefresh: quickRefresh, checkDate : checkDate)
+    }
     
 }

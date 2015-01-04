@@ -32,3 +32,26 @@ extension NSDate {
         return components.year == year && components.month == month && components.day == dayOfMonth
     }
 }
+
+extension NSDate {
+    func previousDay () -> NSDate {
+        let calendar = NSCalendar.currentCalendar()
+        let components = NSDateComponents()
+        components.day = -1
+        return calendar.dateByAddingComponents(components, toDate: self, options: NSCalendarOptions())!
+    }
+    
+    func previousWeek () -> NSDate {
+        let calendar = NSCalendar.currentCalendar()
+        let components = NSDateComponents()
+        components.day = -7
+        return calendar.dateByAddingComponents(components, toDate: self, options: NSCalendarOptions())!
+    }
+    
+    func previousMonth() -> NSDate {
+        let calendar = NSCalendar.currentCalendar()
+        let components = NSDateComponents()
+        components.month = -1
+        return calendar.dateByAddingComponents(components, toDate: self, options: NSCalendarOptions())!
+    }
+}

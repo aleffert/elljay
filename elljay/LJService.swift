@@ -254,9 +254,15 @@ class LJService : ChallengeRequestable {
         return authenticatedXMLRPCRequest(name: "syncitems", params : params, parser : parser)
     }
     
+    typealias Username = String
+    
     struct Friend {
-        let user : String
+        let user : Username
         let name : String?
+        
+        var displayName : String {
+            return name ?? user
+        }
     }
     
     struct GetFriendsResponse {
@@ -282,7 +288,7 @@ class LJService : ChallengeRequestable {
 
     struct Entry {
         let title : String?
-        let author : String
+        let author : Username
         let date : NSDate
         let tags : [String]
     }
@@ -317,7 +323,11 @@ class LJService : ChallengeRequestable {
                     let title = i.child("title")?.innerText
                     let date = i.child("pubDate")?.innerText.bind { DateUtils.feedDateFromString($0) }
                     let tags = i.all("category").flatMap { $0.innerText }
-                    return date.map { Entry(title : title, author : username, date : $0, tags : tags) }
+                    return date.map { Entry(
+                        title : title,
+                        author : username,
+                        date : $0,
+                        tags : tags) }
                 }}
                 if let e = entries {
                     return Success(e)

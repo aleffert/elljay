@@ -27,11 +27,6 @@ class FeedViewController : UIViewController {
         super.init(coder: aDecoder)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
-    
     override func viewWillAppear(animated: Bool) {
         let feedRequest = self.environment.ljservice.feed("aleffert")
         self.environment.authenticatedNetworkService?.send(request: feedRequest, completionHandler: {(result, response) in

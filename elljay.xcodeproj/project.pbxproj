@@ -16,7 +16,7 @@
 		773E981219AAEA2600AC0B4B /* XMLRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773E981119AAEA2600AC0B4B /* XMLRPC.swift */; };
 		775071AD19B384A100B0B142 /* LJService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772553B1199D603500E3D7B2 /* LJService.swift */; };
 		775071AE19B384BA00B0B142 /* XMLRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773E981119AAEA2600AC0B4B /* XMLRPC.swift */; };
-		775071AF19B384D600B0B142 /* SequenceAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778C039719AAD34700B06D17 /* SequenceAdditions.swift */; };
+		775071AF19B384D600B0B142 /* FunctionalAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778C039719AAD34700B06D17 /* FunctionalAdditions.swift */; };
 		775071B019B384D800B0B142 /* XMLNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BE0E3019AAB93100A9E00B /* XMLNode.swift */; };
 		775071B119B384DB00B0B142 /* XMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7757D78319AB753E006E1AF1 /* XMLParser.swift */; };
 		775071B319B385B100B0B142 /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775071B219B385B100B0B142 /* AuthController.swift */; };
@@ -30,12 +30,14 @@
 		777CA2EA19F9BEA100370AE9 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777CA2E919F9BEA100370AE9 /* FeedViewController.swift */; };
 		777CA2ED19F9FC6600370AE9 /* AuthenticatedNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777CA2EC19F9FC6600370AE9 /* AuthenticatedNetworkService.swift */; };
 		777CA2EF19FAA86300370AE9 /* NSLocaleAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777CA2EE19FAA86300370AE9 /* NSLocaleAdditions.swift */; };
-		778C039819AAD34700B06D17 /* SequenceAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778C039719AAD34700B06D17 /* SequenceAdditions.swift */; };
+		778C039819AAD34700B06D17 /* FunctionalAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778C039719AAD34700B06D17 /* FunctionalAdditions.swift */; };
 		77BE0E3119AAB93100A9E00B /* XMLNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BE0E3019AAB93100A9E00B /* XMLNode.swift */; };
+		77BF003E1A58A50C007526AD /* DataStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BF003D1A58A50C007526AD /* DataStoreTests.swift */; };
+		77BF003F1A58A7E7007526AD /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E2501319BE9E5700D2083F /* DataStore.swift */; };
 		77C623AC1A2BCFF200D63AC6 /* AuthorizedURLSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C623AB1A2BCFF200D63AC6 /* AuthorizedURLSessionDelegate.swift */; };
 		77C72535199D6B8D002B6A25 /* NSObject+ELJDeallocActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C72534199D6B8C002B6A25 /* NSObject+ELJDeallocActions.m */; };
 		77C72537199D6C51002B6A25 /* NSNotificationCenterAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C72536199D6C51002B6A25 /* NSNotificationCenterAdditions.swift */; };
-		77D0190419B542690024DBED /* SequenceAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D0190019B542690024DBED /* SequenceAdditionsTests.swift */; };
+		77D0190419B542690024DBED /* FunctionalAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D0190019B542690024DBED /* FunctionalAdditionsTests.swift */; };
 		77D0190519B542690024DBED /* XMLNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D0190119B542690024DBED /* XMLNodeTests.swift */; };
 		77D0190619B542690024DBED /* XMLParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D0190219B542690024DBED /* XMLParserTests.swift */; };
 		77D0190719B542690024DBED /* XMLRPCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D0190319B542690024DBED /* XMLRPCTests.swift */; };
@@ -107,14 +109,15 @@
 		777CA2E919F9BEA100370AE9 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		777CA2EC19F9FC6600370AE9 /* AuthenticatedNetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticatedNetworkService.swift; sourceTree = "<group>"; };
 		777CA2EE19FAA86300370AE9 /* NSLocaleAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSLocaleAdditions.swift; sourceTree = "<group>"; };
-		778C039719AAD34700B06D17 /* SequenceAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SequenceAdditions.swift; path = XMLRPC/SequenceAdditions.swift; sourceTree = "<group>"; };
+		778C039719AAD34700B06D17 /* FunctionalAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunctionalAdditions.swift; path = XMLRPC/FunctionalAdditions.swift; sourceTree = "<group>"; };
 		77BE0E3019AAB93100A9E00B /* XMLNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XMLNode.swift; path = XMLRPC/XMLNode.swift; sourceTree = "<group>"; };
+		77BF003D1A58A50C007526AD /* DataStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStoreTests.swift; sourceTree = "<group>"; };
 		77C623AB1A2BCFF200D63AC6 /* AuthorizedURLSessionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizedURLSessionDelegate.swift; sourceTree = "<group>"; };
 		77C72532199D6B8C002B6A25 /* elljay-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "elljay-Bridging-Header.h"; sourceTree = "<group>"; };
 		77C72533199D6B8C002B6A25 /* NSObject+ELJDeallocActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+ELJDeallocActions.h"; sourceTree = "<group>"; };
 		77C72534199D6B8C002B6A25 /* NSObject+ELJDeallocActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ELJDeallocActions.m"; sourceTree = "<group>"; };
 		77C72536199D6C51002B6A25 /* NSNotificationCenterAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSNotificationCenterAdditions.swift; sourceTree = "<group>"; };
-		77D0190019B542690024DBED /* SequenceAdditionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SequenceAdditionsTests.swift; path = elljay/XMLRPC/Tests/SequenceAdditionsTests.swift; sourceTree = SOURCE_ROOT; };
+		77D0190019B542690024DBED /* FunctionalAdditionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunctionalAdditionsTests.swift; path = elljay/XMLRPC/Tests/FunctionalAdditionsTests.swift; sourceTree = SOURCE_ROOT; };
 		77D0190119B542690024DBED /* XMLNodeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XMLNodeTests.swift; path = elljay/XMLRPC/Tests/XMLNodeTests.swift; sourceTree = SOURCE_ROOT; };
 		77D0190219B542690024DBED /* XMLParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XMLParserTests.swift; path = elljay/XMLRPC/Tests/XMLParserTests.swift; sourceTree = SOURCE_ROOT; };
 		77D0190319B542690024DBED /* XMLRPCTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XMLRPCTests.swift; path = elljay/XMLRPC/Tests/XMLRPCTests.swift; sourceTree = SOURCE_ROOT; };
@@ -176,7 +179,7 @@
 		77171FA619AECCA1003EEAD6 /* XMLRPCTests */ = {
 			isa = PBXGroup;
 			children = (
-				77D0190019B542690024DBED /* SequenceAdditionsTests.swift */,
+				77D0190019B542690024DBED /* FunctionalAdditionsTests.swift */,
 				77D0190119B542690024DBED /* XMLNodeTests.swift */,
 				77D0190219B542690024DBED /* XMLParserTests.swift */,
 				77D0190319B542690024DBED /* XMLRPCTests.swift */,
@@ -214,7 +217,7 @@
 			children = (
 				777CA2E619F8500000370AE9 /* Result.swift */,
 				77BE0E3019AAB93100A9E00B /* XMLNode.swift */,
-				778C039719AAD34700B06D17 /* SequenceAdditions.swift */,
+				778C039719AAD34700B06D17 /* FunctionalAdditions.swift */,
 				7757D78319AB753E006E1AF1 /* XMLParser.swift */,
 				773E981119AAEA2600AC0B4B /* XMLRPC.swift */,
 			);
@@ -299,6 +302,7 @@
 		77FA1A1D199D5C160080163D /* elljayTests */ = {
 			isa = PBXGroup;
 			children = (
+				77BF003D1A58A50C007526AD /* DataStoreTests.swift */,
 				77D0190F19B542870024DBED /* NSDateOrderingTests.swift */,
 				775FE2FE19BE7E9400F84067 /* NetworkServiceTests.swift */,
 				77D0191019B542870024DBED /* LJServiceTests.swift */,
@@ -461,7 +465,7 @@
 				77D0191C19B54CAA0024DBED /* NSErrorAdditions.swift in Sources */,
 				770158B719F4388700EACD99 /* SettingsViewController.swift in Sources */,
 				775071B319B385B100B0B142 /* AuthController.swift in Sources */,
-				778C039819AAD34700B06D17 /* SequenceAdditions.swift in Sources */,
+				778C039819AAD34700B06D17 /* FunctionalAdditions.swift in Sources */,
 				775FE30219BE7EAC00F84067 /* NetworkService.swift in Sources */,
 				772553B4199D607C00E3D7B2 /* AuthSession.swift in Sources */,
 				77E2501419BE9E5800D2083F /* DataStore.swift in Sources */,
@@ -491,20 +495,22 @@
 				77D0191319B542870024DBED /* LJServiceTests.swift in Sources */,
 				77D0192419B554E90024DBED /* AuthSession.swift in Sources */,
 				77D0190619B542690024DBED /* XMLParserTests.swift in Sources */,
-				77D0190419B542690024DBED /* SequenceAdditionsTests.swift in Sources */,
+				77D0190419B542690024DBED /* FunctionalAdditionsTests.swift in Sources */,
 				775FE30319BE7EAC00F84067 /* NetworkService.swift in Sources */,
 				777CA2E819F8500000370AE9 /* Result.swift in Sources */,
 				775071B119B384DB00B0B142 /* XMLParser.swift in Sources */,
 				77DCD2F719F412B100354B28 /* ArrayAdditions.swift in Sources */,
-				775071AF19B384D600B0B142 /* SequenceAdditions.swift in Sources */,
+				775071AF19B384D600B0B142 /* FunctionalAdditions.swift in Sources */,
 				775071AD19B384A100B0B142 /* LJService.swift in Sources */,
 				77D0192519B554F40024DBED /* KeychainService.swift in Sources */,
 				77D0190519B542690024DBED /* XMLNodeTests.swift in Sources */,
 				775071B019B384D800B0B142 /* XMLNode.swift in Sources */,
 				775071AE19B384BA00B0B142 /* XMLRPC.swift in Sources */,
 				77D0192F19B556380024DBED /* NSDateAdditions.swift in Sources */,
+				77BF003F1A58A7E7007526AD /* DataStore.swift in Sources */,
 				77D0192D19B555720024DBED /* ELJCrypto.m in Sources */,
 				77D0192919B555560024DBED /* NSObject+ELJDeallocActions.m in Sources */,
+				77BF003E1A58A50C007526AD /* DataStoreTests.swift in Sources */,
 				77D0191219B542870024DBED /* NSDateOrderingTests.swift in Sources */,
 				775FE30019BE7E9400F84067 /* NetworkServiceTests.swift in Sources */,
 				77D0190719B542690024DBED /* XMLRPCTests.swift in Sources */,

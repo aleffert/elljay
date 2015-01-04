@@ -79,3 +79,13 @@ extension Dictionary {
         return r
     }
 }
+
+extension Array {
+    func concatMap<U>(f : T -> [U]) -> [U] {
+        var result : [U] = []
+        for i in self {
+            result.extend(f(i))
+        }
+        return result
+    }
+}
