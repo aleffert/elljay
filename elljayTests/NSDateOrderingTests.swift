@@ -37,6 +37,12 @@ class NSDateOrderingTests : XCTestCase {
         XCTAssertFalse(a.matches(year : 1980, month : 1, dayOfMonth : 1))
     }
     
+    func testNextDay() {
+        let a = NSDate(timeIntervalSince1970: 90000)
+        XCTAssertTrue(a.matches(year: 1970, month: 1, dayOfMonth: 2))
+        XCTAssertTrue(a.nextDay().matches(year: 1970, month: 1, dayOfMonth: 3))
+    }
+    
     func testPreviousDay() {
         let a = NSDate(timeIntervalSince1970: 90000)
         XCTAssertTrue(a.matches(year: 1970, month: 1, dayOfMonth: 2))

@@ -42,13 +42,12 @@ class DataStoreTests: XCTestCase {
     func testFriendsNoEntries() {
         let env = FriendTestEnvironment()
         
-        XCTAssertEqual(env.dataStore.friendsToLoad(quickRefresh : true), env.friendNames)
-        XCTAssertEqual(env.dataStore.friendsToLoad(quickRefresh : false), env.friendNames)
+        XCTAssertEqual(env.dataStore.friendsToLoad(quickRefresh : true, checkDate : env.present.nextDay()), env.friendNames)
+        XCTAssertEqual(env.dataStore.friendsToLoad(quickRefresh : false, checkDate : env.present.nextDay()), env.friendNames)
     }
     
     func testFriendsOldDate() {
         let env = FriendTestEnvironment()
-        let requestDate = NSDate()
         let entryDate = NSDate.distantPast() as NSDate
         let entries = [
             LJService.Entry(title : "Foo bar", author : "cummings", date : entryDate, tags : [])
@@ -57,14 +56,12 @@ class DataStoreTests: XCTestCase {
         let date = env.present
         env.dataStore.addEntries(entries, fromFriends: env.friendNames, requestDate: env.present)
         
-        XCTAssertEqual(env.dataStore.friendsToLoad(quickRefresh : true), ["eliot"])
-        XCTAssertEqual(env.dataStore.friendsToLoad(quickRefresh : false), env.friendNames)
+        XCTAssertEqual(env.dataStore.friendsToLoad(quickRefresh : true, checkDate : date.nextDay()), ["eliot"])
+        XCTAssertEqual(env.dataStore.friendsToLoad(quickRefresh : false, checkDate : date.nextDay()), env.friendNames)
     }
     
     func testFriendsNewDate() {
-        
         let env = FriendTestEnvironment()
-        let requestDate = NSDate()
         let entryDate = env.present.previousDay()
         let entries = [
             LJService.Entry(title : "Foo bar", author : "cummings", date : entryDate, tags : [])
@@ -73,7 +70,7 @@ class DataStoreTests: XCTestCase {
         let date = env.present
         env.dataStore.addEntries(entries, fromFriends: env.friendNames, requestDate: env.present)
         
-        XCTAssertEqual(env.dataStore.friendsToLoad(quickRefresh : true), env.friendNames)
-        XCTAssertEqual(env.dataStore.friendsToLoad(quickRefresh : false), env.friendNames)
+        XCTAssertEqual(env.dataStore.friendsToLoad(quickRefresh : true, checkDate : date.nextDay()), env.friendNames)
+        XCTAssertEqual(env.dataStore.friendsToLoad(quickRefresh : false, checkDate : date.nextDay()), env.friendNames)
     }
 }

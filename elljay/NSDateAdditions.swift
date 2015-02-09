@@ -34,6 +34,13 @@ extension NSDate {
 }
 
 extension NSDate {
+    func nextDay () -> NSDate {
+        let calendar = NSCalendar.currentCalendar()
+        let components = NSDateComponents()
+        components.day = 1
+        return calendar.dateByAddingComponents(components, toDate: self, options: NSCalendarOptions())!
+    }
+    
     func previousDay () -> NSDate {
         let calendar = NSCalendar.currentCalendar()
         let components = NSDateComponents()

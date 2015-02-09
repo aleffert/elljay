@@ -316,7 +316,6 @@ public class XMLRPCParser {
         let faultReasonMember = faultNodes.child("value")?.child("struct")?.select("member", child : "name", value : "faultString")
         let faultCode : Int? = faultCodeMember?.child("value")?.child("int")?.innerText.bind {s in return s.toInt()}
         let faultReason : String? = faultReasonMember?.child("value")?.child("string")?.innerText
-        println("code is \(faultCode) error is \(faultReason)")
         if faultCode != nil && faultReason != nil {
             let error = NSError(domain: XMLRPCParserErrorDomain, code: faultCode!, userInfo: [NSLocalizedDescriptionKey : faultReason!])
             return Failure(error)
