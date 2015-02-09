@@ -9,6 +9,8 @@
 import UIKit
 import XCTest
 
+import elljay
+
 // TODO: Tests that should cause parse errors
 
 class XMLParserTests: XCTestCase {

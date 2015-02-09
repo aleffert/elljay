@@ -8,26 +8,30 @@
 
 import Foundation
 
-struct FeedUpdateInfo {
+public struct FeedUpdateInfo {
     let username : LJService.Username
     let lastLoad : NSDate?
     let lastEntry : NSDate?
 }
 
-class DataStore {
+public class DataStore {
     private let processingQueue = dispatch_queue_create("com.akivaleffert.elljay.DataStore", DISPATCH_QUEUE_SERIAL)
     
-    var friends : [LJService.Friend] = []
-    var entries : [LJService.Entry] = []
+    private var friends : [LJService.Friend] = []
+    private var entries : [LJService.Entry] = []
     
-    var lastLoadDates : [String:NSDate] = [:]
-    var lastEntryDates : [String:NSDate] = [:]
+    private var lastLoadDates : [String:NSDate] = [:]
+    private var lastEntryDates : [String:NSDate] = [:]
     
-    func useFriends(friends : [LJService.Friend]) {
+    public init() {
+        
+    }
+    
+    public func useFriends(friends : [LJService.Friend]) {
         self.friends = friends
     }
     
-    func addEntries(entries : [LJService.Entry], fromFriends : [LJService.Username], requestDate : NSDate) {
+    public func addEntries(entries : [LJService.Entry], fromFriends : [LJService.Username], requestDate : NSDate) {
         self.entries.extend(entries)
         for entry in entries {
             if let lastEntry = lastEntryDates[entry.author] {
@@ -70,7 +74,7 @@ class DataStore {
         }
     }
     
-    func friendsToLoad(#quickRefresh : Bool, checkDate : NSDate = NSDate()) -> [LJService.Username] {
+    public func friendsToLoad(#quickRefresh : Bool, checkDate : NSDate = NSDate()) -> [LJService.Username] {
         let infos = friends.map { friend -> FeedUpdateInfo in
             let username = friend.user
             return FeedUpdateInfo(

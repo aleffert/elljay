@@ -9,21 +9,21 @@
 import UIKit
 import Security
 
-class AuthSessionInfo : NSObject, NSCoding {
-    let username : String
-    let password : String
+public class AuthCredentials : NSObject, NSCoding, Equatable {
+    public let username : String
+    public let password : String
     
-    init(username : String, password : String) {
+    public init(username : String, password : String) {
         self.username = username
         self.password = password
     }
     
-    required init(coder : NSCoder) {
+    public required init(coder : NSCoder) {
         self.username = coder.decodeObjectForKey("username") as String
         self.password = coder.decodeObjectForKey("password") as String
     }
     
-    func encodeWithCoder(coder: NSCoder) {
+    public func encodeWithCoder(coder: NSCoder) {
         coder.encodeObject(self.username, forKey:"username")
         coder.encodeObject(self.password, forKey:"password")
     }
@@ -31,48 +31,49 @@ class AuthSessionInfo : NSObject, NSCoding {
     func challengeResponse(challenge : String) -> String {
         return ELJCrypto.md5OfString(challenge + ELJCrypto.md5OfString(self.password))
     }
+    
+    func hash() -> Int {
+        return username.hash ^ password.hash
+    }
 }
 
-class AuthSession {
+
+public func ==(lhs : AuthCredentials, rhs : AuthCredentials) -> Bool {
+    return lhs.username == rhs.username && lhs.password == rhs.password
+}
+
+public class AuthSession {
     private let keychain : KeychainService
     
-    private(set) var storage : AuthSessionInfo?
+    public private(set) var credentials : AuthCredentials?
     
-    init(keychain : KeychainService) {
+    public init(keychain : KeychainService) {
         self.keychain = keychain
     }
     
-    func loadFromKeychainIfPossible() {
+    public func loadFromKeychainIfPossible() {
         switch(keychain.load()) {
         case let .Success(storageData):
-            storage = NSKeyedUnarchiver.unarchiveObjectWithData(storageData) as? AuthSessionInfo
+            credentials = NSKeyedUnarchiver.unarchiveObjectWithData(storageData) as? AuthCredentials
         case let .Failure(err):
             assert(Int(err) == Int(errSecItemNotFound), "Unexpected keychain error: \(Int32(err))")
             break
         }
     }
 
-    func saveToKeychain() {
-        let data = storage.bind { NSKeyedArchiver.archivedDataWithRootObject($0) }
+    public func saveToKeychain() {
+        let data = credentials.bind { NSKeyedArchiver.archivedDataWithRootObject($0) }
         let err = data.bind { self.keychain.save($0) }
-        assert(err == nil, "Unexpected keychain error: \(err)")
+        assert(err == errSecSuccess, "Unexpected keychain error: \(err)")
     }
     
-    func store(storage : AuthSessionInfo) {
-        self.storage = storage
+    public func store(credentials : AuthCredentials) {
+        self.credentials = credentials
     }
 
-    func clear() {
+    public func clear() {
         keychain.clear()
-        storage = nil
-    }
-    
-    var hasCredentials : Bool {
-        return storage != nil
+        credentials = nil
     }
 }
 
-
-protocol AuthSessionOwner {
-    var authSession : AuthSession { get }
-}

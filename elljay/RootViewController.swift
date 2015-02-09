@@ -8,48 +8,81 @@
 
 import UIKit
 
-protocol AppRouter {
-    func signOut()
+typealias AppRouter = protocol<LoginViewControllerDelegate, SettingsViewControllerDelegate>
+
+private class AuthenticatedViewInfo {
+    let contentController = UITabBarController()
+    let settingsController : SettingsViewController
+    let feedController : FeedViewController
+    
+    init(credentials : AuthCredentials, environment : RootEnvironment, router : AppRouter) {
+        let dataStore = DataStore()
+        let networkService = AuthenticatedNetworkService(service: environment.networkService, credentials: credentials)
+        let dataVendor = DataSourceVendor(networkService : networkService, dataStore : dataStore)
+        feedController = FeedViewController(environment:
+            FeedViewControllerEnvironment(
+                ljservice: environment.ljservice,
+                networkService: networkService,
+                dataVendor: dataVendor)
+        )
+        settingsController = SettingsViewController(environment :
+            SettingsViewControllerEnvironment(delegate: router)
+        )
+    }
 }
 
-class RootViewController: UIViewController, LoginViewControllerDelegate, AppRouter {
+public struct RootEnvironment {
+    public let authSession : AuthSession
+    public let networkService : NetworkService
+    public let ljservice : LJService
     
-    let contentController = UITabBarController()
-    let settingsController = SettingsViewController()
-    let feedController : FeedViewController
-    let environment : RuntimeEnvironment
-    let authController : AuthController
+    public init() {
+        let ljservice = LJService()
+        let keychain = PersistentKeychainService(serviceName: ljservice.serviceName)
+        self.init(ljservice : ljservice, keychain : keychain)
+    }
+    
+    public init(ljservice : LJService, keychain : KeychainService) {
+        self.ljservice = ljservice
+        authSession = AuthSession(keychain: keychain)
+        let urlSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: AuthorizedURLSessionDelegate(authSession: authSession), delegateQueue: NSOperationQueue.mainQueue())
+        networkService = NetworkService(session: urlSession, challengeGenerator: ljservice)
+    }
+}
+
+public class RootViewController: UIViewController, AppRouter {
+    private let environment : RootEnvironment
+    private let authController : AuthController
+    private var authenticatedViewInfo : AuthenticatedViewInfo?
     
     var currentController : UIViewController?
     
-    init(environment : RuntimeEnvironment) {
+    public init(environment : RootEnvironment) {
         self.environment = environment
-        self.authController = AuthController(environment: environment)
-        self.feedController = FeedViewController(environment: environment)
-        super.init(nibName: nil, bundle: nil)
-        settingsController.router = self
         
-        addChildViewController(contentController)
-        contentController.didMoveToParentViewController(self)
+        let authEnvironment =
+        AuthControllerEnvironment(authSession: environment.authSession,
+            ljservice: environment.ljservice,
+            networkService: environment.networkService)
+        
+        self.authController = AuthController(environment: authEnvironment)
+        super.init(nibName: nil, bundle: nil)
     }
     
-    required init(coder aDecoder: NSCoder) {
-        assert(false, "Not designed to be loaded via archive")
-        self.environment = RuntimeEnvironment()
-        self.authController = AuthController(environment: environment)
-        self.feedController = FeedViewController(environment: environment)
+    public required init(coder aDecoder: NSCoder) {
+        fatalError("Not designed to be loaded via archive")
         super.init(nibName: nil, bundle: nil)
     }
 
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         
-        let settingsContainer = UINavigationController(rootViewController: settingsController)
-        let feedContainer = UINavigationController(rootViewController: feedController)
-        contentController.viewControllers = [feedContainer, settingsContainer]
-        
-        let hasCredentials = authController.hasCredentials()
-        if !hasCredentials {
+        if let credentials = authController.credentials {
+            let info = freshAuthenticatedController(credentials : credentials)
+            showChildController(info.contentController)
+            authenticatedViewInfo = info
+        }
+        else {
             let loginController = LoginViewController(authController: authController, delegate : self)
             
             addChildViewController(loginController)
@@ -57,26 +90,37 @@ class RootViewController: UIViewController, LoginViewControllerDelegate, AppRout
             
             showChildController(loginController)
         }
-        else {
-            showChildController(contentController)
-        }
         
     }
     
+    private func freshAuthenticatedController(#credentials : AuthCredentials) -> AuthenticatedViewInfo {
+        let info = AuthenticatedViewInfo(credentials: credentials, environment: environment, router : self)
+        let settingsContainer = UINavigationController(rootViewController: info.settingsController)
+        let feedContainer = UINavigationController(rootViewController: info.feedController)
+        info.contentController.viewControllers = [feedContainer, settingsContainer]
+        
+        return info
+    }
+    
     func showChildController(controller : UIViewController) {
+        controller.willMoveToParentViewController(self)
+        addChildViewController(controller)
         currentController = controller
         controller.view.frame = self.view.bounds
         view.addSubview(controller.view)
     }
     
-    override func viewDidLayoutSubviews() {
+    public override func viewDidLayoutSubviews() {
         currentController?.view.frame = self.view.bounds
     }
     
-    func loginControllerSucceeded(controller: LoginViewController) {
-        transitionFromViewController(controller, toViewController: contentController, duration: 0.2, options: .TransitionCrossDissolve, animations: {}, completion: nil)
-        currentController = contentController
-        controller.removeFromParentViewController()
+    func loginSucceeded(#credentials : AuthCredentials) {
+        let info = freshAuthenticatedController(credentials: credentials)
+        authenticatedViewInfo = info
+        addChildViewController(info.contentController)
+        transitionFromViewController(currentController!, toViewController: info.contentController, duration: 0.2, options: .TransitionCrossDissolve, animations: {}, completion: nil)
+        currentController?.removeFromParentViewController()
+        currentController = info.contentController
         
         setNeedsStatusBarAppearanceUpdate()
     }
@@ -88,17 +132,52 @@ class RootViewController: UIViewController, LoginViewControllerDelegate, AppRout
         addChildViewController(loginController)
         loginController.didMoveToParentViewController(self)
         
-        transitionFromViewController(contentController, toViewController: loginController, duration: 0.2, options: .TransitionCrossDissolve, animations: {}, completion: nil)
+        transitionFromViewController(authenticatedViewInfo!.contentController,
+            toViewController: loginController,
+            duration: 0.2,
+            options: .TransitionCrossDissolve,
+            animations: {},
+            completion: nil)
+        currentController?.removeFromParentViewController()
         currentController = loginController
+        authenticatedViewInfo = nil
         
         setNeedsStatusBarAppearanceUpdate()
     }
     
-    override func childViewControllerForStatusBarHidden() -> UIViewController? {
+    func loginControllerSucceeded(controller: LoginViewController, credentials : AuthCredentials) {
+        loginSucceeded(credentials : credentials)
+    }
+    
+    func signOut(#fromController: SettingsViewController) {
+        signOut()
+    }
+    
+    public override func childViewControllerForStatusBarHidden() -> UIViewController? {
         return currentController
     }
     
-    override func childViewControllerForStatusBarStyle() -> UIViewController? {
+    public override func childViewControllerForStatusBarStyle() -> UIViewController? {
         return currentController
+    }
+    
+}
+
+// Only for use in tests
+extension RootViewController {
+    public func t_showingLoginView() -> Bool {
+        return currentController?.isKindOfClass(LoginViewController.classForCoder()) ?? false
+    }
+    
+    public func t_showingAuthenticatedView() -> Bool {
+        return currentController?.isKindOfClass(UITabBarController.classForCoder()) ?? false
+    }
+    
+    public func t_login(credentials : AuthCredentials) {
+        loginSucceeded(credentials : credentials)
+    }
+    
+    public func t_signOut() {
+        signOut()
     }
 }

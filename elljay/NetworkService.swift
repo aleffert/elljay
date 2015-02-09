@@ -9,7 +9,7 @@
 import CFNetwork
 import UIKit
 
-protocol NetworkTask {
+public protocol NetworkTask {
     func cancel() -> ()
 }
 
@@ -28,26 +28,26 @@ class ChallengeRequestTask : NetworkTask {
     }
 }
 
-let NetworkServiceErrorDomain = "com.akivaleffert.elljay.NetworkService"
+public let NetworkServiceErrorDomain = "com.akivaleffert.elljay.NetworkService"
 
-class NetworkService {
+public class NetworkService {
     private let errorMalformedResponseDescription = "The response from the server was malformed"
 
     private let session : NSURLSession
     private let challengeGenerator : ChallengeRequestable
     
-    convenience init() {
+    public convenience init() {
         let session = NSURLSession.sharedSession()
         let challengeGenerator = LJService()
         self.init(session : session, challengeGenerator: challengeGenerator)
     }
 
-    init(session : NSURLSession, challengeGenerator : ChallengeRequestable) {
+    public init(session : NSURLSession, challengeGenerator : ChallengeRequestable) {
         self.session = session
         self.challengeGenerator = challengeGenerator
     }
 
-    func sendRequest<A>(#urlRequest : NSURLRequest, parser : NSData -> Result<A>, completionHandler : (Result<A> , NSURLResponse!) -> Void) -> NetworkTask {
+    public func sendRequest<A>(#urlRequest : NSURLRequest, parser : NSData -> Result<A>, completionHandler : (Result<A> , NSURLResponse!) -> Void) -> NetworkTask {
         let wrappedCompletion = {(result, response) in
             dispatch_async(dispatch_get_main_queue()) {
                 completionHandler(result, response)
@@ -73,12 +73,12 @@ class NetworkService {
         return result
     }
     
-    func send<A>(#sessionInfo : AuthSessionInfo, request : Request<A, ChallengeInfo>, completionHandler : (Result<A>, NSURLResponse!) -> Void) -> NetworkTask {
+    public func send<A>(#credentials : AuthCredentials, request : Request<A, ChallengeInfo>, completionHandler : (Result<A>, NSURLResponse!) -> Void) -> NetworkTask {
         let (challengeRequest : NSURLRequest, parser : NSData -> Result<GetChallengeResponse>) = challengeGenerator.getChallenge()
         var groupTask : ChallengeRequestTask? = nil
         let task = sendRequest(urlRequest: challengeRequest, parser: parser) {[weak groupTask] (response, urlResponse) -> Void in
             response.cata({c in
-                let urlRequest = request.urlRequest(sessionInfo: sessionInfo, challenge: c.challenge)
+                let urlRequest = request.urlRequest(credentials: credentials, challenge: c.challenge)
                 groupTask?.currentTask = self.sendRequest(urlRequest : urlRequest, request.parser, completionHandler)
                 }, {e in
                     completionHandler(Failure(e), urlResponse)
@@ -89,13 +89,9 @@ class NetworkService {
         return groupTask!
     }
     
-    func send<A>(#sessionInfo : AuthSessionInfo, request : Request<A, AuthSessionInfo>, completionHandler : (Result<A>, NSURLResponse!) -> Void) -> NetworkTask {
-        let urlRequest = request.urlRequest(sessionInfo)
+    func send<A>(#credentials : AuthCredentials, request : Request<A, AuthCredentials>, completionHandler : (Result<A>, NSURLResponse!) -> Void) -> NetworkTask {
+        let urlRequest = request.urlRequest(credentials)
         return self.sendRequest(urlRequest : urlRequest, request.parser, completionHandler)
     }
 
-}
-
-protocol NetworkServiceOwner {
-    var networkService : NetworkService { get }
 }

@@ -8,33 +8,15 @@
 
 import UIKit
 import XCTest
+
 import elljay
 
 class ServiceTests: XCTestCase {
-    
-    func standardTestDate() -> NSDate {
-        let components = NSDateComponents()
-        components.month = 12
-        components.day = 7
-        components.year = 1983
-        let date = NSCalendar.autoupdatingCurrentCalendar().dateFromComponents(components)!
-        return date
-    }
-
     func testGetChallengeParser() {
-        let date = standardTestDate()
-        let epochDate = Int32(date.timeIntervalSince1970)
-        
         let service = LJService()
         let (_, parser) = service.getChallenge()
         
-        let challenge = "c0:1073113200:2831:60:2TCbFBYR72f2jhVDuowz:0fba728f5964ea54160a5b18317d92df"
-        let params = XMLRPCParam.XStruct(
-            [
-                "challenge" : XMLRPCParam.XString(challenge),
-                "expire_time" : XMLRPCParam.XInt(epochDate),
-                "server_time" : XMLRPCParam.XInt(epochDate)
-            ])
+        let (date, challenge, params) = LJServiceTestHelpers.challenge()
         let result = parser(params.toResponseData())
         
         result.cata({r -> Void in
@@ -51,7 +33,7 @@ class ServiceTests: XCTestCase {
 
     func testLoginParser() {
         let service = LJService()
-        let date = standardTestDate()
+        let date = LJServiceTestHelpers.standardTestDate()
         let request = service.login()
         
         let fullName = "Akiva Leffert"
@@ -69,7 +51,7 @@ class ServiceTests: XCTestCase {
     
     func testSyncItemsParser() {
         let service = LJService()
-        let date = standardTestDate()
+        let date = LJServiceTestHelpers.standardTestDate()
         let request = service.syncitems()
         
         let item = "L-100"
@@ -80,7 +62,7 @@ class ServiceTests: XCTestCase {
                 XMLRPCParam.XStruct([
                     "item" : XMLRPCParam.XString(item),
                     "action" : XMLRPCParam.XString("create"),
-                    "time" : XMLRPCParam.XString(DateUtils.stringFromDate(standardTestDate()))])]),
+                    "time" : XMLRPCParam.XString(DateUtils.stringFromDate(date))])]),
             "count" : XMLRPCParam.XInt(count),
             "total" : XMLRPCParam.XInt(total)
             ])

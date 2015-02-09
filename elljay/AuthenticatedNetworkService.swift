@@ -11,23 +11,18 @@ import Foundation
 class AuthenticatedNetworkService {
     
     private let service : NetworkService
-    private let sessionInfo : AuthSessionInfo
+    private let credentials : AuthCredentials
     
-    init(service : NetworkService, sessionInfo : AuthSessionInfo) {
+    init(service : NetworkService, credentials : AuthCredentials) {
         self.service = service
-        self.sessionInfo = sessionInfo
+        self.credentials = credentials
     }
     
     func send<A>(#request : Request<A, ChallengeInfo>, completionHandler : (Result<A>, NSURLResponse!) -> Void) -> NetworkTask {
-        return self.service.send(sessionInfo : self.sessionInfo, request : request, completionHandler : completionHandler)
+        return self.service.send(credentials : self.credentials, request : request, completionHandler : completionHandler)
     }
     
-    func send<A>(#request : Request<A, AuthSessionInfo>, completionHandler : (Result<A>, NSURLResponse!) -> Void) -> NetworkTask {
-        return self.service.send(sessionInfo : self.sessionInfo, request : request, completionHandler : completionHandler)
+    func send<A>(#request : Request<A, AuthCredentials>, completionHandler : (Result<A>, NSURLResponse!) -> Void) -> NetworkTask {
+        return self.service.send(credentials : self.credentials, request : request, completionHandler : completionHandler)
     }
-}
-
-
-protocol AuthenticatedNetworkServiceOwner {
-    var authenticatedNetworkService : AuthenticatedNetworkService? {get}
 }

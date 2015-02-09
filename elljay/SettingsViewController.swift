@@ -8,22 +8,31 @@
 
 import UIKit
 
+protocol SettingsViewControllerDelegate : class {
+    func signOut(#fromController: SettingsViewController)
+}
+
+struct SettingsViewControllerEnvironment {
+    weak var delegate : SettingsViewControllerDelegate?
+}
+
 class SettingsViewController: UIViewController {
     
-    var router : AppRouter?
+    let environment : SettingsViewControllerEnvironment
     
-    override init() {
+    init(environment : SettingsViewControllerEnvironment) {
+        self.environment = environment
         super.init(nibName: "SettingsViewController", bundle: nil)
         self.title = "Settings"
     }
     
     required init(coder aDecoder: NSCoder) {
-        assert(false, "Not designed to be loaded via archive")
+        fatalError("Not designed to be loaded via archive")
         super.init(coder: aDecoder)
     }
     
     @IBAction func signOut(sender : AnyObject) {
-        self.router?.signOut()
+        self.environment.delegate?.signOut(fromController: self)
     }
     
     override func viewDidLayoutSubviews() {

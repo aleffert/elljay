@@ -9,11 +9,14 @@
 import Foundation
 import UIKit
 
-typealias FeedViewControllerEnvironment = protocol<LJServiceOwner, AuthenticatedNetworkServiceOwner>
+struct FeedViewControllerEnvironment {
+    let ljservice : LJService
+    let networkService : AuthenticatedNetworkService
+    let dataVendor : DataSourceVendor
+}
 
 class FeedViewController : UIViewController {
-
-    let environment : FeedViewControllerEnvironment!
+    let environment : FeedViewControllerEnvironment
 
     init(environment : FeedViewControllerEnvironment) {
         self.environment = environment
@@ -22,14 +25,13 @@ class FeedViewController : UIViewController {
     }
     
     required init(coder aDecoder: NSCoder) {
-        assert(false, "Not designed to be loaded via archive")
-        self.environment = RuntimeEnvironment()
+        fatalError("Not designed to be loaded via archive")
         super.init(coder: aDecoder)
     }
     
     override func viewWillAppear(animated: Bool) {
         let feedRequest = self.environment.ljservice.feed("aleffert")
-        self.environment.authenticatedNetworkService?.send(request: feedRequest, completionHandler: {(result, response) in
+        self.environment.networkService.send(request: feedRequest, completionHandler: {(result, response) in
             result.cata ({r in
                 println("result is \(r.entries)")
             }, {error in

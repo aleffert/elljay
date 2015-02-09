@@ -27,9 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func setup(#launchOptions : [NSObject : AnyObject]?) {
-        let environment = RuntimeEnvironment()
         
-        let rootController = RootViewController(environment: environment)
+        let rootController = RootViewController(environment: RootEnvironment())
         
         rootController.beginAppearanceTransition(true, animated: false)
         window!.rootViewController = rootController

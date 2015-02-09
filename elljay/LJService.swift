@@ -9,12 +9,12 @@
 import Foundation
 import UIKit
 
-struct Request<A, B> {
-    let urlRequest : B -> NSURLRequest
-    let parser : NSData -> Result<A>
+public struct Request<A, B> {
+    public let urlRequest : B -> NSURLRequest
+    public let parser : NSData -> Result<A>
 }
 
-typealias ChallengeInfo = (sessionInfo : AuthSessionInfo, challenge : String)
+public typealias ChallengeInfo = (credentials : AuthCredentials, challenge : String)
 
 
 // The LJ API has a year 2038 bug. Sigh
@@ -24,7 +24,7 @@ private extension Int32 {
     }
 }
 
-struct DateUtils {
+public struct DateUtils {
     
     static private func standardTimeZone() -> NSTimeZone {
         // TODO figure this out. I'm hoping it's GMT
@@ -43,11 +43,11 @@ struct DateUtils {
             return formatter
     }
     
-    static func stringFromDate(date : NSDate) -> String {
+    public static func stringFromDate(date : NSDate) -> String {
         return standardFormatter.stringFromDate(date)
     }
     
-    static func dateFromString(string : String) -> NSDate? {
+    public static func dateFromString(string : String) -> NSDate? {
         return standardFormatter.dateFromString(string)
     }
 
@@ -67,13 +67,13 @@ struct DateUtils {
     }
 }
 
-struct GetChallengeResponse {
-    let challenge : String
-    let expireTime : NSDate
-    let serverTime : NSDate
+public struct GetChallengeResponse {
+    public let challenge : String
+    public let expireTime : NSDate
+    public let serverTime : NSDate
 }
 
-protocol ChallengeRequestable {
+public protocol ChallengeRequestable {
     func getChallenge() -> (NSURLRequest, NSData -> Result<GetChallengeResponse>)
 }
 
@@ -81,14 +81,17 @@ private let LJServiceVersion : Int32 = 1
 
 
 // TODO change to a class variable once they're supported
-let LJServiceErrorDomain = "com.akivaleffert.elljay.LJService"
-let LJServiceErrorMalformedResponseCode = -100
+public let LJServiceErrorDomain = "com.akivaleffert.elljay.LJService"
+public let LJServiceErrorMalformedResponseCode = -100
 
-class LJService : ChallengeRequestable {
-    let url = NSURL(scheme: "https", host: "livejournal.com", path: "/interface/xmlrpc")!
-    let name = "LiveJournal!"
+public class LJService : ChallengeRequestable {
+    private class func serviceURL() -> NSURL {
+        return NSURL(scheme: "https", host: "livejournal.com", path: "/interface/xmlrpc")!
+    }
+    
+    let serviceName = "LiveJournal!"
 
-    init() {
+    public init() {
     }
     
     private func malformedResponseError(description : String) -> NSError {
@@ -96,7 +99,7 @@ class LJService : ChallengeRequestable {
     }
     
     private func XMLRPCURLRequest(#name : String, params : [String : XMLRPCParam]) -> NSURLRequest {
-        let request = NSMutableURLRequest(URL: self.url)
+        let request = NSMutableURLRequest(URL: LJService.serviceURL())
         let paramStruct = XMLRPCParam.XStruct(params)
         request.setupXMLRPCCall(path: "LJ.XMLRPC." + name, parameters: [paramStruct])
         return request
@@ -124,7 +127,7 @@ class LJService : ChallengeRequestable {
     }
 
     private func authenticatedXMLRPCRequest<A>(#name : String, params : [String : XMLRPCParam], parser : XMLRPCParam -> A?) -> Request<A, ChallengeInfo> {
-        let generator : (sessionInfo : AuthSessionInfo, challenge : String) -> NSURLRequest = {(sessionInfo, challenge) in
+        let generator : (sessionInfo : AuthCredentials, challenge : String) -> NSURLRequest = {(sessionInfo, challenge) in
             var finalParams = params
             finalParams["ver"] = XMLRPCParam.XInt(LJServiceVersion)
             finalParams["username"] = XMLRPCParam.XString(sessionInfo.username)
@@ -137,7 +140,7 @@ class LJService : ChallengeRequestable {
         return Request(urlRequest: generator, parser: wrapXMLRPCParser(parser))
     }
     
-    func getChallenge() -> (NSURLRequest, NSData -> Result<GetChallengeResponse>) {
+    public func getChallenge() -> (NSURLRequest, NSData -> Result<GetChallengeResponse>) {
         let parser : XMLRPCParam -> GetChallengeResponse? = {x in
             let response = x.structBody()
             let challenge = response?["challenge"]?.stringBody()
@@ -151,11 +154,11 @@ class LJService : ChallengeRequestable {
         return (XMLRPCURLRequest(name: "getchallenge", params: [:]), wrapXMLRPCParser(parser))
     }
 
-    struct LoginResponse {
-        let fullname : String
+    public struct LoginResponse {
+        public let fullname : String
     }
 
-    func login() -> Request<LoginResponse, ChallengeInfo> {
+    public func login() -> Request<LoginResponse, ChallengeInfo> {
         let parser : XMLRPCParam -> LoginResponse? = {x in
             let response = x.structBody()
             let fullname = response?["fullname"]?.stringBody()
@@ -169,7 +172,7 @@ class LJService : ChallengeRequestable {
         return authenticatedXMLRPCRequest(name: "login", params: [:], parser: parser)
     }
     
-    enum SyncAction {
+    public enum SyncAction {
         case Create
         case Update
         
@@ -182,7 +185,7 @@ class LJService : ChallengeRequestable {
         }
     }
     
-    enum SyncType {
+    public enum SyncType {
         case Journal
         case Comment
         
@@ -196,10 +199,10 @@ class LJService : ChallengeRequestable {
     }
     
     
-    struct SyncItem {
-        let action : SyncAction
-        let item : (type : SyncType, index : Int32)
-        let time : NSDate
+    public struct SyncItem {
+        public let action : SyncAction
+        public let item : (type : SyncType, index : Int32)
+        public let time : NSDate
         
         private static func from(#param : XMLRPCParam) -> SyncItem? {
             let body = param.structBody()?
@@ -225,14 +228,14 @@ class LJService : ChallengeRequestable {
         }
     }
     
-    struct SyncItemsResponse {
-        let syncitems : [SyncItem]
-        let count : Int32
-        let total : Int32
+    public struct SyncItemsResponse {
+        public let syncitems : [SyncItem]
+        public let count : Int32
+        public let total : Int32
 
     }
     
-    func syncitems(lastSync : NSDate? = nil) -> Request<SyncItemsResponse, ChallengeInfo> {
+    public func syncitems(lastSync : NSDate? = nil) -> Request<SyncItemsResponse, ChallengeInfo> {
         let parser : XMLRPCParam -> SyncItemsResponse? = {x in
             let response = x.structBody()
             let total = response?["total"]?.intBody()
@@ -254,22 +257,27 @@ class LJService : ChallengeRequestable {
         return authenticatedXMLRPCRequest(name: "syncitems", params : params, parser : parser)
     }
     
-    typealias Username = String
+    public typealias Username = String
     
-    struct Friend {
-        let user : Username
-        let name : String?
+    public struct Friend {
+        public let user : Username
+        public let name : String?
         
-        var displayName : String {
+        public init(user : Username, name : String?) {
+            self.user = user
+            self.name = name
+        }
+        
+        public var displayName : String {
             return name ?? user
         }
     }
     
-    struct GetFriendsResponse {
-        let friends : [Friend]
+    public struct GetFriendsResponse {
+        public let friends : [Friend]
     }
 
-    func getfriends() -> Request<GetFriendsResponse, ChallengeInfo> {
+    public func getfriends() -> Request<GetFriendsResponse, ChallengeInfo> {
         let parser : XMLRPCParam -> GetFriendsResponse? = {x in
             let response = x.structBody()
             let friends : [Friend]? = response?["friends"]?.arrayBody()?.mapOrFail {b in
@@ -286,15 +294,22 @@ class LJService : ChallengeRequestable {
         return authenticatedXMLRPCRequest(name: "getfriends", params: [:], parser: parser)
     }
 
-    struct Entry {
-        let title : String?
-        let author : Username
-        let date : NSDate
-        let tags : [String]
+    public struct Entry {
+        public let title : String?
+        public let author : Username
+        public let date : NSDate
+        public let tags : [String]
+        
+        public init(title : String?, author : Username, date : NSDate, tags : [String]) {
+            self.title = title
+            self.author = author
+            self.date = date
+            self.tags = tags
+        }
     }
     
-    struct FeedResponse {
-        let entries : [Entry]
+    public struct FeedResponse {
+        public let entries : [Entry]
     }
 
     private func feedURL(#username : String) -> NSURL {
@@ -307,8 +322,8 @@ class LJService : ChallengeRequestable {
         }
     }
 
-    func feed(username : String) -> Request<FeedResponse, AuthSessionInfo> {
-        let generator = {(sessionInfo : AuthSessionInfo) -> NSURLRequest in
+    public func feed(username : String) -> Request<FeedResponse, AuthCredentials> {
+        let generator = {(sessionInfo : AuthCredentials) -> NSURLRequest in
             let url = self.feedURL(username : sessionInfo.username)
             let request = NSMutableURLRequest(URL: url)
             println("url is \(url)")
@@ -341,9 +356,4 @@ class LJService : ChallengeRequestable {
         return Request(urlRequest : generator, parser : parser)
     }
 
-}
-
-
-protocol LJServiceOwner {
-    var ljservice : LJService {get}
 }

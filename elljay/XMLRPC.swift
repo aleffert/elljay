@@ -37,6 +37,7 @@ public enum XMLRPCParam {
     case XData(NSData)
 }
 
+
 extension XMLRPCParam {
     func arrayBody() -> [XMLRPCParam]? {
         switch(self) {
@@ -156,9 +157,14 @@ extension XMLRPCParam {
 
 public typealias XMLRPCParseResult = Result<[XMLRPCParam]>
 
+// TODO change to a class variable once they're supported
+public let XMLRPCParserErrorDomain = "com.akivaleffert.elljay.XMLRPC"
 
-let XMLRPCParserErrorDomain = "com.akivaleffert.elljay.XMLRPC"
 public class XMLRPCParser {
+    
+    public init() {
+        
+    }
 
     private func malformedResponseError() -> XMLRPCParseResult {
         return Failure(NSError(domain: XMLRPCParserErrorDomain, code: -1, userInfo: [NSLocalizedDescriptionKey : "Returned XML is not a valid XML-RPC response"]))
@@ -321,6 +327,7 @@ public class XMLRPCParser {
     }
 }
 
+private let XMLRPCMethodName = "XMLRPCMethod" // Purely for our convenience for stubbing
 extension NSMutableURLRequest {
     
     internal func body(#path : String, parameters : [XMLRPCParam]) -> NSData {
@@ -333,9 +340,18 @@ extension NSMutableURLRequest {
         return NSData(data: node.description.dataUsingEncoding(NSUTF8StringEncoding)!)
     }
     
-    func setupXMLRPCCall(#path : String, parameters : [XMLRPCParam]) {
+    public func setupXMLRPCCall(#path : String, parameters : [XMLRPCParam]) {
         self.setValue("text/xml", forHTTPHeaderField: "Content-Type")
         self.HTTPMethod = "POST"
         self.HTTPBody = body(path : path, parameters : parameters)
+        self.addValue(path, forHTTPHeaderField: XMLRPCMethodName)
+    }
+
+}
+
+extension NSURLRequest {
+    public func XMLRPCMethod() -> String? {
+        let method = self.allHTTPHeaderFields?[XMLRPCMethodName] as? String
+        return method
     }
 }

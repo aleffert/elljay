@@ -9,23 +9,12 @@
 import UIKit
 import XCTest
 
+import elljay
+
 class XMLRPCServiceTests : XCTestCase {
     
     override func setUp() {
-        OHHTTPStubs.stubRequestsPassingTest({ (request) -> Bool in
-            return request.URL.isEqual(LJService().url)
-            }, withStubResponse: {request in
-
-                let challenge = "c0:1073113200:2831:60:2TCbFBYR72f2jhVDuowz:0fba728f5964ea54160a5b18317d92df"
-                let epochDate = Int32(NSDate().timeIntervalSince1970)
-                let params = XMLRPCParam.XStruct(
-                [
-                    "challenge" : XMLRPCParam.XString(challenge),
-                    "expire_time" : XMLRPCParam.XInt(epochDate),
-                    "server_time" : XMLRPCParam.XInt(epochDate)
-                ])
-                return OHHTTPStubsResponse(data: params.toResponseData(), statusCode: 200, headers: [:])
-        })
+        LJServiceTestHelpers.stubChallenge()
     }
     
     override func tearDown() {
@@ -38,13 +27,13 @@ class XMLRPCServiceTests : XCTestCase {
         let url = NSURLRequest(URL: NSURL(scheme: "http", host: testHost, path: "/test")!)
         
         let expectation = expectationWithDescription("HTTP stubbed")
-        let sessionInfo = AuthSessionInfo(username: "test", password: "test")
+        let sessionInfo = AuthCredentials(username: "test", password: "test")
         service.sendRequest(urlRequest: url, parser : parser, completionHandler: { (result, response) in
             completion(result, response)
             expectation.fulfill()
         })
         
-        waitForExpectationsWithTimeout(5, handler:nil)
+        waitForExpectationsWithTimeout(1, handler:nil)
         
     }
 

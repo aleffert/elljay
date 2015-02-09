@@ -9,12 +9,21 @@
 import UIKit
 import Security
 
-typealias KeychainSaveResult = OSStatus?
+public enum KeychainLoadResult {
+    case Success(NSData)
+    case Failure(OSStatus)
+}
 
-class KeychainService {
+public protocol KeychainService {
+    func clear() -> OSStatus
+    func save(data : NSData) -> OSStatus
+    func load() -> KeychainLoadResult
+}
+
+class PersistentKeychainService : KeychainService {
     
-    let serviceName : String
-    let account : String
+    private let serviceName : String
+    private let account : String
     
     init(serviceName : String, account : String = "main") {
         self.serviceName = serviceName;
@@ -35,7 +44,7 @@ class KeychainService {
         return errSecSuccess
     }
 
-    func save(data: NSData) -> KeychainSaveResult {
+    func save(data: NSData) -> OSStatus {
         var status = clear()
         if status != errSecSuccess {
             return status
@@ -50,15 +59,7 @@ class KeychainService {
         
         // Add the new keychain item
         status = SecItemAdd(keychainQuery, nil)
-        if(status != errSecSuccess) {
-            return status
-        }
-        return nil
-    }
-    
-    enum KeychainLoadResult {
-        case Success(NSData)
-        case Failure(OSStatus)
+        return status
     }
 
     func load() -> KeychainLoadResult {

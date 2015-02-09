@@ -9,6 +9,8 @@
 import UIKit
 import XCTest
 
+import elljay
+
 class DataStoreTests: XCTestCase {
     
     class FriendTestEnvironment {

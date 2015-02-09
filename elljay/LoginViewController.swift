@@ -9,10 +9,10 @@
 import UIKit
 
 @objc protocol LoginViewControllerDelegate {
-    func loginControllerSucceeded(controller : LoginViewController)
+    func loginControllerSucceeded(controller : LoginViewController, credentials : AuthCredentials)
 }
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
+public class LoginViewController: UIViewController, UITextFieldDelegate {
     
     let delegate : LoginViewControllerDelegate!
     
@@ -29,7 +29,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         super.init(nibName: "LoginViewController", bundle : nil);
     }
     
-    required init(coder aDecoder: NSCoder) {
+    public required init(coder aDecoder: NSCoder) {
         assert(false, "Not designed to be loaded via archive")
         
         authController = aDecoder.decodeObjectForKey("authController") as AuthController
@@ -37,7 +37,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         super.init(coder: aDecoder)
     }
     
-    override func viewDidLoad()  {
+    public override func viewDidLoad()  {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addAnimatedKeyboardObserver(self, view: self.view, action: {[weak self] (view, keyboardHeight) in
             let desiredBottom = self!.contentContainer!.center.y + self!.contentContainer!.bounds.size.height / 2
@@ -48,7 +48,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         })
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+    public override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
     }
 
@@ -58,15 +58,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
         else if textField == passwordField {
             textField.resignFirstResponder()
-            authController.attemptLogin(usernameField.text, password: passwordField.text, completion: { (success, error) in
-                if error != nil {
-                    println("error " + error!.localizedDescription)
-                }
-                else {
-                    self.delegate.loginControllerSucceeded(self)
-                    println("logged in")
-                }
-            })
+            authController.attemptLogin(username : usernameField.text, password: passwordField.text) { result in
+                result.cata(
+                    {credentials in
+                        self.delegate.loginControllerSucceeded(self, credentials : credentials)
+                        println("logged in")
+                    },
+                    {error in
+                        println("error " + error.localizedDescription)
+                    }
+                )
+            }
         }
         return false;
     }

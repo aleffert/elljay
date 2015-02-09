@@ -66,7 +66,7 @@ public class XMLNode : Printable {
 
 public class XMLDocument : Printable {
     
-    init(_ body : [XMLNode]) {
+    public init(_ body : [XMLNode]) {
         self.body = body
     }
     
@@ -77,7 +77,7 @@ public class XMLDocument : Printable {
         return "<?xml version = \"1.0\" ?>\(bodyString)"
     }
     
-    func toData() -> NSData! {
+    public func toData() -> NSData! {
         return description.dataUsingEncoding(NSUTF8StringEncoding)
     }
 }
