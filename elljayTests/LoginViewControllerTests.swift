@@ -11,20 +11,20 @@ import XCTest
 
 import elljay
 
-class MockAuthController : AuthControlling {
+class StubAuthController : AuthControlling {
     var credentials : AuthCredentials?
     func attemptLogin(#username : String, password : String, completion : (result : Result<AuthCredentials>) -> Void) {}
     
     func signOut() {}
 }
 
-class SuccessAuthController : MockAuthController {
+class MockSuccessAuthController : StubAuthController {
     override func attemptLogin(#username: String, password: String, completion: (result: Result<AuthCredentials>) -> Void) {
         completion(result: Success(CredentialFactory.freshCredentials()))
     }
 }
 
-class FailureAuthController : MockAuthController {
+class MockFailureAuthController : StubAuthController {
     let message = "Failure"
     override func attemptLogin(#username: String, password: String, completion: (result: Result<AuthCredentials>) -> Void) {
         completion(result: Failure(NSError(domain: "test", code: 1, userInfo: [NSLocalizedDescriptionKey : message])))
@@ -37,7 +37,7 @@ class LoginViewControllerTests: XCTestCase {
         let controller = LoginViewController(environment:
             LoginViewControllerEnvironment(
                 delegate : nil,
-                authController : MockAuthController()))
+                authController : StubAuthController()))
         let _ = controller.view
         UIApplication.sharedApplication().delegate?.window??.rootViewController = controller
         controller.t_enterUsername("user")
@@ -46,18 +46,18 @@ class LoginViewControllerTests: XCTestCase {
 
     
     func testPasswordSuccess() {
-        class LoginDelegate : LoginViewControllerDelegate {
+        class MockLoginDelegate : LoginViewControllerDelegate {
             var activated = false
             func loginControllerSucceeded(controller: LoginViewController, credentials: AuthCredentials) {
                 activated = true
             }
         }
         
-        let delegate = LoginDelegate()
+        let delegate = MockLoginDelegate()
         let controller = LoginViewController(environment:
             LoginViewControllerEnvironment(
                 delegate : delegate,
-                authController : SuccessAuthController()))
+                authController : MockSuccessAuthController()))
         let _ = controller.view
         UIApplication.sharedApplication().delegate?.window??.rootViewController = controller
         controller.t_enterUsername("user")
@@ -66,15 +66,15 @@ class LoginViewControllerTests: XCTestCase {
     }
     
     func testPasswordFailed() {
-        class AlertPresenter : AlertPresenting {
+        class MockAlertPresenter : AlertPresenting {
             var alert : UIAlertController? = nil
             private func presentAlertController(controller: UIAlertController, fromController: UIViewController) {
                 alert = controller
             }
         }
         
-        let presenter = AlertPresenter()
-        let authController = FailureAuthController()
+        let presenter = MockAlertPresenter()
+        let authController = MockFailureAuthController()
         
         let controller = LoginViewController(environment:
             LoginViewControllerEnvironment(

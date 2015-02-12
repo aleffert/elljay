@@ -1,5 +1,5 @@
 //
-//  MockKeychainService.swift
+//  EphemeralKeychainService.swift
 //  elljay
 //
 //  Created by Akiva Leffert on 2/8/15.
@@ -10,7 +10,8 @@ import UIKit
 
 import elljay
 
-public class MockKeychainService: KeychainServicing {
+public class EphemeralKeychainService : KeychainServicing {
+    
     var store : NSData?
     
     public init() {

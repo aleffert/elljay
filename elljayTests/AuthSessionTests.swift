@@ -12,7 +12,7 @@ import XCTest
 import elljay
 
 class AuthSessionTests: XCTestCase {
-    private let keychain = MockKeychainService()
+    private let keychain = EphemeralKeychainService()
     private let credentials = CredentialFactory.freshCredentials()
     
     override func tearDown() {

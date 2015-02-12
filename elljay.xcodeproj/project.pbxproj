@@ -29,7 +29,7 @@
 		774B1A351A872DFD00C0239D /* XMLParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774B1A321A872DFD00C0239D /* XMLParserTests.swift */; };
 		774B1A361A872DFD00C0239D /* XMLRPCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774B1A331A872DFD00C0239D /* XMLRPCTests.swift */; };
 		774B1A371A8731CE00C0239D /* FunctionalAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774B1A2B1A872DE100C0239D /* FunctionalAdditions.swift */; };
-		774B1A391A8734A100C0239D /* MockKeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774B1A381A8734A100C0239D /* MockKeychainService.swift */; };
+		774B1A391A8734A100C0239D /* EphemeralKeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774B1A381A8734A100C0239D /* EphemeralKeychainService.swift */; };
 		774B1A3B1A87CA0B00C0239D /* AuthSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774B1A3A1A87CA0B00C0239D /* AuthSessionTests.swift */; };
 		775071B319B385B100B0B142 /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775071B219B385B100B0B142 /* AuthController.swift */; };
 		7750DC521A8C3149001B8706 /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7750DC511A8C3149001B8706 /* AlertPresenter.swift */; };
@@ -116,7 +116,7 @@
 		774B1A311A872DFD00C0239D /* XMLNodeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLNodeTests.swift; sourceTree = "<group>"; };
 		774B1A321A872DFD00C0239D /* XMLParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLParserTests.swift; sourceTree = "<group>"; };
 		774B1A331A872DFD00C0239D /* XMLRPCTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLRPCTests.swift; sourceTree = "<group>"; };
-		774B1A381A8734A100C0239D /* MockKeychainService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockKeychainService.swift; sourceTree = "<group>"; };
+		774B1A381A8734A100C0239D /* EphemeralKeychainService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EphemeralKeychainService.swift; sourceTree = "<group>"; };
 		774B1A3A1A87CA0B00C0239D /* AuthSessionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthSessionTests.swift; sourceTree = "<group>"; };
 		775071B219B385B100B0B142 /* AuthController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
 		7750DC511A8C3149001B8706 /* AlertPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
@@ -337,7 +337,7 @@
 			children = (
 				77C5CD061A87E05B002F718D /* Helpers */,
 				774B1A2D1A872DEF00C0239D /* AuthControllerTests.swift */,
-				774B1A381A8734A100C0239D /* MockKeychainService.swift */,
+				774B1A381A8734A100C0239D /* EphemeralKeychainService.swift */,
 				774B1A3A1A87CA0B00C0239D /* AuthSessionTests.swift */,
 				77BF003D1A58A50C007526AD /* DataStoreTests.swift */,
 				774B1A2F1A872DF700C0239D /* FunctionalAdditionsTests.swift */,
@@ -538,7 +538,7 @@
 			files = (
 				77D0191319B542870024DBED /* LJServiceTests.swift in Sources */,
 				77DCD2F719F412B100354B28 /* ArrayAdditions.swift in Sources */,
-				774B1A391A8734A100C0239D /* MockKeychainService.swift in Sources */,
+				774B1A391A8734A100C0239D /* EphemeralKeychainService.swift in Sources */,
 				77C5CD081A8817A8002F718D /* LJServiceTestHelpers.swift in Sources */,
 				774B1A301A872DF700C0239D /* FunctionalAdditionsTests.swift in Sources */,
 				774B1A341A872DFD00C0239D /* XMLNodeTests.swift in Sources */,

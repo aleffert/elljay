@@ -19,7 +19,7 @@ class AuthControllerTests: XCTestCase {
         controller : AuthController) {
 
         let ljservice = LJService()
-        let keychain = MockKeychainService()
+        let keychain = EphemeralKeychainService()
         let credentials = CredentialFactory.freshCredentials()
         let authSession = AuthSession(keychain: keychain)
         
