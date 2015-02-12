@@ -1,5 +1,5 @@
 //
-//  ELJDeallocActions.swift
+//  ELJDeallocActionsTests.swift
 //  elljay
 //
 //  Created by Akiva Leffert on 2/11/15.

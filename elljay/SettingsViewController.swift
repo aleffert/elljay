@@ -12,8 +12,11 @@ protocol SettingsViewControllerDelegate : class {
     func signOut(#fromController: SettingsViewController)
 }
 
-struct SettingsViewControllerEnvironment {
+class SettingsViewControllerEnvironment {
     weak var delegate : SettingsViewControllerDelegate?
+    init(delegate : SettingsViewControllerDelegate) {
+        self.delegate = delegate
+    }
 }
 
 class SettingsViewController: UIViewController {
@@ -32,7 +35,7 @@ class SettingsViewController: UIViewController {
     }
     
     @IBAction func signOut(sender : AnyObject) {
-        self.environment.delegate?.signOut(fromController: self)
+        environment.delegate?.signOut(fromController: self)
     }
     
     override func viewDidLayoutSubviews() {

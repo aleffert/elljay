@@ -65,6 +65,16 @@ class RootViewControllerTests: XCTestCase {
         XCTAssertTrue(controller.t_showingLoginView())
         controller.t_login(CredentialFactory.freshCredentials())
         XCTAssertTrue(controller.t_showingAuthenticatedView())
+        
+        let expectation = expectationWithDescription("Transitioned")
+        
+        // wait an iteration for view controller transitions to propagate
+        dispatch_async(dispatch_get_main_queue()) {
+            expectation.fulfill()
+        }
+        
+        waitForExpectationsWithTimeout(1, handler: nil)
+        
         controller.t_signOut()
         XCTAssertTrue(controller.t_showingLoginView())
         XCTAssertNil(environment.authSession.credentials)

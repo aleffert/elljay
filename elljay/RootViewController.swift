@@ -98,6 +98,10 @@ public class RootViewController: UIViewController, RootRouter {
         
     }
     
+    public override func viewDidLayoutSubviews() {
+        currentController?.view.frame = self.view.bounds
+    }
+    
     private func freshLoginViewController() -> LoginViewController {
         return LoginViewController(
             environment: LoginViewControllerEnvironment(
@@ -107,46 +111,36 @@ public class RootViewController: UIViewController, RootRouter {
     }
 
     private func showChildController(controller : UIViewController) {
-        controller.willMoveToParentViewController(self)
         addChildViewController(controller)
+        controller.didMoveToParentViewController(self)
         currentController = controller
         controller.view.frame = self.view.bounds
         view.addSubview(controller.view)
     }
-    
-    public override func viewDidLayoutSubviews() {
-        currentController?.view.frame = self.view.bounds
-    }
-    
-    func loginSucceeded(#credentials : AuthCredentials) {
-        let info = AuthenticatedViewInfo(credentials: credentials, environment: environment, router: self)
-        authenticatedViewInfo = info
-        addChildViewController(info.contentController)
-        transitionFromViewController(currentController!, toViewController: info.contentController, duration: 0.2, options: .TransitionCrossDissolve, animations: {}, completion: nil)
+    private func transitionToChildController(controller : UIViewController) {
+        addChildViewController(controller)
+        controller.didMoveToParentViewController(self)
+        transitionFromViewController(currentController!, toViewController: controller, duration: 0.2, options: .TransitionCrossDissolve, animations: {}, completion: nil)
+        
+        currentController?.willMoveToParentViewController(nil)
         currentController?.removeFromParentViewController()
-        currentController = info.contentController
+        currentController = controller
         
         setNeedsStatusBarAppearanceUpdate()
     }
     
-    func signOut() {
+    private func loginSucceeded(#credentials : AuthCredentials) {
+        let info = AuthenticatedViewInfo(credentials: credentials, environment: environment, router: self)
+        authenticatedViewInfo = info
+        transitionToChildController(info.contentController)
+    }
+    
+    private func signOut() {
         self.authController.signOut()
         
         let loginController = freshLoginViewController()
-        addChildViewController(loginController)
-        loginController.didMoveToParentViewController(self)
-        
-        transitionFromViewController(authenticatedViewInfo!.contentController,
-            toViewController: loginController,
-            duration: 0.2,
-            options: .TransitionCrossDissolve,
-            animations: {},
-            completion: nil)
-        currentController?.removeFromParentViewController()
-        currentController = loginController
-        authenticatedViewInfo = nil
-        
-        setNeedsStatusBarAppearanceUpdate()
+
+        transitionToChildController(loginController)
     }
     
     public func loginControllerSucceeded(controller: LoginViewController, credentials : AuthCredentials) {
