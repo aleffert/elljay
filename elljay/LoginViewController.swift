@@ -67,7 +67,6 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
                 result.cata(
                     {credentials in
                         self.environment.delegate?.loginControllerSucceeded(self, credentials : credentials)
-                        println("logged in")
                     },
                     {error in
                         let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .Alert)

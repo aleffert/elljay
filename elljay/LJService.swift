@@ -326,7 +326,6 @@ public class LJService : ChallengeRequestable {
         let generator = {(sessionInfo : AuthCredentials) -> NSURLRequest in
             let url = self.feedURL(username : sessionInfo.username)
             let request = NSMutableURLRequest(URL: url)
-            println("url is \(url)")
             return NSURLRequest(URL:url)
         }
         
