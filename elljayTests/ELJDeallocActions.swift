@@ -14,13 +14,14 @@ class ELJDeallocActions: XCTestCase {
     func testDealloc() {
         var observed = false
         func make() {
-            let object = NSObject()
-            object.performActionOnDealloc { () -> Void in
-                observed = true
+            autoreleasepool {
+                let object = NSObject()
+                object.performActionOnDealloc { () -> Void in
+                    observed = true
+                }
             }
         }
         make()
-        
         XCTAssertTrue(observed)
     }
     

@@ -56,9 +56,11 @@ class NotificationTests: XCTestCase {
         let notification : Notification<()> = Notification()
         var observed = false
         func make() {
-            let owner = NSObject()
-            let listener = notification.addObserver(owner) {
-                observed = true
+            autoreleasepool {
+                let owner = NSObject()
+                let listener = notification.addObserver(owner) {
+                    observed = true
+                }
             }
         }
         make()
