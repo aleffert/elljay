@@ -8,33 +8,38 @@
 
 import UIKit
 
-@objc protocol LoginViewControllerDelegate {
+public protocol LoginViewControllerDelegate : class {
     func loginControllerSucceeded(controller : LoginViewController, credentials : AuthCredentials)
+}
+
+public class LoginViewControllerEnvironment {
+    private weak var delegate : LoginViewControllerDelegate?
+    private let authController : AuthControlling
+    private let alertPresenter : AlertPresenting
+    
+    public init(delegate : LoginViewControllerDelegate?, authController : AuthControlling, alertPresenter : AlertPresenting = AlertPresenter()) {
+        self.authController = authController
+        self.alertPresenter = alertPresenter
+        self.delegate = delegate
+    }
 }
 
 public class LoginViewController: UIViewController, UITextFieldDelegate {
     
-    let delegate : LoginViewControllerDelegate!
+    @IBOutlet private var contentContainer : UIView!
     
-    @IBOutlet var contentContainer : UIView!
+    @IBOutlet private var usernameField : UITextField!
+    @IBOutlet private var passwordField : UITextField!
     
-    @IBOutlet var usernameField : UITextField!
-    @IBOutlet var passwordField : UITextField!
+    private let environment : LoginViewControllerEnvironment
     
-    private(set) var authController : AuthController!
-    
-    init(authController : AuthController, delegate : LoginViewControllerDelegate)  {
-        self.authController = authController
-        self.delegate = delegate
+    public init(environment : LoginViewControllerEnvironment)  {
+        self.environment = environment
         super.init(nibName: "LoginViewController", bundle : nil);
     }
     
     public required init(coder aDecoder: NSCoder) {
-        assert(false, "Not designed to be loaded via archive")
-        
-        authController = aDecoder.decodeObjectForKey("authController") as AuthController
-        delegate = aDecoder.decodeObjectForKey("delegate") as LoginViewControllerDelegate
-        super.init(coder: aDecoder)
+        fatalError("Not designed to be loaded via archive")
     }
     
     public override func viewDidLoad()  {
@@ -51,25 +56,49 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
     public override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
     }
-
-    func textFieldShouldReturn(textField: UITextField!) -> Bool  {
+    
+    func finishedField(textField : UITextField) {
         if textField == usernameField {
             passwordField?.becomeFirstResponder()
         }
         else if textField == passwordField {
             textField.resignFirstResponder()
-            authController.attemptLogin(username : usernameField.text, password: passwordField.text) { result in
+            environment.authController.attemptLogin(username : usernameField.text, password: passwordField.text) { result in
                 result.cata(
                     {credentials in
-                        self.delegate.loginControllerSucceeded(self, credentials : credentials)
+                        self.environment.delegate?.loginControllerSucceeded(self, credentials : credentials)
                         println("logged in")
                     },
                     {error in
-                        println("error " + error.localizedDescription)
+                        let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .Alert)
+                        self.environment.alertPresenter.presentAlertController(alert, fromController: self)
                     }
                 )
             }
         }
+    }
+    
+    func textFieldShouldReturn(textField: UITextField!) -> Bool  {
+        finishedField(textField)
         return false;
+    }
+
+}
+
+// only for use in tests
+extension LoginViewController {
+    
+    public func t_enterUsername(username : String) {
+        usernameField.text = username
+        finishedField(usernameField)
+    }
+    
+    public func t_enterPassword(password : String) {
+        passwordField.text = password
+        finishedField(passwordField)
+    }
+    
+    public func t_isPasswordFirstResponder() -> Bool {
+        return passwordField.isFirstResponder()
     }
 }

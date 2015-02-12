@@ -14,7 +14,7 @@ import elljay
 class AuthControllerTests: XCTestCase {
     
     func freshEnvironment() -> (
-        keychain : KeychainService,
+        keychain : KeychainServicing,
         credentials : AuthCredentials,
         controller : AuthController) {
 

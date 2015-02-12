@@ -14,13 +14,13 @@ public enum KeychainLoadResult {
     case Failure(OSStatus)
 }
 
-public protocol KeychainService {
+public protocol KeychainServicing {
     func clear() -> OSStatus
     func save(data : NSData) -> OSStatus
     func load() -> KeychainLoadResult
 }
 
-class PersistentKeychainService : KeychainService {
+class KeychainService : KeychainServicing {
     
     private let serviceName : String
     private let account : String

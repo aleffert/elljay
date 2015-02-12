@@ -32,6 +32,8 @@
 		774B1A391A8734A100C0239D /* MockKeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774B1A381A8734A100C0239D /* MockKeychainService.swift */; };
 		774B1A3B1A87CA0B00C0239D /* AuthSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774B1A3A1A87CA0B00C0239D /* AuthSessionTests.swift */; };
 		775071B319B385B100B0B142 /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775071B219B385B100B0B142 /* AuthController.swift */; };
+		7750DC521A8C3149001B8706 /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7750DC511A8C3149001B8706 /* AlertPresenter.swift */; };
+		7750DC541A8C3206001B8706 /* LoginViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7750DC531A8C3206001B8706 /* LoginViewControllerTests.swift */; };
 		775FE30019BE7E9400F84067 /* NetworkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775FE2FE19BE7E9400F84067 /* NetworkServiceTests.swift */; };
 		775FE30219BE7EAC00F84067 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775FE30119BE7EAC00F84067 /* NetworkService.swift */; };
 		777CA2EA19F9BEA100370AE9 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777CA2E919F9BEA100370AE9 /* FeedViewController.swift */; };
@@ -117,6 +119,8 @@
 		774B1A381A8734A100C0239D /* MockKeychainService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockKeychainService.swift; sourceTree = "<group>"; };
 		774B1A3A1A87CA0B00C0239D /* AuthSessionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthSessionTests.swift; sourceTree = "<group>"; };
 		775071B219B385B100B0B142 /* AuthController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
+		7750DC511A8C3149001B8706 /* AlertPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
+		7750DC531A8C3206001B8706 /* LoginViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewControllerTests.swift; sourceTree = "<group>"; };
 		775FE2FE19BE7E9400F84067 /* NetworkServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkServiceTests.swift; path = elljayTests/NetworkServiceTests.swift; sourceTree = SOURCE_ROOT; };
 		775FE30119BE7EAC00F84067 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		777CA2E919F9BEA100370AE9 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
@@ -298,6 +302,7 @@
 		77FA1A07199D5C160080163D /* elljay */ = {
 			isa = PBXGroup;
 			children = (
+				7750DC511A8C3149001B8706 /* AlertPresenter.swift */,
 				77FA1A0A199D5C160080163D /* AppDelegate.swift */,
 				77D0191D19B54CB40024DBED /* Library Additions */,
 				77D0192A19B555720024DBED /* ELJCrypto.h */,
@@ -338,6 +343,7 @@
 				774B1A2F1A872DF700C0239D /* FunctionalAdditionsTests.swift */,
 				77D0190F19B542870024DBED /* NSDateOrderingTests.swift */,
 				775FE2FE19BE7E9400F84067 /* NetworkServiceTests.swift */,
+				7750DC531A8C3206001B8706 /* LoginViewControllerTests.swift */,
 				774B1A1D1A87296700C0239D /* RootViewControllerTests.swift */,
 				77D0191019B542870024DBED /* LJServiceTests.swift */,
 				77171FA619AECCA1003EEAD6 /* XMLRPCTests */,
@@ -498,6 +504,7 @@
 				77FA1A2B199D5C9D0080163D /* LoginViewController.swift in Sources */,
 				77D0191C19B54CAA0024DBED /* NSErrorAdditions.swift in Sources */,
 				770158B719F4388700EACD99 /* SettingsViewController.swift in Sources */,
+				7750DC521A8C3149001B8706 /* AlertPresenter.swift in Sources */,
 				775071B319B385B100B0B142 /* AuthController.swift in Sources */,
 				774B1A181A86D0F200C0239D /* FriendsDataSource.swift in Sources */,
 				775FE30219BE7EAC00F84067 /* NetworkService.swift in Sources */,
@@ -537,6 +544,7 @@
 				774B1A341A872DFD00C0239D /* XMLNodeTests.swift in Sources */,
 				77D0192F19B556380024DBED /* NSDateAdditions.swift in Sources */,
 				774B1A361A872DFD00C0239D /* XMLRPCTests.swift in Sources */,
+				7750DC541A8C3206001B8706 /* LoginViewControllerTests.swift in Sources */,
 				774B1A371A8731CE00C0239D /* FunctionalAdditions.swift in Sources */,
 				774B1A3B1A87CA0B00C0239D /* AuthSessionTests.swift in Sources */,
 				774B1A1E1A87296700C0239D /* RootViewControllerTests.swift in Sources */,

@@ -43,11 +43,11 @@ public func ==(lhs : AuthCredentials, rhs : AuthCredentials) -> Bool {
 }
 
 public class AuthSession {
-    private let keychain : KeychainService
+    private let keychain : KeychainServicing
     
     public private(set) var credentials : AuthCredentials?
     
-    public init(keychain : KeychainService) {
+    public init(keychain : KeychainServicing) {
         self.keychain = keychain
     }
     

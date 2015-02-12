@@ -10,7 +10,7 @@ import UIKit
 
 import elljay
 
-public class MockKeychainService: KeychainService {
+public class MockKeychainService: KeychainServicing {
     var store : NSData?
     
     public init() {

@@ -23,7 +23,13 @@ public struct AuthControllerEnvironment {
 // todo make a class variable once those are supported
 public let AuthControllerBadCredentialsNotification = "AuthControllerBadCredentialsNotification"
 
-public class AuthController {
+public protocol AuthControlling {
+    var credentials : AuthCredentials? { get }
+    func attemptLogin(#username : String, password : String, completion : (result : Result<AuthCredentials>) -> Void)
+    func signOut()
+}
+
+public class AuthController : AuthControlling {
     
     private let environment : AuthControllerEnvironment
     

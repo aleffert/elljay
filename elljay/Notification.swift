@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class Observer<A> : Equatable{
+public class Observer<A> : Equatable {
     private weak var observer : Notification<A>?
     private var action : A -> ()
     

@@ -14,7 +14,7 @@ import elljay
 
 class RootViewControllerTests: XCTestCase {
     
-    func freshTestEnvironment() -> (RootEnvironment, KeychainService) {
+    func freshTestEnvironment() -> (RootEnvironment, KeychainServicing) {
         let keychain = MockKeychainService()
         return (RootEnvironment(ljservice : LJService(), keychain : keychain), keychain)
     }
@@ -52,6 +52,18 @@ class RootViewControllerTests: XCTestCase {
             CredentialFactory.freshCredentials())
         )
         let _ = controller.view
+        XCTAssertTrue(controller.t_showingAuthenticatedView())
+        controller.t_signOut()
+        XCTAssertTrue(controller.t_showingLoginView())
+        XCTAssertNil(environment.authSession.credentials)
+    }
+    
+    func testSignInOut() {
+        let (environment, keychain) = freshTestEnvironment()
+        let controller = RootViewController(environment: environment)
+        let _ = controller.view
+        XCTAssertTrue(controller.t_showingLoginView())
+        controller.t_login(CredentialFactory.freshCredentials())
         XCTAssertTrue(controller.t_showingAuthenticatedView())
         controller.t_signOut()
         XCTAssertTrue(controller.t_showingLoginView())

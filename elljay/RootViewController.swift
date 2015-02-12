@@ -8,14 +8,16 @@
 
 import UIKit
 
-typealias AppRouter = protocol<LoginViewControllerDelegate, SettingsViewControllerDelegate>
+private typealias RootRouter = protocol<
+    LoginViewControllerDelegate,
+    SettingsViewControllerDelegate>
 
 private class AuthenticatedViewInfo {
     let contentController = UITabBarController()
     let settingsController : SettingsViewController
     let feedController : FeedViewController
     
-    init(credentials : AuthCredentials, environment : RootEnvironment, router : AppRouter) {
+    init(credentials : AuthCredentials, environment : RootEnvironment, router : RootRouter) {
         let dataStore = DataStore()
         let networkService = AuthenticatedNetworkService(service: environment.networkService, credentials: credentials)
         let dataVendor = DataSourceVendor(networkService : networkService, dataStore : dataStore)
@@ -28,8 +30,12 @@ private class AuthenticatedViewInfo {
         settingsController = SettingsViewController(environment :
             SettingsViewControllerEnvironment(delegate: router)
         )
+        let settingsContainer = UINavigationController(rootViewController: settingsController)
+        let feedContainer = UINavigationController(rootViewController: feedController)
+        contentController.viewControllers = [feedContainer, settingsContainer]
     }
 }
+
 
 public struct RootEnvironment {
     public let authSession : AuthSession
@@ -38,11 +44,11 @@ public struct RootEnvironment {
     
     public init() {
         let ljservice = LJService()
-        let keychain = PersistentKeychainService(serviceName: ljservice.serviceName)
+        let keychain = KeychainService(serviceName: ljservice.serviceName)
         self.init(ljservice : ljservice, keychain : keychain)
     }
     
-    public init(ljservice : LJService, keychain : KeychainService) {
+    public init(ljservice : LJService, keychain : KeychainServicing) {
         self.ljservice = ljservice
         authSession = AuthSession(keychain: keychain)
         let urlSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: AuthorizedURLSessionDelegate(authSession: authSession), delegateQueue: NSOperationQueue.mainQueue())
@@ -50,7 +56,7 @@ public struct RootEnvironment {
     }
 }
 
-public class RootViewController: UIViewController, AppRouter {
+public class RootViewController: UIViewController, RootRouter {
     private let environment : RootEnvironment
     private let authController : AuthController
     private var authenticatedViewInfo : AuthenticatedViewInfo?
@@ -71,19 +77,18 @@ public class RootViewController: UIViewController, AppRouter {
     
     public required init(coder aDecoder: NSCoder) {
         fatalError("Not designed to be loaded via archive")
-        super.init(nibName: nil, bundle: nil)
     }
 
     public override func viewDidLoad() {
         super.viewDidLoad()
         
         if let credentials = authController.credentials {
-            let info = freshAuthenticatedController(credentials : credentials)
+            let info = AuthenticatedViewInfo(credentials : credentials, environment : environment, router : self)
             showChildController(info.contentController)
             authenticatedViewInfo = info
         }
         else {
-            let loginController = LoginViewController(authController: authController, delegate : self)
+            let loginController = freshLoginViewController()
             
             addChildViewController(loginController)
             loginController.didMoveToParentViewController(self)
@@ -93,16 +98,15 @@ public class RootViewController: UIViewController, AppRouter {
         
     }
     
-    private func freshAuthenticatedController(#credentials : AuthCredentials) -> AuthenticatedViewInfo {
-        let info = AuthenticatedViewInfo(credentials: credentials, environment: environment, router : self)
-        let settingsContainer = UINavigationController(rootViewController: info.settingsController)
-        let feedContainer = UINavigationController(rootViewController: info.feedController)
-        info.contentController.viewControllers = [feedContainer, settingsContainer]
-        
-        return info
+    private func freshLoginViewController() -> LoginViewController {
+        return LoginViewController(
+            environment: LoginViewControllerEnvironment(
+                delegate: self,
+                authController: authController
+            ))
     }
-    
-    func showChildController(controller : UIViewController) {
+
+    private func showChildController(controller : UIViewController) {
         controller.willMoveToParentViewController(self)
         addChildViewController(controller)
         currentController = controller
@@ -115,7 +119,7 @@ public class RootViewController: UIViewController, AppRouter {
     }
     
     func loginSucceeded(#credentials : AuthCredentials) {
-        let info = freshAuthenticatedController(credentials: credentials)
+        let info = AuthenticatedViewInfo(credentials: credentials, environment: environment, router: self)
         authenticatedViewInfo = info
         addChildViewController(info.contentController)
         transitionFromViewController(currentController!, toViewController: info.contentController, duration: 0.2, options: .TransitionCrossDissolve, animations: {}, completion: nil)
@@ -128,7 +132,7 @@ public class RootViewController: UIViewController, AppRouter {
     func signOut() {
         self.authController.signOut()
         
-        let loginController = LoginViewController(authController: authController, delegate: self)
+        let loginController = freshLoginViewController()
         addChildViewController(loginController)
         loginController.didMoveToParentViewController(self)
         
@@ -145,7 +149,7 @@ public class RootViewController: UIViewController, AppRouter {
         setNeedsStatusBarAppearanceUpdate()
     }
     
-    func loginControllerSucceeded(controller: LoginViewController, credentials : AuthCredentials) {
+    public func loginControllerSucceeded(controller: LoginViewController, credentials : AuthCredentials) {
         loginSucceeded(credentials : credentials)
     }
     
