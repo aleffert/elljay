@@ -71,6 +71,7 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
                     },
                     {error in
                         let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .Alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .Default) {_ in })
                         self.environment.alertPresenter.presentAlertController(alert, fromController: self)
                     }
                 )
