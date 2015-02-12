@@ -35,6 +35,7 @@
 		7750DC521A8C3149001B8706 /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7750DC511A8C3149001B8706 /* AlertPresenter.swift */; };
 		7750DC541A8C3206001B8706 /* LoginViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7750DC531A8C3206001B8706 /* LoginViewControllerTests.swift */; };
 		7750DC561A8C5712001B8706 /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7750DC551A8C5712001B8706 /* NotificationTests.swift */; };
+		7750DC581A8C5EBA001B8706 /* ELJDeallocActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7750DC571A8C5EBA001B8706 /* ELJDeallocActions.swift */; };
 		775FE30019BE7E9400F84067 /* NetworkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775FE2FE19BE7E9400F84067 /* NetworkServiceTests.swift */; };
 		775FE30219BE7EAC00F84067 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775FE30119BE7EAC00F84067 /* NetworkService.swift */; };
 		777CA2EA19F9BEA100370AE9 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777CA2E919F9BEA100370AE9 /* FeedViewController.swift */; };
@@ -123,6 +124,7 @@
 		7750DC511A8C3149001B8706 /* AlertPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
 		7750DC531A8C3206001B8706 /* LoginViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewControllerTests.swift; sourceTree = "<group>"; };
 		7750DC551A8C5712001B8706 /* NotificationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationTests.swift; sourceTree = "<group>"; };
+		7750DC571A8C5EBA001B8706 /* ELJDeallocActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ELJDeallocActions.swift; sourceTree = "<group>"; };
 		775FE2FE19BE7E9400F84067 /* NetworkServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkServiceTests.swift; path = elljayTests/NetworkServiceTests.swift; sourceTree = SOURCE_ROOT; };
 		775FE30119BE7EAC00F84067 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		777CA2E919F9BEA100370AE9 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 				77D0190F19B542870024DBED /* NSDateOrderingTests.swift */,
 				775FE2FE19BE7E9400F84067 /* NetworkServiceTests.swift */,
 				7750DC551A8C5712001B8706 /* NotificationTests.swift */,
+				7750DC571A8C5EBA001B8706 /* ELJDeallocActions.swift */,
 				774B1A1D1A87296700C0239D /* RootViewControllerTests.swift */,
 				77171FA619AECCA1003EEAD6 /* XMLRPCTests */,
 				77FA1A1E199D5C170080163D /* Supporting Files */,
@@ -541,6 +544,7 @@
 			files = (
 				77D0191319B542870024DBED /* LJServiceTests.swift in Sources */,
 				7750DC561A8C5712001B8706 /* NotificationTests.swift in Sources */,
+				7750DC581A8C5EBA001B8706 /* ELJDeallocActions.swift in Sources */,
 				77DCD2F719F412B100354B28 /* ArrayAdditions.swift in Sources */,
 				774B1A391A8734A100C0239D /* EphemeralKeychainService.swift in Sources */,
 				77C5CD081A8817A8002F718D /* LJServiceTestHelpers.swift in Sources */,

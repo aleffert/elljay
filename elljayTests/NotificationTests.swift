@@ -55,15 +55,13 @@ class NotificationTests: XCTestCase {
     func testAutoRemove() {
         let notification : Notification<()> = Notification()
         var observed = false
-        autoreleasepool {
-            let _ = { (x : ()) -> () in
-                let owner = NSObject()
-                let listener = notification.addObserver(owner) {
-                    observed = true
-                }
-                return ()
-                }()
+        func make() {
+            let owner = NSObject()
+            let listener = notification.addObserver(owner) {
+                observed = true
+            }
         }
+        make()
         notification.notifyListeners(())
         XCTAssertFalse(observed)
     }
