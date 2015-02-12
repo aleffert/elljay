@@ -8,9 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol ELJDeallocAction <NSObject>
+
+- (void)remove;
+
+@end
+
 @interface NSObject (ELJDeallocActions)
 
-- (void)performActionOnDealloc:(void(^)(void))action;
+- (id <ELJDeallocAction>)performActionOnDealloc:(void(^)(void))action;
 
 @end
 

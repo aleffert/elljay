@@ -9,16 +9,16 @@
 import UIKit
 
 public class Observer<A> : Equatable {
-    private weak var observer : Notification<A>?
+    private weak var owner : Notification<A>?
     private var action : A -> ()
     
     init(action : A -> (), observer : Notification<A>) {
         self.action = action
-        self.observer = observer
+        self.owner = observer
     }
     
     public func remove() {
-        observer?.removeListener(self)
+        owner?.removeListener(self)
     }
 }
 
@@ -28,12 +28,25 @@ public func ==<A>(lhs: Observer<A>, rhs: Observer<A>) -> Bool {
 
 public class Notification<A> {
     
+    public init() {
+        
+    }
+    
     private var observers : [Observer<A>] = []
     
-    public func addObserver(a : A -> ()) -> Observer<A> {
-        let listener = Observer(action : a, observer: self)
+    public func addObserver(owner : AnyObject?, action : A -> ()) -> Observer<A> {
+        let listener = Observer(action : action, observer: self)
         observers.append(listener)
+        if let o : AnyObject = owner {
+            o.performActionOnDealloc({ () -> Void in
+                listener.remove()
+            })
+        }
         return listener
+    }
+    
+    public func addObserver(action : A -> ())  -> Observer<A> {
+        return addObserver(nil, action : action)
     }
     
     private func removeListener(listener : Observer<A>) {

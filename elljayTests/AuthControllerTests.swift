@@ -74,7 +74,7 @@ class AuthControllerTests: XCTestCase {
             XCTAssertNil(controller.credentials)
             expectation.fulfill()
         }
-        waitForExpectationsWithTimeout(1, handler: nil)
+        waitForExpectationsWithTimeout(5, handler: nil)
         OHHTTPStubs.removeLastStub()
         OHHTTPStubs.removeLastStub()
     }
