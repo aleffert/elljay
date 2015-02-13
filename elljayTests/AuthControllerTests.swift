@@ -29,7 +29,7 @@ class AuthControllerTests: XCTestCase {
         )
         
         let controller = AuthController(
-            environment: AuthControllerEnvironment(
+            environment: AuthController.Environment(
                 authSession : authSession,
                 ljservice : ljservice,
                 networkService : networkService)

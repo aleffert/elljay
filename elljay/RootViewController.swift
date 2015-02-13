@@ -12,62 +12,61 @@ private typealias RootRouter = protocol<
     LoginViewControllerDelegate,
     SettingsViewControllerDelegate>
 
-private class AuthenticatedViewInfo {
-    let contentController = UITabBarController()
-    let settingsController : SettingsViewController
-    let feedController : FeedViewController
-    
-    init(credentials : AuthCredentials, environment : RootEnvironment, router : RootRouter) {
-        let dataStore = DataStore()
-        let networkService = AuthenticatedNetworkService(service: environment.networkService, credentials: credentials)
-        let dataVendor = DataSourceVendor(networkService : networkService, dataStore : dataStore)
-        feedController = FeedViewController(environment:
-            FeedViewControllerEnvironment(
-                ljservice: environment.ljservice,
-                networkService: networkService,
-                dataVendor: dataVendor)
-        )
-        settingsController = SettingsViewController(environment :
-            SettingsViewControllerEnvironment(delegate: router)
-        )
-        let settingsContainer = UINavigationController(rootViewController: settingsController)
-        let feedContainer = UINavigationController(rootViewController: feedController)
-        contentController.viewControllers = [feedContainer, settingsContainer]
-    }
-}
-
-
-public struct RootEnvironment {
-    public let authSession : AuthSession
-    public let networkService : NetworkService
-    public let ljservice : LJService
-    
-    public init() {
-        let ljservice = LJService()
-        let keychain = KeychainService(serviceName: ljservice.serviceName)
-        self.init(ljservice : ljservice, keychain : keychain)
-    }
-    
-    public init(ljservice : LJService, keychain : KeychainServicing) {
-        self.ljservice = ljservice
-        authSession = AuthSession(keychain: keychain)
-        let urlSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: AuthorizedURLSessionDelegate(authSession: authSession), delegateQueue: NSOperationQueue.mainQueue())
-        networkService = NetworkService(session: urlSession, challengeGenerator: ljservice)
-    }
-}
 
 public class RootViewController: UIViewController, RootRouter {
-    private let environment : RootEnvironment
+    public struct Environment {
+        public let authSession : AuthSession
+        public let networkService : NetworkService
+        public let ljservice : LJService
+        
+        public init() {
+            let ljservice = LJService()
+            let keychain = KeychainService(serviceName: ljservice.serviceName)
+            self.init(ljservice : ljservice, keychain : keychain)
+        }
+        
+        public init(ljservice : LJService, keychain : KeychainServicing) {
+            self.ljservice = ljservice
+            authSession = AuthSession(keychain: keychain)
+            let urlSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: AuthorizedURLSessionDelegate(authSession: authSession), delegateQueue: NSOperationQueue.mainQueue())
+            networkService = NetworkService(session: urlSession, challengeGenerator: ljservice)
+        }
+    }
+    private class AuthenticatedViewInfo {
+        let contentController = UITabBarController()
+        let settingsController : SettingsViewController
+        let feedController : FeedViewController
+        
+        init(credentials : AuthCredentials, environment : Environment, router : RootRouter) {
+            let dataStore = DataStore()
+            let networkService = AuthenticatedNetworkService(service: environment.networkService, credentials: credentials)
+            let dataVendor = DataSourceVendor(networkService : networkService, dataStore : dataStore)
+            feedController = FeedViewController(environment:
+                FeedViewController.Environment(
+                    ljservice: environment.ljservice,
+                    networkService: networkService,
+                    dataVendor: dataVendor)
+            )
+            settingsController = SettingsViewController(environment :
+                SettingsViewController.Environment(delegate: router)
+            )
+            let settingsContainer = UINavigationController(rootViewController: settingsController)
+            let feedContainer = UINavigationController(rootViewController: feedController)
+            contentController.viewControllers = [feedContainer, settingsContainer]
+        }
+    }
+    
+    private let environment : Environment
     private let authController : AuthController
     private var authenticatedViewInfo : AuthenticatedViewInfo?
     
     var currentController : UIViewController?
     
-    public init(environment : RootEnvironment) {
+    public init(environment : Environment) {
         self.environment = environment
         
         let authEnvironment =
-        AuthControllerEnvironment(authSession: environment.authSession,
+        AuthController.Environment(authSession: environment.authSession,
             ljservice: environment.ljservice,
             networkService: environment.networkService)
         
@@ -104,7 +103,7 @@ public class RootViewController: UIViewController, RootRouter {
     
     private func freshLoginViewController() -> LoginViewController {
         return LoginViewController(
-            environment: LoginViewControllerEnvironment(
+            environment: LoginViewController.Environment(
                 delegate: self,
                 authController: authController
             ))

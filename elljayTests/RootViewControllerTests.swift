@@ -14,9 +14,13 @@ import elljay
 
 class RootViewControllerTests: XCTestCase {
     
-    func freshTestEnvironment() -> (RootEnvironment, KeychainServicing) {
+    func freshTestEnvironment() -> (RootViewController.Environment, KeychainServicing) {
         let keychain = EphemeralKeychainService()
-        return (RootEnvironment(ljservice : LJService(), keychain : keychain), keychain)
+        return (
+            RootViewController.Environment(
+                ljservice : LJService(),
+                keychain : keychain),
+            keychain)
     }
     
     func testNoCredentials() {

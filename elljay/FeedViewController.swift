@@ -9,16 +9,18 @@
 import Foundation
 import UIKit
 
-struct FeedViewControllerEnvironment {
-    let ljservice : LJService
-    let networkService : AuthenticatedNetworkService
-    let dataVendor : DataSourceVendor
-}
 
 class FeedViewController : UIViewController {
-    let environment : FeedViewControllerEnvironment
+    
+    struct Environment {
+        let ljservice : LJService
+        let networkService : AuthenticatedNetworkService
+        let dataVendor : DataSourceVendor
+    }
+    
+    let environment : FeedViewController.Environment
 
-    init(environment : FeedViewControllerEnvironment) {
+    init(environment : FeedViewController.Environment) {
         self.environment = environment
         super.init(nibName: nil, bundle: nil)
         self.title = "Friends"

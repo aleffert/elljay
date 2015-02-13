@@ -12,18 +12,19 @@ protocol SettingsViewControllerDelegate : class {
     func signOut(#fromController: SettingsViewController)
 }
 
-class SettingsViewControllerEnvironment {
-    weak var delegate : SettingsViewControllerDelegate?
-    init(delegate : SettingsViewControllerDelegate) {
-        self.delegate = delegate
-    }
-}
 
 class SettingsViewController: UIViewController {
     
-    let environment : SettingsViewControllerEnvironment
+    class Environment {
+        weak var delegate : SettingsViewControllerDelegate?
+        init(delegate : SettingsViewControllerDelegate) {
+            self.delegate = delegate
+        }
+    }
     
-    init(environment : SettingsViewControllerEnvironment) {
+    let environment : Environment
+    
+    init(environment : Environment) {
         self.environment = environment
         super.init(nibName: "SettingsViewController", bundle: nil)
         self.title = "Settings"

@@ -12,28 +12,29 @@ public protocol LoginViewControllerDelegate : class {
     func loginControllerSucceeded(controller : LoginViewController, credentials : AuthCredentials)
 }
 
-public class LoginViewControllerEnvironment {
-    private weak var delegate : LoginViewControllerDelegate?
-    private let authController : AuthControlling
-    private let alertPresenter : AlertPresenting
-    
-    public init(delegate : LoginViewControllerDelegate?, authController : AuthControlling, alertPresenter : AlertPresenting = AlertPresenter()) {
-        self.authController = authController
-        self.alertPresenter = alertPresenter
-        self.delegate = delegate
-    }
-}
 
 public class LoginViewController: UIViewController, UITextFieldDelegate {
+    
+    public class Environment {
+        private weak var delegate : LoginViewControllerDelegate?
+        private let authController : AuthControlling
+        private let alertPresenter : AlertPresenting
+        
+        public init(delegate : LoginViewControllerDelegate?, authController : AuthControlling, alertPresenter : AlertPresenting = AlertPresenter()) {
+            self.authController = authController
+            self.alertPresenter = alertPresenter
+            self.delegate = delegate
+        }
+    }
     
     @IBOutlet private var contentContainer : UIView!
     
     @IBOutlet private var usernameField : UITextField!
     @IBOutlet private var passwordField : UITextField!
     
-    private let environment : LoginViewControllerEnvironment
+    private let environment : Environment
     
-    public init(environment : LoginViewControllerEnvironment)  {
+    public init(environment : Environment)  {
         self.environment = environment
         super.init(nibName: "LoginViewController", bundle : nil);
     }

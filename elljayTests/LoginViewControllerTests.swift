@@ -35,7 +35,7 @@ class LoginViewControllerTests: XCTestCase {
     
     func testUsernameTab() {
         let controller = LoginViewController(environment:
-            LoginViewControllerEnvironment(
+            LoginViewController.Environment(
                 delegate : nil,
                 authController : StubAuthController()))
         let _ = controller.view
@@ -55,7 +55,7 @@ class LoginViewControllerTests: XCTestCase {
         
         let delegate = MockLoginDelegate()
         let controller = LoginViewController(environment:
-            LoginViewControllerEnvironment(
+            LoginViewController.Environment(
                 delegate : delegate,
                 authController : MockSuccessAuthController()))
         let _ = controller.view
@@ -77,7 +77,7 @@ class LoginViewControllerTests: XCTestCase {
         let authController = MockFailureAuthController()
         
         let controller = LoginViewController(environment:
-            LoginViewControllerEnvironment(
+            LoginViewController.Environment(
                 delegate : nil,
                 authController : authController,
                 alertPresenter : presenter

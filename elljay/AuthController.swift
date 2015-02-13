@@ -8,18 +8,6 @@
 
 import UIKit
 
-public struct AuthControllerEnvironment {
-    public let authSession : AuthSession
-    public let ljservice : LJService
-    public let networkService : NetworkService
-    
-    public init(authSession : AuthSession, ljservice : LJService, networkService : NetworkService) {
-        self.authSession = authSession
-        self.ljservice = ljservice
-        self.networkService = networkService
-    }
-}
-
 // todo make a class variable once those are supported
 public let AuthControllerBadCredentialsNotification = "AuthControllerBadCredentialsNotification"
 
@@ -30,10 +18,21 @@ public protocol AuthControlling {
 }
 
 public class AuthController : AuthControlling {
+    public struct Environment {
+        public let authSession : AuthSession
+        public let ljservice : LJService
+        public let networkService : NetworkService
+        
+        public init(authSession : AuthSession, ljservice : LJService, networkService : NetworkService) {
+            self.authSession = authSession
+            self.ljservice = ljservice
+            self.networkService = networkService
+        }
+    }
     
-    private let environment : AuthControllerEnvironment
+    private let environment : Environment
     
-    public init (environment : AuthControllerEnvironment) {
+    public init (environment : Environment) {
         self.environment = environment
     }
     
