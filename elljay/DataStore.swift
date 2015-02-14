@@ -9,16 +9,18 @@
 import Foundation
 
 public struct FeedUpdateInfo {
-    let username : LJService.Username
+    let username : Username
     let lastLoad : NSDate?
     let lastEntry : NSDate?
 }
 
+
 public class DataStore {
+    
     private let processingQueue = dispatch_queue_create("com.akivaleffert.elljay.DataStore", DISPATCH_QUEUE_SERIAL)
     
-    private var friends : [LJService.Friend] = []
-    private var entries : [LJService.Entry] = []
+    private var friends : [Friend] = []
+    private var entries : [Entry] = []
     
     private var lastLoadDates : [String:NSDate] = [:]
     private var lastEntryDates : [String:NSDate] = [:]
@@ -27,11 +29,16 @@ public class DataStore {
         
     }
     
-    public func useFriends(friends : [LJService.Friend]) {
+    public func knownFriends() -> [Friend]{
+        return self.friends
+    }
+    
+    public func useFriends(friends : [Friend]) {
         self.friends = friends
     }
     
-    public func addEntries(entries : [LJService.Entry], fromFriends : [LJService.Username], requestDate : NSDate) {
+    
+    public func addEntries(entries : [Entry], fromFriends : [Username], requestDate : NSDate) {
         self.entries.extend(entries)
         for entry in entries {
             if let lastEntry = lastEntryDates[entry.author] {
@@ -50,7 +57,7 @@ public class DataStore {
         }
     }
     
-    private func friendsToLoad(items : [FeedUpdateInfo], quickRefresh : Bool, checkDate : NSDate) -> [LJService.Username] {
+    private func friendsToLoad(items : [FeedUpdateInfo], quickRefresh : Bool, checkDate : NSDate) -> [Username] {
         return items.concatMap { item in
             let shouldLoad = { Void -> Bool in
                 switch (item.lastLoad, item.lastEntry) {
@@ -74,7 +81,7 @@ public class DataStore {
         }
     }
     
-    public func friendsToLoad(#quickRefresh : Bool, checkDate : NSDate = NSDate()) -> [LJService.Username] {
+    public func friendsToLoad(#quickRefresh : Bool, checkDate : NSDate = NSDate()) -> [Username] {
         let infos = friends.map { friend -> FeedUpdateInfo in
             let username = friend.user
             return FeedUpdateInfo(

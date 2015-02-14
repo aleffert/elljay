@@ -9,6 +9,7 @@
 import Foundation
 
 // ideally this would all be an enum but swift doesn't support enums with generic parameters
+
 public class Result<A> {
     public func cata<B>(success : A -> B, _ failure : NSError -> B) -> B {
         fatalError("This method must be overridden")
@@ -33,6 +34,15 @@ public class Result<A> {
     public func toOption() -> A? {
         fatalError("This method must be overridden")
     }
+    
+    public func isSuccess() -> Bool {
+        fatalError("This method must be overriden")
+    }
+    
+    public func isFailure() -> Bool {
+        fatalError("This method must be overriden")
+    }
+    
 }
 
 public final class Success<A> : Result<A> {
@@ -61,6 +71,10 @@ public final class Success<A> : Result<A> {
     public override func toOption() -> A? {
         return data
     }
+    
+    public override func isSuccess() -> Bool {
+        return true
+    }
 }
 
 public final class Failure<A> : Result<A> {
@@ -87,6 +101,10 @@ public final class Failure<A> : Result<A> {
     
     public override func toOption() -> A? {
         return nil
+    }
+    
+    public override func isFailure() -> Bool {
+        return true
     }
 
 }

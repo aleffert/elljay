@@ -9,17 +9,28 @@
 import UIKit
 
 class DataSourceVendor: NSObject {
+    
+    struct Environment {
+        let dataStore : DataStore
+        let ljservice : LJService
+        let networkService : AuthenticatedNetworkService
+    }
+    
     let feedSource : FeedDataSource
     let friendsSource : FriendsDataSource
     
-    let dataStore : DataStore
-    let networkService : AuthenticatedNetworkService
+    private let environment : Environment
     
-    init(networkService : AuthenticatedNetworkService, dataStore : DataStore) {
-        self.dataStore = dataStore
-        self.networkService = networkService
-        self.friendsSource = FriendsDataSource()
-        self.feedSource = FeedDataSource(friendsSource : self.friendsSource)
+    init(environment : Environment) {
+        self.environment = environment
+        self.friendsSource = FriendsDataSource(
+            environment : FriendsDataSource.Environment(
+                dataStore: environment.dataStore,
+                networkService: environment.networkService,
+                ljservice: environment.ljservice
+            )
+        )
+        self.feedSource = FeedDataSource(friendsSource : self.friendsSource, dataStore : self.environment.dataStore)
     }
     
 }

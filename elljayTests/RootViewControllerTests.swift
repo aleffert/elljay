@@ -18,8 +18,10 @@ class RootViewControllerTests: XCTestCase {
         let keychain = EphemeralKeychainService()
         return (
             RootViewController.Environment(
-                ljservice : LJService(),
-                keychain : keychain),
+                dataStore : DataStore(),
+                keychain : keychain,
+                ljservice : LJService()
+            ),
             keychain)
     }
     

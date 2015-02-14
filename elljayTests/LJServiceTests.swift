@@ -52,7 +52,7 @@ class ServiceTests: XCTestCase {
     func testSyncItemsParser() {
         let service = LJService()
         let date = LJServiceTestHelpers.standardTestDate()
-        let request = service.syncitems()
+        let request = service.syncItems()
         
         let item = "L-100"
         let count : Int32 = 10
@@ -84,7 +84,7 @@ class ServiceTests: XCTestCase {
 
     func testGetFriendsParser() {
         let service = LJService()
-        let request = service.getfriends()
+        let request = service.getFriends()
         let total : Int32 = 2
         
         let response : XMLRPCParam = .XStruct([

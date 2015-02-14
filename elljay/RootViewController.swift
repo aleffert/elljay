@@ -16,16 +16,19 @@ private typealias RootRouter = protocol<
 public class RootViewController: UIViewController, RootRouter {
     public struct Environment {
         public let authSession : AuthSession
+        public let dataStore : DataStore
         public let networkService : NetworkService
         public let ljservice : LJService
         
         public init() {
             let ljservice = LJService()
             let keychain = KeychainService(serviceName: ljservice.serviceName)
-            self.init(ljservice : ljservice, keychain : keychain)
+            let dataStore = DataStore()
+            self.init(dataStore : dataStore, keychain : keychain, ljservice : ljservice)
         }
         
-        public init(ljservice : LJService, keychain : KeychainServicing) {
+        public init(dataStore : DataStore, keychain : KeychainServicing, ljservice : LJService) {
+            self.dataStore = dataStore
             self.ljservice = ljservice
             authSession = AuthSession(keychain: keychain)
             let urlSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: AuthorizedURLSessionDelegate(authSession: authSession), delegateQueue: NSOperationQueue.mainQueue())
@@ -40,12 +43,19 @@ public class RootViewController: UIViewController, RootRouter {
         init(credentials : AuthCredentials, environment : Environment, router : RootRouter) {
             let dataStore = DataStore()
             let networkService = AuthenticatedNetworkService(service: environment.networkService, credentials: credentials)
-            let dataVendor = DataSourceVendor(networkService : networkService, dataStore : dataStore)
+            let dataVendor = DataSourceVendor(environment:
+                DataSourceVendor.Environment(
+                    dataStore: environment.dataStore,
+                    ljservice: environment.ljservice,
+                    networkService: networkService
+                )
+            )
             feedController = FeedViewController(environment:
                 FeedViewController.Environment(
+                    dataVendor: dataVendor,
                     ljservice: environment.ljservice,
-                    networkService: networkService,
-                    dataVendor: dataVendor)
+                    networkService: networkService
+                )
             )
             settingsController = SettingsViewController(environment :
                 SettingsViewController.Environment(delegate: router)

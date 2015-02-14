@@ -9,9 +9,30 @@
 import UIKit
 
 struct FriendChangeRecord {
-    
+    let addedFriends : [Friend]
+    let removedFriends : [Friend]
 }
 
-class FriendsDataSource: NSObject {
-    let changeObserver = Notification<FriendChangeRecord>()
+public class FriendsDataSource {
+    public struct Environment {
+        let dataStore : DataStore
+        let networkService : AuthenticatedNetworkService
+        let ljservice : LJService
+    }
+    
+    let environment : Environment
+    
+    let changeNotification = Notification<Result<FriendChangeRecord>>()
+    var activeRefreshTask : NetworkTask?
+    
+    init(environment : Environment) {
+        self.environment = environment
+    }
+    
+    func friends() -> [Friend] {
+        return environment.dataStore.knownFriends()
+    }
+    
+    func refresh() {
+    }
 }

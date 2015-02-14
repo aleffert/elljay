@@ -13,9 +13,9 @@ import UIKit
 class FeedViewController : UIViewController {
     
     struct Environment {
+        let dataVendor : DataSourceVendor
         let ljservice : LJService
         let networkService : AuthenticatedNetworkService
-        let dataVendor : DataSourceVendor
     }
     
     let environment : FeedViewController.Environment

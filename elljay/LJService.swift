@@ -235,7 +235,7 @@ public class LJService : ChallengeRequestable {
 
     }
     
-    public func syncitems(lastSync : NSDate? = nil) -> Request<SyncItemsResponse, ChallengeInfo> {
+    public func syncItems(lastSync : NSDate? = nil) -> Request<SyncItemsResponse, ChallengeInfo> {
         let parser : XMLRPCParam -> SyncItemsResponse? = {x in
             let response = x.structBody()
             let total = response?["total"]?.intBody()
@@ -257,27 +257,12 @@ public class LJService : ChallengeRequestable {
         return authenticatedXMLRPCRequest(name: "syncitems", params : params, parser : parser)
     }
     
-    public typealias Username = String
-    
-    public struct Friend {
-        public let user : Username
-        public let name : String?
-        
-        public init(user : Username, name : String?) {
-            self.user = user
-            self.name = name
-        }
-        
-        public var displayName : String {
-            return name ?? user
-        }
-    }
     
     public struct GetFriendsResponse {
         public let friends : [Friend]
     }
 
-    public func getfriends() -> Request<GetFriendsResponse, ChallengeInfo> {
+    public func getFriends() -> Request<GetFriendsResponse, ChallengeInfo> {
         let parser : XMLRPCParam -> GetFriendsResponse? = {x in
             let response = x.structBody()
             let friends : [Friend]? = response?["friends"]?.arrayBody()?.mapOrFail {b in
@@ -292,20 +277,6 @@ public class LJService : ChallengeRequestable {
             }
         }
         return authenticatedXMLRPCRequest(name: "getfriends", params: [:], parser: parser)
-    }
-
-    public struct Entry {
-        public let title : String?
-        public let author : Username
-        public let date : NSDate
-        public let tags : [String]
-        
-        public init(title : String?, author : Username, date : NSDate, tags : [String]) {
-            self.title = title
-            self.author = author
-            self.date = date
-            self.tags = tags
-        }
     }
     
     public struct FeedResponse {
@@ -356,3 +327,21 @@ public class LJService : ChallengeRequestable {
     }
 
 }
+
+public struct Entry {
+    public let title : String?
+    public let author : Username
+    public let date : NSDate
+    public let tags : [String]
+    
+    public init(title : String?, author : Username, date : NSDate, tags : [String]) {
+        self.title = title
+        self.author = author
+        self.date = date
+        self.tags = tags
+    }
+}
+
+public typealias Username = String
+
+

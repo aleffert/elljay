@@ -8,11 +8,19 @@
 
 import UIKit
 
-class FeedDataSource: NSObject {
+public class FeedChangedInfo {
     
-    let friendsSource : FriendsDataSource
+}
+
+public class FeedDataSource: NSObject {
     
-    init(friendsSource : FriendsDataSource) {
+    private let friendsSource : FriendsDataSource
+    private let dataStore : DataStore
+    
+    public let changeNotification : Notification<FeedChangedInfo> = Notification()
+    
+    public init(friendsSource : FriendsDataSource, dataStore : DataStore) {
         self.friendsSource = friendsSource
+        self.dataStore = dataStore;
     }
 }

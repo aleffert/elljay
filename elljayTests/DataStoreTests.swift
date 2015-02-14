@@ -15,11 +15,11 @@ class DataStoreTests: XCTestCase {
     
     class FriendTestEnvironment {
         let friends = [
-            LJService.Friend(user : "cummings", name : nil),
-            LJService.Friend(user : "eliot", name : nil)
+            Friend(user : "cummings", name : nil),
+            Friend(user : "eliot", name : nil)
         ]
         
-        var friendNames : [LJService.Username] {
+        var friendNames : [Username] {
             return friends.map {
                 $0.user
             }
@@ -50,7 +50,7 @@ class DataStoreTests: XCTestCase {
         let env = FriendTestEnvironment()
         let entryDate = NSDate.distantPast() as NSDate
         let entries = [
-            LJService.Entry(title : "Foo bar", author : "cummings", date : entryDate, tags : [])
+            Entry(title : "Foo bar", author : "cummings", date : entryDate, tags : [])
         ]
         
         let date = env.present
@@ -64,7 +64,7 @@ class DataStoreTests: XCTestCase {
         let env = FriendTestEnvironment()
         let entryDate = env.present.previousDay()
         let entries = [
-            LJService.Entry(title : "Foo bar", author : "cummings", date : entryDate, tags : [])
+            Entry(title : "Foo bar", author : "cummings", date : entryDate, tags : [])
         ]
         
         let date = env.present
@@ -72,5 +72,11 @@ class DataStoreTests: XCTestCase {
         
         XCTAssertEqual(env.dataStore.friendsToLoad(quickRefresh : true, checkDate : date.nextDay()), env.friendNames)
         XCTAssertEqual(env.dataStore.friendsToLoad(quickRefresh : false, checkDate : date.nextDay()), env.friendNames)
+    }
+    
+    func testFriendsRoundTrip() {
+        let env = FriendTestEnvironment()
+        env.dataStore.useFriends(env.friends)
+        XCTAssertEqual(env.friends, env.dataStore.knownFriends())
     }
 }

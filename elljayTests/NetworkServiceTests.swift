@@ -24,11 +24,11 @@ class XMLRPCServiceTests : XCTestCase {
     let testHost = "test"
     func runTestBody<A>(#parser: NSData -> Result<A>, completion : (Result<A>, NSURLResponse!) -> Void) {
         let service = NetworkService()
-        let url = NSURLRequest(URL: NSURL(scheme: "http", host: testHost, path: "/test")!)
+        let request = NSURLRequest(URL: NSURL(scheme: "http", host: testHost, path: "/test")!)
         
         let expectation = expectationWithDescription("HTTP stubbed")
         let sessionInfo = AuthCredentials(username: "test", password: "test")
-        service.sendRequest(urlRequest: url, parser : parser, completionHandler: { (result, response) in
+        service.sendRequest(urlRequest: request, parser : parser, completionHandler: { (result, response) in
             completion(result, response)
             expectation.fulfill()
         })
@@ -119,6 +119,30 @@ class XMLRPCServiceTests : XCTestCase {
         
         failingTest(message : "NetworkService should handle malformed responses", errorDomain : LJServiceErrorDomain, errorCode : LJServiceErrorMalformedResponseCode)
         
+        OHHTTPStubs.removeLastStub()
+    }
+    
+    func testRequestCancelled() {
+        OHHTTPStubs.stubRequestsPassingTest({ (request) -> Bool in
+            return request.URL.host == self.testHost
+            }, withStubResponse: {request in
+                return OHHTTPStubsResponse(data: NSData(), statusCode: 200, headers: [:]).responseTime(5)
+        })
+        
+        let service = NetworkService()
+        let expectation = expectationWithDescription("Request ended")
+        let request = NSURLRequest(URL: NSURL(scheme: "http", host: testHost, path: "/test")!)
+        
+        let task = service.sendRequest(urlRequest: request, parser: { (data : NSData) -> Result<()> in
+            XCTFail("Parser shouldn't execute for cancelled tasks")
+            return Success(())
+            }) { (result, response) -> Void in
+                XCTAssertTrue(result.isFailure())
+                expectation.fulfill()
+        }
+        task.cancel()
+        
+        waitForExpectationsWithTimeout(1, handler: nil)
         OHHTTPStubs.removeLastStub()
     }
 

@@ -13,6 +13,8 @@
 		772553B2199D603500E3D7B2 /* LJService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772553B1199D603500E3D7B2 /* LJService.swift */; };
 		772553B4199D607C00E3D7B2 /* AuthSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772553B3199D607C00E3D7B2 /* AuthSession.swift */; };
 		772553B7199D656600E3D7B2 /* Application.xib in Resources */ = {isa = PBXBuildFile; fileRef = 772553B5199D656600E3D7B2 /* Application.xib */; };
+		773AD3BF1A8ED26500496DEB /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773AD3BE1A8ED26500496DEB /* Friend.swift */; };
+		773AD3C11A8ED28D00496DEB /* FriendTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773AD3C01A8ED28D00496DEB /* FriendTests.swift */; };
 		774B1A151A86C88800C0239D /* FeedDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774B1A141A86C88800C0239D /* FeedDataSource.swift */; };
 		774B1A181A86D0F200C0239D /* FriendsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774B1A171A86D0F200C0239D /* FriendsDataSource.swift */; };
 		774B1A1A1A86D16600C0239D /* DataSourceVendor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774B1A191A86D16600C0239D /* DataSourceVendor.swift */; };
@@ -103,6 +105,8 @@
 		772553B1199D603500E3D7B2 /* LJService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LJService.swift; sourceTree = "<group>"; };
 		772553B3199D607C00E3D7B2 /* AuthSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthSession.swift; sourceTree = "<group>"; };
 		772553B6199D656600E3D7B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = elljay/Base.lproj/Application.xib; sourceTree = "<group>"; };
+		773AD3BE1A8ED26500496DEB /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
+		773AD3C01A8ED28D00496DEB /* FriendTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendTests.swift; sourceTree = "<group>"; };
 		774B1A141A86C88800C0239D /* FeedDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedDataSource.swift; sourceTree = "<group>"; };
 		774B1A171A86D0F200C0239D /* FriendsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsDataSource.swift; sourceTree = "<group>"; };
 		774B1A191A86D16600C0239D /* DataSourceVendor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSourceVendor.swift; sourceTree = "<group>"; };
@@ -217,6 +221,7 @@
 		774B1A161A86D0DF00C0239D /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				773AD3BE1A8ED26500496DEB /* Friend.swift */,
 				77E2501319BE9E5700D2083F /* DataStore.swift */,
 				774B1A141A86C88800C0239D /* FeedDataSource.swift */,
 				774B1A171A86D0F200C0239D /* FriendsDataSource.swift */,
@@ -347,6 +352,7 @@
 				7750DC571A8C5EBA001B8706 /* ELJDeallocActionsTests.swift */,
 				77D0191019B542870024DBED /* LJServiceTests.swift */,
 				7750DC531A8C3206001B8706 /* LoginViewControllerTests.swift */,
+				773AD3C01A8ED28D00496DEB /* FriendTests.swift */,
 				774B1A2F1A872DF700C0239D /* FunctionalAdditionsTests.swift */,
 				77D0190F19B542870024DBED /* NSDateOrderingTests.swift */,
 				775FE2FE19BE7E9400F84067 /* NetworkServiceTests.swift */,
@@ -531,6 +537,7 @@
 				774B1A2A1A872DD200C0239D /* Result.swift in Sources */,
 				774B1A261A872DCA00C0239D /* XMLNode.swift in Sources */,
 				770158BC19F5A3D400EACD99 /* RootViewController.swift in Sources */,
+				773AD3BF1A8ED26500496DEB /* Friend.swift in Sources */,
 				774B1A271A872DCA00C0239D /* XMLParser.swift in Sources */,
 				777CA2EF19FAA86300370AE9 /* NSLocaleAdditions.swift in Sources */,
 				77FA1A0B199D5C160080163D /* AppDelegate.swift in Sources */,
@@ -546,6 +553,7 @@
 				77774C6F1A8C6EEE0000695D /* NotificationTests.swift in Sources */,
 				77DCD2F719F412B100354B28 /* ArrayAdditions.swift in Sources */,
 				77774C691A8C6EEE0000695D /* ELJDeallocActionsTests.swift in Sources */,
+				773AD3C11A8ED28D00496DEB /* FriendTests.swift in Sources */,
 				77774C6C1A8C6EEE0000695D /* FunctionalAdditionsTests.swift in Sources */,
 				77774C661A8C6EEE0000695D /* AuthControllerTests.swift in Sources */,
 				77C5CD081A8817A8002F718D /* LJServiceTestHelpers.swift in Sources */,
