@@ -18,11 +18,9 @@ public func == (left : NSDate, right : NSDate) -> Bool {
     return left.isEqualToDate(right)
 }
 
-extension NSDate : Equatable {
-}
+extension NSDate : Equatable {}
 
-extension NSDate : Comparable {
-}
+extension NSDate : Comparable {}
 
 extension NSDate {
     func matches(#year : Int, month : Int, dayOfMonth : Int, timeZone : NSTimeZone = NSTimeZone(forSecondsFromGMT:0), calendarIdentifier : String = NSCalendarIdentifierGregorian) -> Bool {

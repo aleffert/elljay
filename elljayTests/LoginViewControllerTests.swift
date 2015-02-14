@@ -13,9 +13,13 @@ import elljay
 
 class StubAuthController : AuthControlling {
     var credentials : AuthCredentials?
-    func attemptLogin(#username : String, password : String, completion : (result : Result<AuthCredentials>) -> Void) {}
+    func attemptLogin(#username : String, password : String, completion : (result : Result<AuthCredentials>) -> Void) {
+        fatalError("unexpected call")
+    }
     
-    func signOut() {}
+    func signOut() {
+        fatalError("unexpected call")
+    }
 }
 
 class MockSuccessAuthController : StubAuthController {
