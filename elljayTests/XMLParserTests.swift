@@ -27,6 +27,7 @@ class XMLParserTests: XCTestCase {
         }
     }
     
+    
     func testHeader() {
         makeParserTest(
             body : "<html></html>",

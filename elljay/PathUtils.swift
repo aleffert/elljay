@@ -8,15 +8,15 @@
 
 import UIKit
 
-class PathUtils {
-    class func documentsDirectory() -> NSURL {
+public class PathUtils {
+    public class func documentsPath() -> NSURL! {
         let result = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: NSSearchPathDomainMask.UserDomainMask)
         assert(result.count > 0)
         return result[0] as NSURL
     }
     
-    class func pathForUser(userID : UserID) -> NSURL {
-        return documentsDirectory().URLByAppendingPathComponent(userID)
+    public class func pathForUser(userID : UserID) -> NSURL {
+        return documentsPath().URLByAppendingPathComponent(userID)
     }
    
 }

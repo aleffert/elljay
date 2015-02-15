@@ -32,6 +32,7 @@
 		7750DC521A8C3149001B8706 /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7750DC511A8C3149001B8706 /* AlertPresenter.swift */; };
 		775FE30219BE7EAC00F84067 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775FE30119BE7EAC00F84067 /* NetworkService.swift */; };
 		7762A5AF1A91275500E179E1 /* PathUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7762A5AE1A91275500E179E1 /* PathUtils.swift */; };
+		7762A5B11A91545000E179E1 /* PathUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7762A5B01A91545000E179E1 /* PathUtilsTests.swift */; };
 		77774C581A8C6D160000695D /* EphemeralKeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774B1A381A8734A100C0239D /* EphemeralKeychainService.swift */; };
 		77774C661A8C6EEE0000695D /* AuthControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774B1A2D1A872DEF00C0239D /* AuthControllerTests.swift */; };
 		77774C671A8C6EEE0000695D /* AuthSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774B1A3A1A87CA0B00C0239D /* AuthSessionTests.swift */; };
@@ -133,6 +134,7 @@
 		775FE2FE19BE7E9400F84067 /* NetworkServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkServiceTests.swift; path = elljayTests/NetworkServiceTests.swift; sourceTree = SOURCE_ROOT; };
 		775FE30119BE7EAC00F84067 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		7762A5AE1A91275500E179E1 /* PathUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathUtils.swift; sourceTree = "<group>"; };
+		7762A5B01A91545000E179E1 /* PathUtilsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathUtilsTests.swift; sourceTree = "<group>"; };
 		777CA2E919F9BEA100370AE9 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		777CA2EC19F9FC6600370AE9 /* AuthenticatedNetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticatedNetworkService.swift; sourceTree = "<group>"; };
 		777CA2EE19FAA86300370AE9 /* NSLocaleAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSLocaleAdditions.swift; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 		77FA1A1D199D5C160080163D /* elljayTests */ = {
 			isa = PBXGroup;
 			children = (
+				7762A5B01A91545000E179E1 /* PathUtilsTests.swift */,
 				77C5CD061A87E05B002F718D /* Helpers */,
 				774B1A2D1A872DEF00C0239D /* AuthControllerTests.swift */,
 				774B1A3A1A87CA0B00C0239D /* AuthSessionTests.swift */,
@@ -561,6 +564,7 @@
 				77774C6C1A8C6EEE0000695D /* FunctionalAdditionsTests.swift in Sources */,
 				77774C661A8C6EEE0000695D /* AuthControllerTests.swift in Sources */,
 				77C5CD081A8817A8002F718D /* LJServiceTestHelpers.swift in Sources */,
+				7762A5B11A91545000E179E1 /* PathUtilsTests.swift in Sources */,
 				77774C681A8C6EEE0000695D /* UserDataStoreTests.swift in Sources */,
 				77774C701A8C6EEE0000695D /* RootViewControllerTests.swift in Sources */,
 				774B1A341A872DFD00C0239D /* XMLNodeTests.swift in Sources */,
