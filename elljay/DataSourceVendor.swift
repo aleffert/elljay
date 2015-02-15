@@ -11,7 +11,7 @@ import UIKit
 class DataSourceVendor: NSObject {
     
     struct Environment {
-        let dataStore : DataStore
+        let dataStore : UserDataStore
         let ljservice : LJService
         let networkService : AuthenticatedNetworkService
     }

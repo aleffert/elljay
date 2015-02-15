@@ -34,11 +34,7 @@ class FeedViewController : UIViewController {
     override func viewWillAppear(animated: Bool) {
         let feedRequest = self.environment.ljservice.feed("aleffert")
         self.environment.networkService.send(request: feedRequest, completionHandler: {(result, response) in
-            result.cata ({r in
-                println("result is \(r.entries)")
-            }, {error in
-                println("error is \(error)")
-            })
+
         })
     }
 }

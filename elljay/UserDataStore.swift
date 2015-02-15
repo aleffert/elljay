@@ -1,5 +1,5 @@
 //
-//  DataStore.swift
+//  UserDataStore.swift
 //  elljay
 //
 //  Created by Akiva Leffert on 9/8/14.
@@ -9,36 +9,40 @@
 import Foundation
 
 public struct FeedUpdateInfo {
-    let username : Username
+    let username : UserID
     let lastLoad : NSDate?
     let lastEntry : NSDate?
 }
 
 
-public class DataStore {
+public class UserDataStore : NSObject {
     
     private let processingQueue = dispatch_queue_create("com.akivaleffert.elljay.DataStore", DISPATCH_QUEUE_SERIAL)
     
-    private var friends : [Friend] = []
+    private var friends : [User] = []
     private var entries : [Entry] = []
+    
+    private let userID : UserID
     
     private var lastLoadDates : [String:NSDate] = [:]
     private var lastEntryDates : [String:NSDate] = [:]
     
-    public init() {
-        
+    public init(userID : UserID) {
+        self.userID = userID
     }
     
-    public func knownFriends() -> [Friend]{
-        return self.friends
+    public func loadFriends(completion : [User] -> Void) -> Void {
+        dispatch_async(dispatch_get_main_queue()) {
+            completion(self.friends)
+        }
     }
     
-    public func useFriends(friends : [Friend]) {
+    public func useFriends(friends : [User]) {
         self.friends = friends
     }
     
     
-    public func addEntries(entries : [Entry], fromFriends : [Username], requestDate : NSDate) {
+    public func addEntries(entries : [Entry], fromFriends : [UserID], requestDate : NSDate) {
         self.entries.extend(entries)
         for entry in entries {
             if let lastEntry = lastEntryDates[entry.author] {
@@ -57,7 +61,7 @@ public class DataStore {
         }
     }
     
-    private func friendsToLoad(items : [FeedUpdateInfo], quickRefresh : Bool, checkDate : NSDate) -> [Username] {
+    private func friendsToLoad(items : [FeedUpdateInfo], quickRefresh : Bool, checkDate : NSDate) -> [UserID] {
         return items.concatMap { item in
             let shouldLoad = { Void -> Bool in
                 switch (item.lastLoad, item.lastEntry) {
@@ -81,7 +85,7 @@ public class DataStore {
         }
     }
     
-    public func friendsToLoad(#quickRefresh : Bool, checkDate : NSDate = NSDate()) -> [Username] {
+    public func friendsToLoad(#quickRefresh : Bool, checkDate : NSDate = NSDate()) -> [UserID] {
         let infos = friends.map { friend -> FeedUpdateInfo in
             let username = friend.user
             return FeedUpdateInfo(
@@ -92,6 +96,10 @@ public class DataStore {
         }
         
         return friendsToLoad(infos, quickRefresh: quickRefresh, checkDate : checkDate)
+    }
+    
+    public func removeStore() {
+        
     }
     
 }

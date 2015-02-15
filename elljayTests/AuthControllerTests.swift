@@ -51,7 +51,7 @@ class AuthControllerTests: XCTestCase {
         XCTAssertNil(controller.credentials)
         
         let expectation = expectationWithDescription("login ended")
-        controller.attemptLogin(username : credentials.username, password : credentials.password) {
+        controller.attemptLogin(username : credentials.userID, password : credentials.password) {
             result in
             XCTAssertNotNil(controller.credentials)
             XCTAssertEqual(controller.credentials!, credentials)
@@ -69,7 +69,7 @@ class AuthControllerTests: XCTestCase {
         XCTAssertNil(controller.credentials)
         
         let expectation = expectationWithDescription("login ended")
-        controller.attemptLogin(username : credentials.username, password : credentials.password) {
+        controller.attemptLogin(username : credentials.userID, password : credentials.password) {
             result in
             XCTAssertNil(controller.credentials)
             expectation.fulfill()

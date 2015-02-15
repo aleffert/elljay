@@ -8,33 +8,40 @@
 
 import UIKit
 
-public class Observer<A> : Equatable {
-    private weak var owner : Notification<A>?
+public protocol Removable {
+    func remove()
+}
+
+private class Observer<A> : Equatable, Removable {
+    private weak var owner : Stream<A>?
     private var action : A -> ()
     
-    init(action : A -> (), observer : Notification<A>) {
+    init(action : A -> (), observer : Stream<A>) {
         self.action = action
         self.owner = observer
     }
     
-    public func remove() {
-        owner?.removeListener(self)
+    func remove() {
+        owner?.removeObserver(self)
     }
 }
 
-public func ==<A>(lhs: Observer<A>, rhs: Observer<A>) -> Bool {
+private func ==<A>(lhs: Observer<A>, rhs: Observer<A>) -> Bool {
     return lhs === rhs
 }
 
-public class Notification<A> {
+
+// This really wants to be a protocol, but swift doesn't support protocols with type
+// parameters. If it ever does, change this
+public class Stream<A> {
     
-    public init() {
-        
-    }
+    /// not mean to be instantiated, since it has no way to notify listeners
+    private init() {}
     
+    public private(set) var lastValue : A? = nil
     private var observers : [Observer<A>] = []
     
-    public func addObserver(owner : AnyObject?, action : A -> ()) -> Observer<A> {
+    public func addObserver(owner : AnyObject?, action : A -> ()) -> Removable {
         let listener = Observer(action : action, observer: self)
         observers.append(listener)
         if let o : AnyObject = owner {
@@ -45,17 +52,26 @@ public class Notification<A> {
         return listener
     }
     
-    public func addObserver(action : A -> ())  -> Observer<A> {
+    public func addObserver(action : A -> ())  -> Removable {
         return addObserver(nil, action : action)
     }
     
-    private func removeListener(listener : Observer<A>) {
-        find(observers, listener).bind {
+    private func removeObserver(observer : Observer<A>) {
+        find(observers, observer).bind {
             self.observers.removeAtIndex($0)
         }
     }
+}
+
+/// A notification is a Stream that can actually change
+/// The idea is to make it easy to expose a read only Observable
+/// just by upcasting
+public class Notification<A> : Stream<A> {
+    override public init() {
+    }
     
-    public func notifyListeners(a : A) {
+    public func notifyObservers(a : A) {
+        lastValue = a
         for observer in observers {
             observer.action(a)
         }

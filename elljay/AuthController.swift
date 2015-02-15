@@ -8,9 +8,6 @@
 
 import UIKit
 
-// todo make a class variable once those are supported
-public let AuthControllerBadCredentialsNotification = "AuthControllerBadCredentialsNotification"
-
 public protocol AuthControlling {
     var credentials : AuthCredentials? { get }
     func attemptLogin(#username : String, password : String, completion : (result : Result<AuthCredentials>) -> Void)

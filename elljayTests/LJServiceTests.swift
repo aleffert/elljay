@@ -19,15 +19,14 @@ class ServiceTests: XCTestCase {
         let (date, challenge, params) = LJServiceTestHelpers.challenge()
         let result = parser(params.toResponseData())
         
-        result.cata({r -> Void in
-            XCTAssertEqual(r.challenge, challenge)
-            XCTAssertEqual(r.expireTime, date)
-            XCTAssertEqual(r.serverTime, date)
-            return
-        }, {error in
+        switch(result) {
+        case let .Success(r):
+            XCTAssertEqual(r.value.challenge, challenge)
+            XCTAssertEqual(r.value.expireTime, date)
+            XCTAssertEqual(r.value.serverTime, date)
+        case let .Failure(error):
             XCTFail("Bad parse: \(error)")
-            return
-        })
+        }
         
     }
 
@@ -40,13 +39,12 @@ class ServiceTests: XCTestCase {
         let result = request.parser(XMLRPCParam.XStruct([
             "fullname" : XMLRPCParam.XString(fullName)
             ]).toResponseData())
-        result.cata({r -> Void in
-            XCTAssertEqual(r.fullname, fullName)
-            return
-        }, {error in
+        switch(result) {
+        case let .Success(r):
+            XCTAssertEqual(r.value.fullname, fullName)
+        case let .Failure(error):
             XCTFail("Bad parse: \(error)")
-            return
-        })
+        }
     }
     
     func testSyncItemsParser() {
@@ -67,19 +65,18 @@ class ServiceTests: XCTestCase {
             "total" : XMLRPCParam.XInt(total)
             ])
         let result = request.parser(response.toResponseData())
-        result.cata({r -> Void in
-            XCTAssertEqual(r.total, total)
-            XCTAssertEqual(r.count, count)
-            XCTAssertEqual(r.syncitems.count, 1)
-            let i = r.syncitems[0]
+        switch(result) {
+        case let .Success(r):
+            XCTAssertEqual(r.value.total, total)
+            XCTAssertEqual(r.value.count, count)
+            XCTAssertEqual(r.value.syncitems.count, 1)
+            let i = r.value.syncitems[0]
             XCTAssertEqual(i.action, LJService.SyncAction.Create)
             XCTAssertEqual(i.item.type, LJService.SyncType.Journal)
             XCTAssertEqual(i.item.index, 100 as Int32)
-            return
-        }, {error in
-            XCTFail("Bad parse: \(error)")
-            return
-        })
+        case let .Failure(e):
+            XCTFail("Bad parse: \(e)")
+        }
     }
 
     func testGetFriendsParser() {
@@ -101,13 +98,12 @@ class ServiceTests: XCTestCase {
         ])
 
         let result = request.parser(response.toResponseData())
-        result.cata({r -> Void in
-            XCTAssertEqual(countElements(r.friends), 2)
-            return
-        }, {error in
-            XCTFail("Bad parse: \(error)")
-            return
-        })
+        switch(result) {
+        case let .Success(r):
+            XCTAssertEqual(countElements(r.value.friends), 2)
+        case let .Failure(e):
+            XCTFail("Bad parse: \(e)")
+        }
     }
 
     func testFeedParser() {
@@ -132,21 +128,22 @@ class ServiceTests: XCTestCase {
                 ]
                 )])])
         let result = request.parser(response.toData())
-        result.cata({r -> Void in
-            XCTAssertEqual(countElements(r.entries), 2)
-            let item = r.entries[0]
+        switch(result) {
+        case let .Success(r):
+            XCTAssertEqual(countElements(r.value.entries), 2)
+            let item = r.value.entries[0]
             XCTAssertEqual(item.title!, "Some Title")
             XCTAssertEqual(countElements(item.tags), 3)
             XCTAssertTrue(find(item.tags, "foo") != nil)
             XCTAssertTrue(find(item.tags, "bar") != nil)
             XCTAssertTrue(find(item.tags, "some tag") != nil)
             XCTAssertTrue(find(item.tags, "something else") == nil)
-            let otherItem = r.entries[1]
+            let otherItem = r.value.entries[1]
             XCTAssertEqual(otherItem.title!, "Other Title")
             XCTAssertTrue(otherItem.date.matches(year: 2013, month: 11, dayOfMonth: 15))
-        }, {error in
-            XCTFail("Bad parse: \(error)")
-        })
+        case let .Failure(e):
+            XCTFail("Bad parse: \(e)")
+        }
     }
 
 }

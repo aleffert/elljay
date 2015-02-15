@@ -20,7 +20,7 @@ class AuthorizedURLSessionDelegate : NSObject, NSURLSessionTaskDelegate {
     
     func URLSession(session: NSURLSession, task: NSURLSessionTask, didReceiveChallenge challenge: NSURLAuthenticationChallenge, completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential!) -> Void) {
         let credential = authSession.credentials.bind {(s : AuthCredentials) -> NSURLCredential in
-            return NSURLCredential(user: s.username, password: s.password, persistence: NSURLCredentialPersistence.None)
+            return NSURLCredential(user: s.userID, password: s.password, persistence: NSURLCredentialPersistence.None)
         }
         completionHandler(.UseCredential, credential)
     }

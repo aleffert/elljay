@@ -16,19 +16,16 @@ private typealias RootRouter = protocol<
 public class RootViewController: UIViewController, RootRouter {
     public struct Environment {
         public let authSession : AuthSession
-        public let dataStore : DataStore
         public let networkService : NetworkService
         public let ljservice : LJService
         
         public init() {
             let ljservice = LJService()
             let keychain = KeychainService(serviceName: ljservice.serviceName)
-            let dataStore = DataStore()
-            self.init(dataStore : dataStore, keychain : keychain, ljservice : ljservice)
+            self.init(keychain : keychain, ljservice : ljservice)
         }
         
-        public init(dataStore : DataStore, keychain : KeychainServicing, ljservice : LJService) {
-            self.dataStore = dataStore
+        public init(keychain : KeychainServicing, ljservice : LJService) {
             self.ljservice = ljservice
             authSession = AuthSession(keychain: keychain)
             let urlSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: AuthorizedURLSessionDelegate(authSession: authSession), delegateQueue: NSOperationQueue.mainQueue())
@@ -41,11 +38,11 @@ public class RootViewController: UIViewController, RootRouter {
         let feedController : FeedViewController
         
         init(credentials : AuthCredentials, environment : Environment, router : RootRouter) {
-            let dataStore = DataStore()
+            let dataStore = UserDataStore(userID: credentials.userID)
             let networkService = AuthenticatedNetworkService(service: environment.networkService, credentials: credentials)
             let dataVendor = DataSourceVendor(environment:
                 DataSourceVendor.Environment(
-                    dataStore: environment.dataStore,
+                    dataStore: dataStore,
                     ljservice: environment.ljservice,
                     networkService: networkService
                 )

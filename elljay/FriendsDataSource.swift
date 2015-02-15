@@ -8,31 +8,65 @@
 
 import UIKit
 
-struct FriendChangeRecord {
-    let addedFriends : [Friend]
-    let removedFriends : [Friend]
-}
-
 public class FriendsDataSource {
+    
+    enum LoadState {
+        case Unloaded
+        case Loading
+        case Loaded
+    }
+    
     public struct Environment {
-        let dataStore : DataStore
+        let dataStore : UserDataStore
         let networkService : AuthenticatedNetworkService
         let ljservice : LJService
     }
     
-    let environment : Environment
+    private let environment : Environment
+    private var loadTask : NetworkTask?
+    private var loadState = LoadState.Unloaded
     
-    let changeNotification = Notification<Result<FriendChangeRecord>>()
-    var activeRefreshTask : NetworkTask?
+    let changeNotification = Notification<[User]>()
     
     init(environment : Environment) {
         self.environment = environment
     }
     
-    func friends() -> [Friend] {
-        return environment.dataStore.knownFriends()
+    var friends : [User] {
+        return changeNotification.lastValue ?? []
     }
     
-    func refresh() {
+    func load() {
+        switch(loadState) {
+        case .Unloaded:
+            loadLocal()
+        case .Loading:
+            break
+        case .Loaded:
+            loadRemote()
+        }
+    }
+    
+    private func loadLocal() {
+        loadState = .Loading
+        self.environment.dataStore.loadFriends {[weak self] in
+            self?.changeNotification.notifyObservers($0)
+            self?.loadState = .Loaded
+            self?.loadRemote()
+        }
+    }
+    
+    private func loadRemote() {
+        if loadTask == nil {
+            let friendRequest = environment.ljservice.getFriends()
+            self.environment.networkService.send(request: friendRequest) {[weak self]
+                (result, response) in
+                if let friendsResponse = result.value {
+                    self?.environment.dataStore.useFriends(friendsResponse.friends)
+                    self?.changeNotification.notifyObservers(friendsResponse.friends)
+                    return
+                }
+            }
+        }
     }
 }

@@ -1,16 +1,16 @@
 //
-//  Friend.swift
+//  User.swift
 //  elljay
 //
 //  Created by Akiva Leffert on 2/13/15.
 //  Copyright (c) 2015 Akiva Leffert. All rights reserved.
 //
 
-public struct Friend {
-    public let user : Username
+public struct User {
+    public let user : UserID
     public let name : String?
     
-    public init(user : Username, name : String?) {
+    public init(user : UserID, name : String?) {
         self.user = user
         self.name = name
     }
@@ -25,9 +25,9 @@ public struct Friend {
 }
 
 
-extension Friend : Equatable {}
+extension User : Equatable {}
 
-public func ==(lhs : Friend, rhs : Friend) -> Bool {
+public func ==(lhs : User, rhs : User) -> Bool {
     // ignore name. people can change their real names, but not user names
     return lhs.user == rhs.user
 }

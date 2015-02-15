@@ -65,17 +65,14 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
         else if textField == passwordField {
             textField.resignFirstResponder()
             environment.authController.attemptLogin(username : usernameField.text, password: passwordField.text) { result in
-                result.cata(
-                    {credentials in
-                        self.environment.delegate?.loginControllerSucceeded(self, credentials : credentials)
-                        return
-                    },
-                    {error in
+                switch(result) {
+                case let .Success(credentials):
+                    self.environment.delegate?.loginControllerSucceeded(self, credentials : credentials.value)
+                case let .Failure(error):
                         let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .Alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .Default) {_ in })
                         self.environment.alertPresenter.presentAlertController(alert, fromController: self)
-                    }
-                )
+                }
             }
         }
     }

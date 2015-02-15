@@ -19,12 +19,12 @@ class XMLParserTests: XCTestCase {
         let parser = XMLParser()
         let string = "<?xml version = \"1.0\" ?>\(body)";
         let result = parser.parse(string)
-        result.cata ({(d : XMLDocument) in
-            XCTAssertEqual(d.description, string, message)
-            return
-        }, {
-            XCTFail("Error: \($0)")
-        })
+        switch(result) {
+        case let .Success(d):
+            XCTAssertEqual(d.value.description, string, message)
+        case let .Failure(e):
+            XCTFail("Error: \(e)")
+        }
     }
     
     func testHeader() {

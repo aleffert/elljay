@@ -10,21 +10,21 @@ import UIKit
 import Security
 
 public class AuthCredentials : NSObject, NSCoding, Equatable {
-    public let username : String
+    public let userID : String
     public let password : String
     
     public init(username : String, password : String) {
-        self.username = username
+        self.userID = username
         self.password = password
     }
     
     public required init(coder : NSCoder) {
-        self.username = coder.decodeObjectForKey("username") as String
+        self.userID = coder.decodeObjectForKey("username") as String
         self.password = coder.decodeObjectForKey("password") as String
     }
     
     public func encodeWithCoder(coder: NSCoder) {
-        coder.encodeObject(self.username, forKey:"username")
+        coder.encodeObject(self.userID, forKey:"username")
         coder.encodeObject(self.password, forKey:"password")
     }
     
@@ -33,13 +33,13 @@ public class AuthCredentials : NSObject, NSCoding, Equatable {
     }
     
     func hash() -> Int {
-        return username.hash ^ password.hash
+        return userID.hash ^ password.hash
     }
 }
 
 
 public func ==(lhs : AuthCredentials, rhs : AuthCredentials) -> Bool {
-    return lhs.username == rhs.username && lhs.password == rhs.password
+    return lhs.userID == rhs.userID && lhs.password == rhs.password
 }
 
 public class AuthSession {

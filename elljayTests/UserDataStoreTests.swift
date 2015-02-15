@@ -1,5 +1,5 @@
 //
-//  DataStoreTests.swift
+//  UserDataStoreTests.swift
 //  elljay
 //
 //  Created by Akiva Leffert on 1/3/15.
@@ -11,21 +11,21 @@ import XCTest
 
 import elljay
 
-class DataStoreTests: XCTestCase {
+class UserDataStoreTests: XCTestCase {
     
     class FriendTestEnvironment {
         let friends = [
-            Friend(user : "cummings", name : nil),
-            Friend(user : "eliot", name : nil)
+            User(user : "cummings", name : nil),
+            User(user : "eliot", name : nil)
         ]
         
-        var friendNames : [Username] {
+        var friendNames : [UserID] {
             return friends.map {
                 $0.user
             }
         }
         
-        let dataStore = DataStore()
+        let dataStore : UserDataStore
         var present : NSDate {
             let components = NSDateComponents()
             components.year = 2015
@@ -35,7 +35,13 @@ class DataStoreTests: XCTestCase {
         }
         
         init() {
+            let dataStore = UserDataStore(userID : "$$TEST$$")
+            dataStore.performActionOnDealloc {[weak dataStore] in
+                dataStore?.removeStore()
+                return
+            }
             dataStore.useFriends(friends)
+            self.dataStore = dataStore
         }
     }
     
@@ -77,6 +83,11 @@ class DataStoreTests: XCTestCase {
     func testFriendsRoundTrip() {
         let env = FriendTestEnvironment()
         env.dataStore.useFriends(env.friends)
-        XCTAssertEqual(env.friends, env.dataStore.knownFriends())
+        let expectation = expectationWithDescription("will load friends")
+        env.dataStore.loadFriends {
+            XCTAssertEqual(env.friends, $0)
+            expectation.fulfill()
+        }
+        waitForExpectationsWithTimeout(1, handler: nil)
     }
 }

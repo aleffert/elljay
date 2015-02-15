@@ -130,7 +130,7 @@ public class LJService : ChallengeRequestable {
         let generator : (sessionInfo : AuthCredentials, challenge : String) -> NSURLRequest = {(sessionInfo, challenge) in
             var finalParams = params
             finalParams["ver"] = XMLRPCParam.XInt(LJServiceVersion)
-            finalParams["username"] = XMLRPCParam.XString(sessionInfo.username)
+            finalParams["username"] = XMLRPCParam.XString(sessionInfo.userID)
             finalParams["auth_challenge"] = XMLRPCParam.XString(challenge)
             finalParams["auth_response"] = XMLRPCParam.XString(sessionInfo.challengeResponse(challenge))
             finalParams["auth_method"] = XMLRPCParam.XString("challenge")
@@ -259,17 +259,17 @@ public class LJService : ChallengeRequestable {
     
     
     public struct GetFriendsResponse {
-        public let friends : [Friend]
+        public let friends : [User]
     }
 
     public func getFriends() -> Request<GetFriendsResponse, ChallengeInfo> {
         let parser : XMLRPCParam -> GetFriendsResponse? = {x in
             let response = x.structBody()
-            let friends : [Friend]? = response?["friends"]?.arrayBody()?.mapOrFail {b in
+            let friends : [User]? = response?["friends"]?.arrayBody()?.mapOrFail {b in
                 let user = b.structBody()?["username"]?.stringBody()
                 let name = b.structBody()?["fullname"]?.stringBody()
                 return user.map {
-                    return Friend(user : $0, name : name)
+                    return User(user : $0, name : name)
                 }
             }
             return friends.map {
@@ -295,7 +295,7 @@ public class LJService : ChallengeRequestable {
 
     public func feed(username : String) -> Request<FeedResponse, AuthCredentials> {
         let generator = {(sessionInfo : AuthCredentials) -> NSURLRequest in
-            let url = self.feedURL(username : sessionInfo.username)
+            let url = self.feedURL(username : sessionInfo.userID)
             let request = NSMutableURLRequest(URL: url)
             return NSURLRequest(URL:url)
         }
@@ -330,11 +330,11 @@ public class LJService : ChallengeRequestable {
 
 public struct Entry {
     public let title : String?
-    public let author : Username
+    public let author : UserID
     public let date : NSDate
     public let tags : [String]
     
-    public init(title : String?, author : Username, date : NSDate, tags : [String]) {
+    public init(title : String?, author : UserID, date : NSDate, tags : [String]) {
         self.title = title
         self.author = author
         self.date = date
@@ -342,6 +342,6 @@ public struct Entry {
     }
 }
 
-public typealias Username = String
+public typealias UserID = String
 
 

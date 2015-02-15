@@ -13,15 +13,15 @@ import elljay
 class FriendTests: XCTest {
     
     func testEquality() {
-        XCTAssertEqual(Friend(user: "Test", name: nil), Friend(user: "Test", name: nil))
+        XCTAssertEqual(User(user: "Test", name: nil), User(user: "Test", name: nil))
     }
     
     func testInequality() {
-        XCTAssertEqual(Friend(user: "Test", name: nil), Friend(user: "Other", name: nil))
+        XCTAssertEqual(User(user: "Test", name: nil), User(user: "Other", name: nil))
     }
     
     func testNameIrrelevant() {
-        XCTAssertEqual(Friend(user: "Test", name: "foo"), Friend(user: "Other", name: "bar"))
+        XCTAssertEqual(User(user: "Test", name: "foo"), User(user: "Other", name: "bar"))
     }
    
 }

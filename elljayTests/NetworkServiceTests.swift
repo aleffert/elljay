@@ -52,10 +52,9 @@ class XMLRPCServiceTests : XCTestCase {
         runTestBody(parser: {param in
             return Success(result)
         }, completion: {(r : Result<Int>, response) -> Void in
-                r.ifSuccess {n in
-                    success = n == result
-                }
-                return
+            if let n = r.value {
+                success = n == result
+            }
         })
         
         OHHTTPStubs.removeLastStub()
@@ -69,7 +68,7 @@ class XMLRPCServiceTests : XCTestCase {
         runTestBody(parser: {param in
             return Failure(NSError(domain : errorDomain, code : errorCode, userInfo : [:]))
             }, completion: {(result : Result<Void>, response : NSURLResponse!) in
-                result.ifError {e in
+                if let e = result.error {
                     XCTAssertEqual(errorDomain, e.domain, message)
                     XCTAssertEqual(errorCode, e.code, message)
                     success = true
@@ -137,7 +136,7 @@ class XMLRPCServiceTests : XCTestCase {
             XCTFail("Parser shouldn't execute for cancelled tasks")
             return Success(())
             }) { (result, response) -> Void in
-                XCTAssertTrue(result.isFailure())
+                XCTAssertTrue(result.isFailure)
                 expectation.fulfill()
         }
         task.cancel()

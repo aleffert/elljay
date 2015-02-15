@@ -55,7 +55,7 @@ public class NetworkService {
         }
         let result = session.dataTaskWithRequest(urlRequest) {(result : NSData!, response : NSURLResponse!, error : NSError?) in
             if let e = error {
-                wrappedCompletion(Failure(e), response)
+                wrappedCompletion(.Failure(e), response)
             }
             else {
                 let statusCode = (response as NSHTTPURLResponse).statusCode
@@ -64,7 +64,7 @@ public class NetworkService {
                 }
                 else {
                     let e = NSError(domain : NetworkServiceErrorDomain, code : statusCode, userInfo : [:])
-                    wrappedCompletion(Failure(e), response)
+                    wrappedCompletion(.Failure(e), response)
                 }
             }
         }
@@ -77,12 +77,13 @@ public class NetworkService {
         let (challengeRequest : NSURLRequest, parser : NSData -> Result<GetChallengeResponse>) = challengeGenerator.getChallenge()
         var groupTask : ChallengeRequestTask? = nil
         let task = sendRequest(urlRequest: challengeRequest, parser: parser) {[weak groupTask] (response, urlResponse) -> Void in
-            response.cata({c in
-                let urlRequest = request.urlRequest(credentials: credentials, challenge: c.challenge)
+            switch(response) {
+            case let .Success(c):
+                let urlRequest = request.urlRequest(credentials: credentials, challenge: c.value.challenge)
                 groupTask?.currentTask = self.sendRequest(urlRequest : urlRequest, request.parser, completionHandler)
-                }, {e in
-                    completionHandler(Failure(e), urlResponse)
-            })
+            case let .Failure(e):
+                completionHandler(.Failure(e), urlResponse)
+            }
         }
         groupTask = ChallengeRequestTask(task : task)
         

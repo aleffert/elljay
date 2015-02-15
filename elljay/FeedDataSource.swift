@@ -15,11 +15,11 @@ public class FeedChangedInfo {
 public class FeedDataSource: NSObject {
     
     private let friendsSource : FriendsDataSource
-    private let dataStore : DataStore
+    private let dataStore : UserDataStore
     
     public let changeNotification : Notification<FeedChangedInfo> = Notification()
     
-    public init(friendsSource : FriendsDataSource, dataStore : DataStore) {
+    public init(friendsSource : FriendsDataSource, dataStore : UserDataStore) {
         self.friendsSource = friendsSource
         self.dataStore = dataStore;
     }

@@ -19,7 +19,7 @@ class NotificationTests: XCTestCase {
         let listener = notification.addObserver() {
             observed = true
         }
-        notification.notifyListeners(())
+        notification.notifyObservers(())
         XCTAssertTrue(observed)
     }
     
@@ -30,7 +30,7 @@ class NotificationTests: XCTestCase {
             observed = true
         }
         listener.remove()
-        notification.notifyListeners(())
+        notification.notifyObservers(())
         XCTAssertFalse(observed)
     }
     
@@ -43,10 +43,10 @@ class NotificationTests: XCTestCase {
         let otherListener = notification.addObserver {
             observed = observed + 2
         }
-        notification.notifyListeners(())
+        notification.notifyObservers(())
         XCTAssertEqual(observed, 3)
         listener.remove()
-        notification.notifyListeners(())
+        notification.notifyObservers(())
         XCTAssertEqual(observed, 5)
         otherListener.remove()
         XCTAssertEqual(observed, 5)
@@ -64,8 +64,17 @@ class NotificationTests: XCTestCase {
             }
         }
         make()
-        notification.notifyListeners(())
+        notification.notifyObservers(())
         XCTAssertFalse(observed)
+    }
+    
+    func testLastValue() {
+        let notification : Notification<Int> = Notification()
+        XCTAssertNil(notification.lastValue)
+        notification.notifyObservers(2)
+        XCTAssertEqual(notification.lastValue!, 2)
+        notification.notifyObservers(3)
+        XCTAssertEqual(notification.lastValue!, 3)
     }
 
 }
