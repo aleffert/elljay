@@ -13,9 +13,7 @@ import UIKit
 class FeedViewController : UIViewController {
     
     struct Environment {
-        let dataVendor : DataSourceVendor
-        let ljservice : LJService
-        let networkService : AuthenticatedNetworkService
+        let feedDataSource : FeedDataSource
     }
     
     let environment : FeedViewController.Environment
@@ -32,9 +30,6 @@ class FeedViewController : UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        let feedRequest = self.environment.ljservice.feed("aleffert")
-        self.environment.networkService.send(request: feedRequest, completionHandler: {(result, response) in
-
-        })
+        environment.feedDataSource.load()
     }
 }

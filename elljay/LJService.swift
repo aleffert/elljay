@@ -269,7 +269,7 @@ public class LJService : ChallengeRequestable {
                 let user = b.structBody()?["username"]?.stringBody()
                 let name = b.structBody()?["fullname"]?.stringBody()
                 return user.map {
-                    return User(user : $0, name : name)
+                    return User(userID : $0, name : name)
                 }
             }
             return friends.map {

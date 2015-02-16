@@ -38,14 +38,13 @@ public class Stream<A> {
     /// not mean to be instantiated, since it has no way to notify listeners
     private init() {}
     
-    public private(set) var lastValue : A? = nil
     private var observers : [Observer<A>] = []
     
     public func addObserver(owner : AnyObject?, action : A -> ()) -> Removable {
         let listener = Observer(action : action, observer: self)
         observers.append(listener)
         if let o : AnyObject = owner {
-            o.performActionOnDealloc({ () -> Void in
+            o.performActionOnDealloc({
                 listener.remove()
             })
         }
@@ -67,6 +66,8 @@ public class Stream<A> {
 /// The idea is to make it easy to expose a read only Observable
 /// just by upcasting
 public class Notification<A> : Stream<A> {
+    public private(set) var lastValue : A? = nil
+    
     override public init() {
     }
     

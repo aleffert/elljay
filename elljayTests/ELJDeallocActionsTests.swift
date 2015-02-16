@@ -16,7 +16,7 @@ class ELJDeallocActions: XCTestCase {
         func make() {
             autoreleasepool {
                 let object = NSObject()
-                object.performActionOnDealloc { () -> Void in
+                object.performActionOnDealloc { _ in
                     observed = true
                 }
             }
@@ -30,7 +30,7 @@ class ELJDeallocActions: XCTestCase {
         var observed = false
 
         let object = NSObject()
-        object.performActionOnDealloc { () -> Void in
+        object.performActionOnDealloc { _ in
             observed = true
         }
         
@@ -41,7 +41,7 @@ class ELJDeallocActions: XCTestCase {
         var observed = false
         
         let object = NSObject()
-        let action = object.performActionOnDealloc { () -> Void in
+        let action = object.performActionOnDealloc { _ in
             observed = true
         }
         action.remove()

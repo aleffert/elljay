@@ -18,14 +18,20 @@ public class RootViewController: UIViewController, RootRouter {
         public let authSession : AuthSession
         public let networkService : NetworkService
         public let ljservice : LJService
+        public let dataStoreFactory : UserID -> UserDataStore
         
         public init() {
             let ljservice = LJService()
             let keychain = KeychainService(serviceName: ljservice.serviceName)
-            self.init(keychain : keychain, ljservice : ljservice)
+            self.init(
+                dataStoreFactory : {userID in UserDataStore(userID: userID) },
+                keychain : keychain,
+                ljservice : ljservice
+            )
         }
         
-        public init(keychain : KeychainServicing, ljservice : LJService) {
+        public init(dataStoreFactory : UserID -> UserDataStore, keychain : KeychainServicing, ljservice : LJService) {
+            self.dataStoreFactory = dataStoreFactory
             self.ljservice = ljservice
             authSession = AuthSession(keychain: keychain)
             let urlSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: AuthorizedURLSessionDelegate(authSession: authSession), delegateQueue: NSOperationQueue.mainQueue())
@@ -38,7 +44,7 @@ public class RootViewController: UIViewController, RootRouter {
         let feedController : FeedViewController
         
         init(credentials : AuthCredentials, environment : Environment, router : RootRouter) {
-            let dataStore = UserDataStore(userID: credentials.userID)
+            let dataStore = environment.dataStoreFactory(credentials.userID)
             let networkService = AuthenticatedNetworkService(service: environment.networkService, credentials: credentials)
             let dataVendor = DataSourceVendor(environment:
                 DataSourceVendor.Environment(
@@ -49,9 +55,7 @@ public class RootViewController: UIViewController, RootRouter {
             )
             feedController = FeedViewController(environment:
                 FeedViewController.Environment(
-                    dataVendor: dataVendor,
-                    ljservice: environment.ljservice,
-                    networkService: networkService
+                    feedDataSource: dataVendor.feedSource
                 )
             )
             settingsController = SettingsViewController(environment :

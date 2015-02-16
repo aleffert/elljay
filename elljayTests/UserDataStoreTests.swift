@@ -13,15 +13,43 @@ import elljay
 
 class UserDataStoreTests: XCTestCase {
     
+    func testDataStoreCleared() {
+        let credentials = CredentialFactory.freshCredentials()
+        let path = PathUtils.pathForUser(credentials.userID).path!
+        let startExpectation = expectationWithDescription("Queue executes")
+        let queue = dispatch_queue_create("test", DISPATCH_QUEUE_SERIAL)
+        
+        func make() {
+            let dataStore = EphemeralUserDataStore(userID: credentials.userID)
+            dataStore.t_enqueue {
+                let pathExists = NSFileManager.defaultManager().fileExistsAtPath(path)
+                XCTAssertTrue(pathExists)
+                startExpectation.fulfill()
+                
+            }
+        }
+        let endExpectation = expectationWithDescription("Queue executes")
+        
+        make()
+        
+        dispatch_async(queue)  {
+            while(NSFileManager.defaultManager().fileExistsAtPath(path)) {
+                usleep(10)
+            }
+            endExpectation.fulfill()
+        }
+        waitForExpectationsWithTimeout(1, handler: nil)
+    }
+    
     class FriendTestEnvironment {
         let friends = [
-            User(user : "cummings", name : nil),
-            User(user : "eliot", name : nil)
+            User(userID : "cummings", name : nil),
+            User(userID : "eliot", name : nil)
         ]
         
         var friendNames : [UserID] {
             return friends.map {
-                $0.user
+                $0.userID
             }
         }
         
@@ -35,12 +63,8 @@ class UserDataStoreTests: XCTestCase {
         }
         
         init() {
-            let dataStore = UserDataStore(userID : "$$TEST$$")
-            dataStore.performActionOnDealloc {[weak dataStore] in
-                dataStore?.removeStore()
-                return
-            }
-            dataStore.useFriends(friends)
+            let dataStore = EphemeralUserDataStore(userID : CredentialFactory.freshCredentials().userID)
+            dataStore.saveFriends(friends)
             self.dataStore = dataStore
         }
     }
@@ -48,8 +72,8 @@ class UserDataStoreTests: XCTestCase {
     func testFriendsNoEntries() {
         let env = FriendTestEnvironment()
         
-        XCTAssertEqual(env.dataStore.friendsToLoad(quickRefresh : true, checkDate : env.present.nextDay()), env.friendNames)
-        XCTAssertEqual(env.dataStore.friendsToLoad(quickRefresh : false, checkDate : env.present.nextDay()), env.friendNames)
+        XCTAssertEqual(env.dataStore.friendsToLoad(env.friends, quickRefresh : true, checkDate : env.present.nextDay()), env.friendNames)
+        XCTAssertEqual(env.dataStore.friendsToLoad(env.friends, quickRefresh : false, checkDate : env.present.nextDay()), env.friendNames)
     }
     
     func testFriendsOldDate() {
@@ -62,8 +86,8 @@ class UserDataStoreTests: XCTestCase {
         let date = env.present
         env.dataStore.addEntries(entries, fromFriends: env.friendNames, requestDate: env.present)
         
-        XCTAssertEqual(env.dataStore.friendsToLoad(quickRefresh : true, checkDate : date.nextDay()), ["eliot"])
-        XCTAssertEqual(env.dataStore.friendsToLoad(quickRefresh : false, checkDate : date.nextDay()), env.friendNames)
+        XCTAssertEqual(env.dataStore.friendsToLoad(env.friends, quickRefresh : true, checkDate : date.nextDay()), ["eliot"])
+        XCTAssertEqual(env.dataStore.friendsToLoad(env.friends, quickRefresh : false, checkDate : date.nextDay()), env.friendNames)
     }
     
     func testFriendsNewDate() {
@@ -76,17 +100,40 @@ class UserDataStoreTests: XCTestCase {
         let date = env.present
         env.dataStore.addEntries(entries, fromFriends: env.friendNames, requestDate: env.present)
         
-        XCTAssertEqual(env.dataStore.friendsToLoad(quickRefresh : true, checkDate : date.nextDay()), env.friendNames)
-        XCTAssertEqual(env.dataStore.friendsToLoad(quickRefresh : false, checkDate : date.nextDay()), env.friendNames)
+        XCTAssertEqual(env.dataStore.friendsToLoad(env.friends, quickRefresh : true, checkDate : date.nextDay()), env.friendNames)
+        XCTAssertEqual(env.dataStore.friendsToLoad(env.friends, quickRefresh : false, checkDate : date.nextDay()), env.friendNames)
     }
     
     func testFriendsRoundTrip() {
         let env = FriendTestEnvironment()
-        env.dataStore.useFriends(env.friends)
+        env.dataStore.saveFriends(env.friends)
         let expectation = expectationWithDescription("will load friends")
         env.dataStore.loadFriends {
             XCTAssertEqual(env.friends, $0)
             expectation.fulfill()
+        }
+        waitForExpectationsWithTimeout(1, handler: nil)
+    }
+    
+    func testFriendsPersist() {
+        let userID = CredentialFactory.freshCredentials().userID
+        let store = UserDataStore(userID: userID)
+        let friends = [
+            User(userID: "abc", name: "def"),
+            User(userID: "ghi", name: "jlk"),
+        ]
+        store.saveFriends(friends)
+        let saveExpectation = expectationWithDescription("friends saved")
+        store.t_enqueue {
+            saveExpectation.fulfill()
+        }
+        waitForExpectationsWithTimeout(1, handler: nil)
+        
+        let loadExpectation = expectationWithDescription("friends saved")
+        let freshStore = EphemeralUserDataStore(userID: userID)
+        store.loadFriends {loadedFriends in
+            XCTAssertEqual(friends, loadedFriends)
+            loadExpectation.fulfill()
         }
         waitForExpectationsWithTimeout(1, handler: nil)
     }

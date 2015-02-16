@@ -15,7 +15,7 @@ extension NSNotificationCenter {
             [weak observer] notification in
                 action(notification)
             })
-        observer.performActionOnDealloc {
+        observer.performActionOnDealloc {_ in
             self.removeObserver(listener);
         }
     }

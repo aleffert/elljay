@@ -30,7 +30,7 @@ class DataSourceVendor: NSObject {
                 ljservice: environment.ljservice
             )
         )
-        self.feedSource = FeedDataSource(friendsSource : self.friendsSource, dataStore : self.environment.dataStore)
+        self.feedSource = FeedDataSource(environment: FeedDataSource.Environment(friendsSource: self.friendsSource, dataStore: self.environment.dataStore))
     }
     
 }

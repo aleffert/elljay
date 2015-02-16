@@ -23,13 +23,18 @@ public class FriendsDataSource {
     }
     
     private let environment : Environment
+    
     private var loadTask : NetworkTask?
     private var loadState = LoadState.Unloaded
     
-    let changeNotification = Notification<[User]>()
+    private let changeNotification = Notification<[User]>()
     
     init(environment : Environment) {
         self.environment = environment
+    }
+    
+    var changeSignal : Stream<[User]> {
+        return changeNotification
     }
     
     var friends : [User] {
@@ -62,7 +67,7 @@ public class FriendsDataSource {
             self.environment.networkService.send(request: friendRequest) {[weak self]
                 (result, response) in
                 if let friendsResponse = result.value {
-                    self?.environment.dataStore.useFriends(friendsResponse.friends)
+                    self?.environment.dataStore.saveFriends(friendsResponse.friends)
                     self?.changeNotification.notifyObservers(friendsResponse.friends)
                     return
                 }

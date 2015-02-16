@@ -13,5 +13,9 @@ extension NSError {
     func isNoConnectionError() -> Bool {
         return self.domain == NSURLErrorDomain && self.code == NSURLErrorNotConnectedToInternet
     }
+    
+    func isFileNotFoundError() -> Bool {
+        return self.domain == NSCocoaErrorDomain && self.code == NSFileReadNoSuchFileError
+    }
    
 }

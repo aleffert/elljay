@@ -16,6 +16,8 @@
 
 @interface NSObject (ELJDeallocActions)
 
+/// Execute an action when the object is deallocated. Note that at the time
+/// the action is called, the original object is already nil
 - (id <ELJDeallocAction>)performActionOnDealloc:(void(^)(void))action;
 
 @end

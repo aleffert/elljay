@@ -8,19 +8,23 @@
 
 import UIKit
 
-public class FeedChangedInfo {
-    
-}
-
 public class FeedDataSource: NSObject {
+    public struct Environment {
+        public let friendsSource : FriendsDataSource
+        public let dataStore : UserDataStore
+    }
     
-    private let friendsSource : FriendsDataSource
-    private let dataStore : UserDataStore
+    private let environment : Environment
     
-    public let changeNotification : Notification<FeedChangedInfo> = Notification()
+    public init(environment : Environment) {
+        self.environment = environment
+    }
     
-    public init(friendsSource : FriendsDataSource, dataStore : UserDataStore) {
-        self.friendsSource = friendsSource
-        self.dataStore = dataStore;
+    public func load() {
+        self.environment.friendsSource.changeSignal.addObserver(self) {friends in
+            let friendsToLoad = self.environment.dataStore.friendsToLoad(friends, quickRefresh: true, checkDate: NSDate())
+            println("friendsToLoad: \(friendsToLoad)")
+        }
+        self.environment.friendsSource.load()
     }
 }

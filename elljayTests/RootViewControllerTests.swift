@@ -14,36 +14,41 @@ import elljay
 
 class RootViewControllerTests: XCTestCase {
     
-    func freshTestEnvironment() -> (RootViewController.Environment, KeychainServicing) {
-        let keychain = EphemeralKeychainService()
-        return (
-            RootViewController.Environment(
-                keychain : keychain,
-                ljservice : LJService()
-            ),
-            keychain)
+    class Environment {
+        let rootEnvironment : RootViewController.Environment
+        let keychain : KeychainServicing = EphemeralKeychainService()
+        
+        init() {
+            rootEnvironment = RootViewController.Environment(
+                dataStoreFactory: {
+                    return EphemeralUserDataStore(userID: $0)
+                },
+                keychain: keychain,
+                ljservice: LJService())
+        }
     }
     
+    
     func testNoCredentials() {
-        let (environment, keychain) = freshTestEnvironment()
-        let controller = RootViewController(environment: environment)
+        let env = Environment()
+        let controller = RootViewController(environment: env.rootEnvironment)
         let _ = controller.view
         XCTAssertTrue(controller.t_showingLoginView())
     }
     
     func testCredentials() {
-        let (environment, keychain) = freshTestEnvironment()
-        keychain.save(NSKeyedArchiver.archivedDataWithRootObject(
+        let env = Environment()
+        env.keychain.save(NSKeyedArchiver.archivedDataWithRootObject(
             CredentialFactory.freshCredentials())
         )
-        let controller = RootViewController(environment: environment)
+        let controller = RootViewController(environment: env.rootEnvironment)
         let _ = controller.view
         XCTAssertTrue(controller.t_showingAuthenticatedView())
     }
     
     func testSignIn() {
-        let (environment, keychain) = freshTestEnvironment()
-        let controller = RootViewController(environment: environment)
+        let env = Environment()
+        let controller = RootViewController(environment: env.rootEnvironment)
         let _ = controller.view
         XCTAssertTrue(controller.t_showingLoginView())
         controller.t_login(CredentialFactory.freshCredentials())
@@ -51,21 +56,21 @@ class RootViewControllerTests: XCTestCase {
     }
     
     func testSignOut() {
-        let (environment, keychain) = freshTestEnvironment()
-        let controller = RootViewController(environment: environment)
-        keychain.save(NSKeyedArchiver.archivedDataWithRootObject(
+        let env = Environment()
+        let controller = RootViewController(environment: env.rootEnvironment)
+        env.keychain.save(NSKeyedArchiver.archivedDataWithRootObject(
             CredentialFactory.freshCredentials())
         )
         let _ = controller.view
         XCTAssertTrue(controller.t_showingAuthenticatedView())
         controller.t_signOut()
         XCTAssertTrue(controller.t_showingLoginView())
-        XCTAssertNil(environment.authSession.credentials)
+        XCTAssertNil(env.rootEnvironment.authSession.credentials)
     }
     
     func testSignInOut() {
-        let (environment, keychain) = freshTestEnvironment()
-        let controller = RootViewController(environment: environment)
+        let env = Environment()
+        let controller = RootViewController(environment: env.rootEnvironment)
         let _ = controller.view
         XCTAssertTrue(controller.t_showingLoginView())
         controller.t_login(CredentialFactory.freshCredentials())
@@ -82,7 +87,7 @@ class RootViewControllerTests: XCTestCase {
         
         controller.t_signOut()
         XCTAssertTrue(controller.t_showingLoginView())
-        XCTAssertNil(environment.authSession.credentials)
+        XCTAssertNil(env.rootEnvironment.authSession.credentials)
     }
    
 }
