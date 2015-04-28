@@ -1,0 +1,4 @@
+machine:
+    environment:
+        XCODE_SCHEME: elljay
+        XCODE_WORKSPACE: elljay.xcworkspace
