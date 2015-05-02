@@ -40,10 +40,10 @@ public class Stream<A> {
     
     private var observers : [Observer<A>] = []
     
-    public func addObserver(owner : AnyObject?, action : A -> ()) -> Removable {
+    public func addObserver(owner : NSObject?, action : A -> ()) -> Removable {
         let listener = Observer(action : action, observer: self)
         observers.append(listener)
-        if let o : AnyObject = owner {
+        if let o = owner {
             o.performActionOnDealloc({
                 listener.remove()
             })

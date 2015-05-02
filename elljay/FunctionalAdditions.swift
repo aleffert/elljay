@@ -14,7 +14,7 @@ private class GeneratorWrapper<G : GeneratorType> : SequenceType {
     
     let generator : G
     
-    init(generator : G) {
+    init(_ generator : G) {
         self.generator = generator;
     }
     func generate() -> GeneratorType {
@@ -25,7 +25,7 @@ private class GeneratorWrapper<G : GeneratorType> : SequenceType {
 public func reduce1<S : SequenceType>(sequence : S, combine: (S.Generator.Element, S.Generator.Element) -> S.Generator.Element) -> S.Generator.Element? {
     var generator = sequence.generate()
     if let head = generator.next() {
-        return reduce(GeneratorWrapper(generator : generator), head, combine)
+        return reduce(GeneratorWrapper(generator), head, combine)
     }
     else {
         return nil

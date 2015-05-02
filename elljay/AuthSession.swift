@@ -19,8 +19,8 @@ public class AuthCredentials : NSObject, NSCoding, Equatable {
     }
     
     public required init(coder : NSCoder) {
-        self.userID = coder.decodeObjectForKey("username") as String
-        self.password = coder.decodeObjectForKey("password") as String
+        self.userID = coder.decodeObjectForKey("username") as! String
+        self.password = coder.decodeObjectForKey("password") as! String
     }
     
     public func encodeWithCoder(coder: NSCoder) {
@@ -32,7 +32,7 @@ public class AuthCredentials : NSObject, NSCoding, Equatable {
         return ELJCrypto.md5OfString(challenge + ELJCrypto.md5OfString(self.password))
     }
     
-    func hash() -> Int {
+    public override var hash : Int {
         return userID.hash ^ password.hash
     }
 }

@@ -47,7 +47,7 @@ public class AuthController : AuthControlling {
         let credentials = AuthCredentials(username: username, password: password)
         
         let loginRequest = self.environment.ljservice.login()
-        self.environment.networkService.send(credentials: credentials, request: loginRequest) { (loginResponse, urlResponse) in
+        self.environment.networkService.sendRequest(loginRequest, credentials: credentials) { (loginResponse, urlResponse) in
             let result = loginResponse.map {(l : LJService.LoginResponse) -> AuthCredentials in
                 self.environment.authSession.store(credentials)
                 self.environment.authSession.saveToKeychain()

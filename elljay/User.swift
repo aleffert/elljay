@@ -17,7 +17,7 @@ public class User : NSObject, NSCoding {
     }
     
     public required init(coder aDecoder: NSCoder) {
-        userID = aDecoder.decodeObjectForKey("user") as UserID
+        userID = aDecoder.decodeObjectForKey("user") as! UserID
         name = aDecoder.decodeObjectForKey("name") as? String
         super.init()
     }
@@ -31,7 +31,7 @@ public class User : NSObject, NSCoding {
         return name ?? userID
     }
     
-    public func hash() -> NSInteger {
+    override public var hash : Int {
         return self.userID.hash
     }
 }

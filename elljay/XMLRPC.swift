@@ -184,7 +184,7 @@ public class XMLRPCParser {
     }
     
     private func from(XMLDocument document : XMLDocument) -> XMLRPCParseResult {
-        if(countElements(document.body) != 1) {
+        if(document.body.count != 1) {
             return malformedResponseError()
         }
         
@@ -228,7 +228,7 @@ public class XMLRPCParser {
 
 
     private func process(value v : XMLNode) -> XMLRPCParam? {
-        if countElements(v.children) != 1 {
+        if v.children.count != 1 {
             return nil
         }
         let body = v.children[0]

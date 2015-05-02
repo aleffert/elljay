@@ -10,7 +10,7 @@ import UIKit
 
 import elljay
 
-class CredentialFactory: NSObject {
+class CredentialFactory {
     class func freshCredentials() -> AuthCredentials {
         return AuthCredentials(username : NSUUID().UUIDString, password : NSUUID().UUIDString)
     }

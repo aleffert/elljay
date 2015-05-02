@@ -28,7 +28,7 @@ class XMLRPCServiceTests : XCTestCase {
         
         let expectation = expectationWithDescription("HTTP stubbed")
         let sessionInfo = AuthCredentials(username: "test", password: "test")
-        service.sendRequest(urlRequest: request, parser : parser, completionHandler: { (result, response) in
+        service.sendRequest(request, parser : parser, completionHandler: { (result, response) in
             completion(result, response)
             expectation.fulfill()
         })
@@ -44,7 +44,7 @@ class XMLRPCServiceTests : XCTestCase {
         let response = "<?xml version = \"1.0\" ?><methodResponse><params><param><value><struct></struct></value></param></params></methodResponse>"
         
         OHHTTPStubs.stubRequestsPassingTest({ (request) -> Bool in
-            return request.URL.host == self.testHost
+            return request.URL!.host == self.testHost
             }, withStubResponse: {request in
                 return OHHTTPStubsResponse(data: response.dataUsingEncoding(NSUTF8StringEncoding), statusCode: 200, headers: [:])
         })
@@ -81,7 +81,7 @@ class XMLRPCServiceTests : XCTestCase {
     
     func testNetworkFailure() {
         OHHTTPStubs.stubRequestsPassingTest({ (request) -> Bool in
-            return request.URL.host == self.testHost
+            return request.URL!.host == self.testHost
             }, withStubResponse: {request in
                 return OHHTTPStubsResponse(data: NSData(), statusCode: 404, headers: [:])
         })
@@ -99,7 +99,7 @@ class XMLRPCServiceTests : XCTestCase {
         "</struct></value></fault></methodResponse>"
         
         OHHTTPStubs.stubRequestsPassingTest({ (request) -> Bool in
-            return request.URL.host == self.testHost
+            return request.URL!.host == self.testHost
             }, withStubResponse: {request in
                 return OHHTTPStubsResponse(data: response.dataUsingEncoding(NSUTF8StringEncoding), statusCode: 200, headers: [:])
         })
@@ -111,7 +111,7 @@ class XMLRPCServiceTests : XCTestCase {
     func testParseError() {   
         let response = "<?xml version=\"1.0\"?><asfdasdf>"
         OHHTTPStubs.stubRequestsPassingTest({ (request) -> Bool in
-            return request.URL.host == self.testHost
+            return request.URL!.host == self.testHost
             }, withStubResponse: {request in
                 return OHHTTPStubsResponse(data: response.dataUsingEncoding(NSUTF8StringEncoding), statusCode: 200, headers: [:])
         })
@@ -123,7 +123,7 @@ class XMLRPCServiceTests : XCTestCase {
     
     func testRequestCancelled() {
         OHHTTPStubs.stubRequestsPassingTest({ (request) -> Bool in
-            return request.URL.host == self.testHost
+            return request.URL!.host == self.testHost
             }, withStubResponse: {request in
                 return OHHTTPStubsResponse(data: NSData(), statusCode: 200, headers: [:]).responseTime(5)
         })
@@ -132,7 +132,7 @@ class XMLRPCServiceTests : XCTestCase {
         let expectation = expectationWithDescription("Request ended")
         let request = NSURLRequest(URL: NSURL(scheme: "http", host: testHost, path: "/test")!)
         
-        let task = service.sendRequest(urlRequest: request, parser: { (data : NSData) -> Result<()> in
+        let task = service.sendRequest(request, parser: { (data : NSData) -> Result<()> in
             XCTFail("Parser shouldn't execute for cancelled tasks")
             return Success(())
             }) { (result, response) -> Void in

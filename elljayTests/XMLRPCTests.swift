@@ -54,7 +54,7 @@ class XMLRPCRequestTests: XCTestCase {
         components.hour = 14
         components.minute = 8
         components.second = 55
-        let calendar = NSCalendar(identifier: NSGregorianCalendar)!
+        let calendar = NSCalendar(identifier: NSCalendarIdentifierGregorian)!
         calendar.timeZone = NSCalendar.currentCalendar().timeZone
         let date = calendar.dateFromComponents(components)
         let dateNode = XMLRPCParam.XDateTime(date!)
@@ -87,7 +87,7 @@ class XMLRPCRequestTests: XCTestCase {
         let result = XMLRPCParser().from(string : response)
         switch(result) {
         case let .Success(params):
-            XCTAssert(countElements(params.value) == 1, "Expecting a single response param")
+            XCTAssertEqual(count(params.value), 1, "Expecting a single response param")
             XCTAssertEqual(params.value[0].toXMLNode().description, body, "Can parse a struct response")
         case let .Failure(_):
             XCTFail("Can parse fault responses")

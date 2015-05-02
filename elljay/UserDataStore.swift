@@ -21,22 +21,22 @@ public class FriendFeedUpdateInfo : NSObject, NSCoding {
     }
     
     public required init(coder aDecoder: NSCoder) {
-        userID = aDecoder.decodeObjectForKey("userID") as UserID
-        lastLoad = aDecoder.decodeObjectForKey("lastLoad") as NSDate?
-        lastEntry = aDecoder.decodeObjectForKey("lastEntry") as NSDate?
+        userID = aDecoder.decodeObjectForKey("userID") as! UserID
+        lastLoad = aDecoder.decodeObjectForKey("lastLoad") as? NSDate
+        lastEntry = aDecoder.decodeObjectForKey("lastEntry") as? NSDate
         super.init()
     }
     
     public func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(userID, forKey: "userID")
-        aCoder.encodeObject(lastLoad, forKey: "lasLoad")
+        aCoder.encodeObject(lastLoad, forKey: "lastLoad")
         aCoder.encodeObject(lastEntry, forKey: "lastEntry")
     }
     
 }
 
 
-public class UserDataStore : NSObject {
+public class UserDataStore {
     
     private let processingQueue = dispatch_queue_create("com.akivaleffert.elljay.DataStore", DISPATCH_QUEUE_SERIAL)
     
@@ -46,20 +46,37 @@ public class UserDataStore : NSObject {
     
     private var updateInfos : [String:FriendFeedUpdateInfo] = [:]
     
+    private let feedEntryStack : CoreDataStack
+    
     public init(userID : UserID) {
         self.userID = userID
-        super.init()
-        enqueue {
-            let path = PathUtils.pathForUser(self.userID)
-            var error : NSError?
-            NSFileManager.defaultManager().createDirectoryAtURL(path, withIntermediateDirectories: true, attributes: nil, error: &error)
-            assert(error == nil)
-        }
+        
+        var error : NSError?
+        let path = PathUtils.pathForUser(userID)
+        NSFileManager.defaultManager().createDirectoryAtURL(path, withIntermediateDirectories: true, attributes: nil, error: &error)
+        assert(error == nil)
+        
+        let storePath = PathUtils.pathForDataStack("feed", userID: userID)
+        feedEntryStack = CoreDataStack(storePath: storePath, modelName: "FeedModel")
     }
     
     private func enqueue (f : () -> ()) {
         dispatch_async(processingQueue, f)
     }
+    
+    public func clear() {
+        // This may get called from deinit (see EphemeralDataStore),
+        // so explicitly copy object state, which may otherwise get cleared
+        let userID = self.userID
+        enqueue {
+            let path = PathUtils.pathForUser(userID)
+            var error : NSError?
+            NSFileManager.defaultManager().removeItemAtURL(path, error: &error)
+            assert(error == nil)
+        }
+    }
+    
+    // MARK: Friends
     
     private var friendListPath : NSURL {
         let basePath = PathUtils.pathForUser(self.userID)
@@ -78,7 +95,7 @@ public class UserDataStore : NSObject {
         assert(error == nil || error!.isFileNotFoundError())
         
         if let d = data {
-            let object = NSKeyedUnarchiver.unarchiveObjectWithData(d) as NSArray
+            let object = NSKeyedUnarchiver.unarchiveObjectWithData(d) as! NSArray
             return object as? A
         }
         else {
@@ -100,7 +117,7 @@ public class UserDataStore : NSObject {
             let updateInfos : [String:FriendFeedUpdateInfo] = self.loadFileAtPath(self.updateInfoPath) ?? [:]
             dispatch_async(dispatch_get_main_queue()) {
                 self.updateInfos = updateInfos
-                completion(friends as [User])
+                completion(friends as! [User])
             }
         }
     }
@@ -111,6 +128,7 @@ public class UserDataStore : NSObject {
         }
     }
     
+    // MARK: Feed
     
     public func addEntries(entries : [Entry], fromFriends : [UserID], requestDate : NSDate) {
         
@@ -170,17 +188,12 @@ public class UserDataStore : NSObject {
         return friendsToLoad(infos, quickRefresh: quickRefresh, checkDate : checkDate)
     }
     
-    public func clear() {
-        // This may get called from deinit (see EphemeralDataStore),
-        // so explicitly copy object state, which may otherwise get cleared
-        let userID = self.userID
-        enqueue {
-            let path = PathUtils.pathForUser(userID)
-            var error : NSError?
-            NSFileManager.defaultManager().removeItemAtURL(path, error: &error)
-            assert(error == nil)
-        }
+    public func commit() {
+        // TODO
     }
+}
+
+extension UserDataStore {
     
     public func t_enqueue(f : () -> ()) {
         enqueue(f)

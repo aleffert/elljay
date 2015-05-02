@@ -32,7 +32,6 @@ class SettingsViewController: UIViewController {
     
     required init(coder aDecoder: NSCoder) {
         fatalError("Not designed to be loaded via archive")
-        super.init(coder: aDecoder)
     }
     
     @IBAction func signOut(sender : AnyObject) {

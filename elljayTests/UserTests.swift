@@ -27,7 +27,7 @@ class UserTests: XCTest {
     func testEncodeDecode() {
         let user = User(userID: "Test", name: "foo")
         let data = NSKeyedArchiver.archivedDataWithRootObject(user)
-        let otherUser = NSKeyedUnarchiver.unarchiveObjectWithData(data) as User
+        let otherUser = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! User
         XCTAssertEqual(user, otherUser)
         XCTAssertEqual(user.name!, otherUser.name!)
         XCTAssertEqual(user.userID, otherUser.userID)

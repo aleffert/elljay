@@ -47,7 +47,7 @@ public class NetworkService {
         self.challengeGenerator = challengeGenerator
     }
 
-    public func sendRequest<A>(#urlRequest : NSURLRequest, parser : NSData -> Result<A>, completionHandler : (Result<A> , NSURLResponse!) -> Void) -> NetworkTask {
+    public func sendRequest<A>(urlRequest : NSURLRequest, parser : NSData -> Result<A>, completionHandler : (Result<A> , NSURLResponse!) -> Void) -> NetworkTask {
         let wrappedCompletion = {(result, response) in
             dispatch_async(dispatch_get_main_queue()) {
                 completionHandler(result, response)
@@ -58,7 +58,7 @@ public class NetworkService {
                 wrappedCompletion(.Failure(e), response)
             }
             else {
-                let statusCode = (response as NSHTTPURLResponse).statusCode
+                let statusCode = (response as! NSHTTPURLResponse).statusCode
                 if statusCode == 200 {
                     wrappedCompletion(parser(result), response)
                 }
@@ -73,14 +73,15 @@ public class NetworkService {
         return result
     }
     
-    public func send<A>(#credentials : AuthCredentials, request : Request<A, ChallengeInfo>, completionHandler : (Result<A>, NSURLResponse!) -> Void) -> NetworkTask {
+    public func sendRequest<A>(request : Request<A, ChallengeInfo>, credentials : AuthCredentials,  completionHandler : (Result<A>, NSURLResponse!) -> Void) -> NetworkTask {
         let (challengeRequest : NSURLRequest, parser : NSData -> Result<GetChallengeResponse>) = challengeGenerator.getChallenge()
         var groupTask : ChallengeRequestTask? = nil
-        let task = sendRequest(urlRequest: challengeRequest, parser: parser) {[weak groupTask] (response, urlResponse) -> Void in
+        let task = sendRequest(challengeRequest, parser: parser) {[weak groupTask] (response, urlResponse) -> Void in
             switch(response) {
             case let .Success(c):
                 let urlRequest = request.urlRequest(credentials: credentials, challenge: c.value.challenge)
-                groupTask?.currentTask = self.sendRequest(urlRequest : urlRequest, request.parser, completionHandler)
+                let task = self.sendRequest(urlRequest, parser: request.parser, completionHandler: completionHandler)
+                groupTask?.currentTask = task
             case let .Failure(e):
                 completionHandler(.Failure(e), urlResponse)
             }
@@ -92,7 +93,7 @@ public class NetworkService {
     
     func send<A>(#credentials : AuthCredentials, request : Request<A, AuthCredentials>, completionHandler : (Result<A>, NSURLResponse!) -> Void) -> NetworkTask {
         let urlRequest = request.urlRequest(credentials)
-        return self.sendRequest(urlRequest : urlRequest, request.parser, completionHandler)
+        return self.sendRequest(urlRequest, parser: request.parser, completionHandler: completionHandler)
     }
 
 }

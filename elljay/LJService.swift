@@ -38,7 +38,7 @@ public struct DateUtils {
     static private var standardFormatter : NSDateFormatter {
         let formatter = NSDateFormatter()
             formatter.timeZone = standardTimeZone()
-            formatter.dateFormat = standardFormat
+            formatter.dateFormat = standardFormat as String
             formatter.locale = NSLocale.usEnglishLocale()
             return formatter
     }
@@ -57,7 +57,7 @@ public struct DateUtils {
 
     private static var feedDateFormatter : NSDateFormatter {
         let formatter = NSDateFormatter()
-        formatter.dateFormat = feedFormat
+        formatter.dateFormat = feedFormat as String
         formatter.locale = NSLocale.usEnglishLocale()
         return formatter
     }
@@ -109,7 +109,7 @@ public class LJService : ChallengeRequestable {
         let dataParser : NSData -> Result<A> = {data in
             let result = XMLRPCParser().from(data:NSMutableData(data:data))
             return result.bind {params -> Result<A> in
-                if countElements(params) > 0 {
+                if count(params) > 0 {
                     let parsed = parser(params[0])
                     if let p = parsed {
                         return Success(p)
@@ -205,11 +205,11 @@ public class LJService : ChallengeRequestable {
         public let time : NSDate
         
         private static func from(#param : XMLRPCParam) -> SyncItem? {
-            let body = param.structBody()?
+            let body = param.structBody()
             let action = body?["action"]?.stringBody().bind{ SyncAction.from(string: $0) }
             let itemParam = body?["item"]?.stringBody()
             let itemParts = itemParam.bind{i -> [String]? in
-                let components = (i as NSString).componentsSeparatedByString("-") as [String]
+                let components = (i as NSString).componentsSeparatedByString("-") as! [String]
                 return components.count == 2 ? components : nil
             }
             let item : (type : SyncType, index : Int32)? = itemParts.bind {components in
@@ -285,7 +285,7 @@ public class LJService : ChallengeRequestable {
 
     private func feedURL(#username : String) -> NSURL {
         let args = "?auth=digest"
-        if countElements(username) > 0 && username.hasPrefix("_") {
+        if count(username) > 0 && username.hasPrefix("_") {
             return NSURL(scheme: "http", host:"users.livejournal.com", path:"\(username)/data/rss\(args)")!
         }
         else {

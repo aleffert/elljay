@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DataSourceVendor: NSObject {
+class DataSourceVendor {
     
     struct Environment {
         let dataStore : UserDataStore
@@ -30,7 +30,14 @@ class DataSourceVendor: NSObject {
                 ljservice: environment.ljservice
             )
         )
-        self.feedSource = FeedDataSource(environment: FeedDataSource.Environment(friendsSource: self.friendsSource, dataStore: self.environment.dataStore))
+        self.feedSource = FeedDataSource(environment:
+            FeedDataSource.Environment(
+                dataStore: environment.dataStore,
+                friendsSource: friendsSource,
+                ljservice : environment.ljservice,
+                networkService : environment.networkService
+            )
+        )
     }
     
 }

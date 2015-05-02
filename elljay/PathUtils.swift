@@ -12,11 +12,15 @@ public class PathUtils {
     public class func documentsPath() -> NSURL! {
         let result = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: NSSearchPathDomainMask.UserDomainMask)
         assert(result.count > 0)
-        return result[0] as NSURL
+        return result[0] as! NSURL
     }
     
     public class func pathForUser(userID : UserID) -> NSURL {
         return documentsPath().URLByAppendingPathComponent(userID)
     }
-   
+    
+    public class func pathForDataStack(stackName : String, userID : UserID) -> NSURL {
+        return pathForUser(userID).URLByAppendingPathComponent(stackName + ".sqlite")
+    }
+    
 }

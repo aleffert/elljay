@@ -8,7 +8,7 @@
 
 import Foundation
 
-class AuthenticatedNetworkService {
+public class AuthenticatedNetworkService {
     
     private let service : NetworkService
     private let credentials : AuthCredentials
@@ -18,11 +18,11 @@ class AuthenticatedNetworkService {
         self.credentials = credentials
     }
     
-    func send<A>(#request : Request<A, ChallengeInfo>, completionHandler : (Result<A>, NSURLResponse!) -> Void) -> NetworkTask {
-        return self.service.send(credentials : self.credentials, request : request, completionHandler : completionHandler)
+    func sendRequest<A>(request : Request<A, ChallengeInfo>, completionHandler : (Result<A>, NSURLResponse!) -> Void) -> NetworkTask {
+        return self.service.sendRequest(request, credentials : self.credentials, completionHandler : completionHandler)
     }
     
-    func send<A>(#request : Request<A, AuthCredentials>, completionHandler : (Result<A>, NSURLResponse!) -> Void) -> NetworkTask {
+    func sendRequest<A>(request : Request<A, AuthCredentials>, completionHandler : (Result<A>, NSURLResponse!) -> Void) -> NetworkTask {
         return self.service.send(credentials : self.credentials, request : request, completionHandler : completionHandler)
     }
 }

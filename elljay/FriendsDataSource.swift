@@ -64,7 +64,7 @@ public class FriendsDataSource {
     private func loadRemote() {
         if loadTask == nil {
             let friendRequest = environment.ljservice.getFriends()
-            self.environment.networkService.send(request: friendRequest) {[weak self]
+            self.environment.networkService.sendRequest(friendRequest) {[weak self]
                 (result, response) in
                 if let friendsResponse = result.value {
                     self?.environment.dataStore.saveFriends(friendsResponse.friends)

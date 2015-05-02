@@ -9,20 +9,23 @@
 import UIKit
 import XCTest
 
-class ELJDeallocActions: XCTestCase {
+class ELJDeallocActionsTests : XCTestCase {
     
     func testDealloc() {
-        var observed = false
+        // This really just wants to be a boolean that gets set from true to false
+        // but there appears to be a compiler bug causing the value to get reset
+        var observed = NSMutableArray()
         func make() {
             autoreleasepool {
                 let object = NSObject()
                 object.performActionOnDealloc { _ in
-                    observed = true
+                    observed.addObject("foo")
+                    println("observed is \(observed)")
                 }
             }
         }
         make()
-        XCTAssertTrue(observed)
+        XCTAssertEqual(observed.count, 1)
     }
     
     func testStillAlive() {
@@ -40,11 +43,16 @@ class ELJDeallocActions: XCTestCase {
     func testManualRemove() {
         var observed = false
         
-        let object = NSObject()
-        let action = object.performActionOnDealloc { _ in
-            observed = true
+        func make() {
+            autoreleasepool {
+                let object = NSObject()
+                let action = object.performActionOnDealloc { _ in
+                    observed = true
+                }
+                action.remove()
+            }
         }
-        action.remove()
+        make();
         
         XCTAssertFalse(observed)
     }

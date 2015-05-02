@@ -26,10 +26,9 @@ class FeedViewController : UIViewController {
     
     required init(coder aDecoder: NSCoder) {
         fatalError("Not designed to be loaded via archive")
-        super.init(coder: aDecoder)
     }
     
     override func viewWillAppear(animated: Bool) {
-        environment.feedDataSource.load()
+        environment.feedDataSource.refresh()
     }
 }

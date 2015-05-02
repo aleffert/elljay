@@ -26,6 +26,7 @@
 }
 
 - (void)remove {
+    self.action = nil;
     self.removeAction(self);
 }
 

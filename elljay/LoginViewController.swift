@@ -77,7 +77,7 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func textFieldShouldReturn(textField: UITextField!) -> Bool  {
+    public func textFieldShouldReturn(textField: UITextField) -> Bool  {
         finishedField(textField)
         return false;
     }

@@ -78,7 +78,7 @@ class UserDataStoreTests: XCTestCase {
     
     func testFriendsOldDate() {
         let env = FriendTestEnvironment()
-        let entryDate = NSDate.distantPast() as NSDate
+        let entryDate = NSDate.distantPast() as! NSDate
         let entries = [
             Entry(title : "Foo bar", author : "cummings", date : entryDate, tags : [])
         ]

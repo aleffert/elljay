@@ -94,7 +94,7 @@ class LoginViewControllerTests: XCTestCase {
         XCTAssertNotNil(presenter.alert)
         XCTAssertEqual(presenter.alert!.message!, authController.message)
         XCTAssertEqual(presenter.alert!.actions.count, 1)
-        let action = presenter.alert!.actions[0] as UIAlertAction
+        let action = presenter.alert!.actions[0] as! UIAlertAction
         XCTAssertEqual(action.title, "OK")
     }
 

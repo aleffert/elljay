@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return NSClassFromString("XCTestCase") != nil
     }
 
-    func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
         if(!isRunningTests()) {
             setup(launchOptions:launchOptions)
         }

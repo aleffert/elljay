@@ -100,7 +100,7 @@ class ServiceTests: XCTestCase {
         let result = request.parser(response.toResponseData())
         switch(result) {
         case let .Success(r):
-            XCTAssertEqual(countElements(r.value.friends), 2)
+            XCTAssertEqual(count(r.value.friends), 2)
         case let .Failure(e):
             XCTFail("Bad parse: \(e)")
         }
@@ -130,10 +130,10 @@ class ServiceTests: XCTestCase {
         let result = request.parser(response.toData())
         switch(result) {
         case let .Success(r):
-            XCTAssertEqual(countElements(r.value.entries), 2)
+            XCTAssertEqual(count(r.value.entries), 2)
             let item = r.value.entries[0]
             XCTAssertEqual(item.title!, "Some Title")
-            XCTAssertEqual(countElements(item.tags), 3)
+            XCTAssertEqual(count(item.tags), 3)
             XCTAssertTrue(find(item.tags, "foo") != nil)
             XCTAssertTrue(find(item.tags, "bar") != nil)
             XCTAssertTrue(find(item.tags, "some tag") != nil)

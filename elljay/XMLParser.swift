@@ -61,15 +61,15 @@ public class XMLParser: NSObject, NSXMLParserDelegate {
 
     }
     
-    public func parser(parser: NSXMLParser!, didStartElement elementName: String!, namespaceURI: String!, qualifiedName qName: String!, attributes attributeDict: [NSObject : AnyObject]!)  {
+    public func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [NSObject : AnyObject])  {
         
         if(failed != nil) { return }
         
         stack.append(current)
-        current = XMLParserState(name: elementName, attributes: attributeDict as [String : String])
+        current = XMLParserState(name: elementName, attributes: attributeDict as! [String : String])
     }
     
-    public func parser(parser: NSXMLParser!, didEndElement elementName: String!, namespaceURI: String!, qualifiedName qName: String!)  {
+    public func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?)  {
         if(failed != nil) { return }
         
         if(elementName != current.name) {
@@ -82,10 +82,10 @@ public class XMLParser: NSObject, NSXMLParserDelegate {
         current.children.append(node)
     }
     
-    public func parser(parser: NSXMLParser!, foundCharacters string: String!)  {
+    public func parser(parser: NSXMLParser, foundCharacters string: String?)  {
         if(failed != nil) { return }
         if let curText = current.text {
-            current.text = current.text! + string
+            current.text = current.text! + (string ?? "")
         }
         else {
             current.text = string

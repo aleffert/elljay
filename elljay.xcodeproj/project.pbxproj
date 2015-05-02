@@ -50,6 +50,9 @@
 		777CA2EA19F9BEA100370AE9 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777CA2E919F9BEA100370AE9 /* FeedViewController.swift */; };
 		777CA2ED19F9FC6600370AE9 /* AuthenticatedNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777CA2EC19F9FC6600370AE9 /* AuthenticatedNetworkService.swift */; };
 		777CA2EF19FAA86300370AE9 /* NSLocaleAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777CA2EE19FAA86300370AE9 /* NSLocaleAdditions.swift */; };
+		778876C51AB7CB5900AB5580 /* FeedModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 778876C31AB7CB5900AB5580 /* FeedModel.xcdatamodeld */; };
+		77A4B3EC1A92641000A24E52 /* LoadFriendFeedOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A4B3EB1A92641000A24E52 /* LoadFriendFeedOperation.swift */; };
+		77A4B3F41A92AFE700A24E52 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A4B3F31A92AFE700A24E52 /* CoreDataStack.swift */; };
 		77C5CD051A87E055002F718D /* CredentialFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C5CD041A87E055002F718D /* CredentialFactory.swift */; };
 		77C5CD081A8817A8002F718D /* LJServiceTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C5CD071A8817A8002F718D /* LJServiceTestHelpers.swift */; };
 		77C623AC1A2BCFF200D63AC6 /* AuthorizedURLSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C623AB1A2BCFF200D63AC6 /* AuthorizedURLSessionDelegate.swift */; };
@@ -142,6 +145,9 @@
 		777CA2E919F9BEA100370AE9 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		777CA2EC19F9FC6600370AE9 /* AuthenticatedNetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticatedNetworkService.swift; sourceTree = "<group>"; };
 		777CA2EE19FAA86300370AE9 /* NSLocaleAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSLocaleAdditions.swift; sourceTree = "<group>"; };
+		778876C41AB7CB5900AB5580 /* FeedModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FeedModel.xcdatamodel; sourceTree = "<group>"; };
+		77A4B3EB1A92641000A24E52 /* LoadFriendFeedOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadFriendFeedOperation.swift; sourceTree = "<group>"; };
+		77A4B3F31A92AFE700A24E52 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		77BF003D1A58A50C007526AD /* UserDataStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataStoreTests.swift; sourceTree = "<group>"; };
 		77C5CD041A87E055002F718D /* CredentialFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CredentialFactory.swift; sourceTree = "<group>"; };
 		77C5CD071A8817A8002F718D /* LJServiceTestHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LJServiceTestHelpers.swift; sourceTree = "<group>"; };
@@ -230,6 +236,7 @@
 		774B1A161A86D0DF00C0239D /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				77A4B3F31A92AFE700A24E52 /* CoreDataStack.swift */,
 				7762A5AE1A91275500E179E1 /* PathUtils.swift */,
 				773AD3BE1A8ED26500496DEB /* User.swift */,
 				77E2501319BE9E5700D2083F /* UserDataStore.swift */,
@@ -243,6 +250,7 @@
 		777CA2EB19F9CAAB00370AE9 /* Network+Session */ = {
 			isa = PBXGroup;
 			children = (
+				77A4B3EB1A92641000A24E52 /* LoadFriendFeedOperation.swift */,
 				777CA2EC19F9FC6600370AE9 /* AuthenticatedNetworkService.swift */,
 				775071B219B385B100B0B142 /* AuthController.swift */,
 				772553B3199D607C00E3D7B2 /* AuthSession.swift */,
@@ -251,6 +259,15 @@
 				775FE30119BE7EAC00F84067 /* NetworkService.swift */,
 			);
 			name = "Network+Session";
+			sourceTree = "<group>";
+		};
+		778876C61AB7CB6500AB5580 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				77FA1A14199D5C160080163D /* Images.xcassets */,
+				778876C31AB7CB5900AB5580 /* FeedModel.xcdatamodeld */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		77BE0E3219AAB93400A9E00B /* XMLRPC */ = {
@@ -337,8 +354,8 @@
 				770158BB19F5A3D400EACD99 /* RootViewController.swift */,
 				770158B619F4388700EACD99 /* SettingsViewController.swift */,
 				77C623AB1A2BCFF200D63AC6 /* AuthorizedURLSessionDelegate.swift */,
-				77FA1A14199D5C160080163D /* Images.xcassets */,
 				77BE0E3219AAB93400A9E00B /* XMLRPC */,
+				778876C61AB7CB6500AB5580 /* Resources */,
 				77FA1A08199D5C160080163D /* Supporting Files */,
 			);
 			path = elljay;
@@ -535,6 +552,7 @@
 				7762A5AF1A91275500E179E1 /* PathUtils.swift in Sources */,
 				775FE30219BE7EAC00F84067 /* NetworkService.swift in Sources */,
 				772553B4199D607C00E3D7B2 /* AuthSession.swift in Sources */,
+				778876C51AB7CB5900AB5580 /* FeedModel.xcdatamodeld in Sources */,
 				774B1A2C1A872DE100C0239D /* FunctionalAdditions.swift in Sources */,
 				77E2501419BE9E5800D2083F /* UserDataStore.swift in Sources */,
 				774B1A281A872DCA00C0239D /* XMLRPC.swift in Sources */,
@@ -550,8 +568,10 @@
 				77D0192C19B555720024DBED /* ELJCrypto.m in Sources */,
 				774B1A2A1A872DD200C0239D /* Result.swift in Sources */,
 				774B1A261A872DCA00C0239D /* XMLNode.swift in Sources */,
+				77A4B3EC1A92641000A24E52 /* LoadFriendFeedOperation.swift in Sources */,
 				770158BC19F5A3D400EACD99 /* RootViewController.swift in Sources */,
 				773AD3BF1A8ED26500496DEB /* User.swift in Sources */,
+				77A4B3F41A92AFE700A24E52 /* CoreDataStack.swift in Sources */,
 				774B1A271A872DCA00C0239D /* XMLParser.swift in Sources */,
 				777CA2EF19FAA86300370AE9 /* NSLocaleAdditions.swift in Sources */,
 				77FA1A0B199D5C160080163D /* AppDelegate.swift in Sources */,
@@ -847,6 +867,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		778876C31AB7CB5900AB5580 /* FeedModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				778876C41AB7CB5900AB5580 /* FeedModel.xcdatamodel */,
+			);
+			currentVersion = 778876C41AB7CB5900AB5580 /* FeedModel.xcdatamodel */;
+			path = FeedModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 77FA19FD199D5C160080163D /* Project object */;
 }
