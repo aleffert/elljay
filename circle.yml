@@ -2,3 +2,5 @@ machine:
     environment:
         XCODE_SCHEME: elljay
         XCODE_WORKSPACE: elljay.xcworkspace
+    xcode:
+        version: "6.3.1"
